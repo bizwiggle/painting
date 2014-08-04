@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/touchTouch.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/static/css/isotope.css" type="text/css" media="screen">   
+{% endblock %}
+
+{% block top-script %}
+<script type="text/javascript" src="/static/js/touchTouch.jquery.js"></script>
+<script type="text/javascript" src="/static/js/jquery.isotope.min.js"></script>
+<script>
+$(document).ready(function() {
+	// 
+}); //
+$(window).load(function() {
+	// isotop
+	var $container = $('#isotope-items'),
+		$optionSet = $('#isotope-options'), 
+	   $optionSets = $('#isotope-filters'), 
+	   $optionLinks = $optionSets.find('a'); 
+    	$container.isotope({ 
+        filter: '*',
+        layoutMode: 'fitRows'
+    });  
+   	$optionLinks.click(function(){ 
+   		var $this = $(this); 
+    	// don't proceed if already selected 
+		if ( $this.hasClass('selected') ) { 
+			return false; 
+		}    		
+   		$optionSet.find('.selected').removeClass('selected'); 
+   		$this.addClass('selected');
+
+        var selector = $(this).attr('data-filter'); 
+        $container.isotope({ 
+            filter: selector            
+        }); 
+      	return false; 
+    });    	
+	$(window).on("resize", function( event ) {	
+		$container.isotope('reLayout');		
+	});		
+
+	// touchTouch
+	$('.thumb-isotope .thumbnail a').touchTouch();
+
+}); //
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="breadcrumbs1_wrapper">
+<div class="breadcrumbs1_inner">
+<div class="container">
+<div class="row">
+<div class="span12">
+<div class="breadcrumbs1"><a href="{% url 'index' %}">Home Page</a><span></span>Portfolio</div>	
+</div>	
+</div>	
+</div>	
+</div>	
+</div>
+
+<div class="shadow1">
+<div class="container">
+<div class="row">
+<div class="span12">
+<img src="/media/images/shadow1.png" alt="" class="img">	
+</div>	
+</div>	
+</div>	
+</div>
+
+<div id="content">
+<div class="container">
+<div class="row">
+<div class="span12">
+	
+<h1>Portfolio</h1>
+
+<div id="isotope-options">
+    <ul id="isotope-filters" class="clearfix">
+        <li><a href="#" class="selected" data-filter="*">Show All</a></li> 
+        <li><a href="#" data-filter=".isotope-filter1">Interrior Painting</a></li> 
+        <li><a href="#" data-filter=".isotope-filter2">Exterrior Painting</a></li> 
+        <li><a href="#" data-filter=".isotope-filter3">Other Services</a></li> 	             
+    </ul>            
+</div>
+
+<ul class="thumbnails" id="isotope-items">		  
+    <li class="span4 isotope-element isotope-filter1">
+		<div class="thumb-isotope">
+			<div class="thumbnail clearfix">
+				<a href="/media/images/portfolio/portfolio01.jpg">
+					<figure>
+						<img src="/media/images/portfolio/portfolio01.jpg" alt=""><em></em>
+					</figure>
+					<div class="caption">							
+						Lorem ipsum dolor sit amet conse ctetur
+					</div>
+				</a>				
+			</div>
+		</div>
+    </li>
+    <li class="span4 isotope-element isotope-filter2">
+		<div class="thumb-isotope">
+			<div class="thumbnail clearfix">
+				<a href="images/blank.png">
+					<figure>
+						<img src="/media/images/portfolio/portfolio02.jpg" alt=""><em></em>
+					</figure>
+					<div class="caption">							
+						Lorem ipsum dolor sit amet conse ctetur
+					</div>
+				</a>				
+			</div>
+		</div>
+    </li>
+    <li class="span4 isotope-element isotope-filter3">
+		<div class="thumb-isotope">
+			<div class="thumbnail clearfix">
+				<a href="images/blank.png">
+					<figure>
+						<img src="/media/images/portfolio/portfolio03.jpg" alt=""><em></em>
+					</figure>
+					<div class="caption">							
+						Lorem ipsum dolor sit amet conse ctetur
+					</div>
+				</a>				
+			</div>
+		</div>
+    </li>
+    <li class="span4 isotope-element isotope-filter1">
+		<div class="thumb-isotope">
+			<div class="thumbnail clearfix">
+				<a href="images/blank.png">
+					<figure>
+						<img src="/media/images/portfolio/portfolio04.jpg" alt=""><em></em>
+					</figure>
+					<div class="caption">							
+						Lorem ipsum dolor sit amet conse ctetur
+					</div>
+				</a>				
+			</div>
+		</div>
+    </li>
+    <li class="span4 isotope-element isotope-filter2">
+		<div class="thumb-isotope">
+			<div class="thumbnail clearfix">
+				<a href="images/blank.png">
+					<figure>
+						<img src="/media/images/portfolio/portfolio05.jpg" alt=""><em></em>
+					</figure>
+					<div class="caption">							
+						Lorem ipsum dolor sit amet conse ctetur
+					</div>
+				</a>				
+			</div>
+		</div>
+    </li>
+    <li class="span4 isotope-element isotope-filter3">
+		<div class="thumb-isotope">
+			<div class="thumbnail clearfix">
+				<a href="images/blank.png">
+					<figure>
+						<img src="/media/images/portfolio/portfolio06.jpg" alt=""><em></em>
+					</figure>
+					<div class="caption">							
+						Lorem ipsum dolor sit amet conse ctetur
+					</div>
+				</a>				
+			</div>
+		</div>
+    </li>
+    <li class="span4 isotope-element isotope-filter1">
+		<div class="thumb-isotope">
+			<div class="thumbnail clearfix">
+				<a href="images/blank.png">
+					<figure>
+						<img src="/media/images/portfolio/portfolio07.jpg" alt=""><em></em>
+					</figure>
+					<div class="caption">							
+						Lorem ipsum dolor sit amet conse ctetur
+					</div>
+				</a>				
+			</div>
+		</div>
+    </li>
+    <li class="span4 isotope-element isotope-filter2">
+		<div class="thumb-isotope">
+			<div class="thumbnail clearfix">
+				<a href="images/blank.png">
+					<figure>
+						<img src="/media/images/portfolio/portfolio08.jpg" alt=""><em></em>
+					</figure>
+					<div class="caption">							
+						Lorem ipsum dolor sit amet conse ctetur
+					</div>
+				</a>				
+			</div>
+		</div>
+    </li>
+    <li class="span4 isotope-element isotope-filter3">
+		<div class="thumb-isotope">
+			<div class="thumbnail clearfix">
+				<a href="images/blank.png">
+					<figure>
+						<img src="/media/images/portfolio/portfolio09.jpg" alt=""><em></em>
+					</figure>
+					<div class="caption">							
+						Lorem ipsum dolor sit amet conse ctetur
+					</div>
+				</a>				
+			</div>
+		</div>
+    </li>
+       
+</ul>
+
+
+</div>	
+</div>	
+</div>	
+</div>
+
+{% include 'bottom_banner.html' %}
+
+{% endblock %}

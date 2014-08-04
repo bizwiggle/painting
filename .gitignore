@@ -1,0 +1,5 @@
+# Compiled File
+*.pyc
+
+# Test Database Files
+*.sqlite3

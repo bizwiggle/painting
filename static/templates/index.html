@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/camera.css" type="text/css" media="screen">
+{% endblock %}
+
+{% block top-script %}
+<script type="text/javascript" src="/static/js/camera.js"></script>
+<script>
+$(document).ready(function() {
+// camera
+	$('#camera_wrap').camera({
+		autoAdvance			: true,		
+		mobileAutoAdvance	: true,
+		height: '40%',
+		hover: false,
+		loader: 'none',
+		navigation: false,
+		navigationHover: true,
+		mobileNavHover: true,
+		playPause: false,
+		pauseOnClick: false,
+		pagination			: true,
+		time: 17000,
+		transPeriod: 1000,
+		minHeight: '200px'
+	});
+}); //
+$(window).load(function() {
+	//
+
+}); //
+</script>	
+{% endblock %}
+
+{% block content %} 
+  
+{% include "slider.html" %}
+
+<div class="shadow1">
+<div class="container">
+<div class="row">
+<div class="span12">
+<img src="/media/images/shadow1.png" alt="" class="img">	
+</div>	
+</div>	
+</div>	
+</div>
+<div class="credits">
+<div class="container">
+<div class="row">
+<div class="span12">
+  Creds will go here
+</div>
+</div>
+</div>
+</div>
+
+<div class="banners">
+<div class="container">
+<div class="row">
+<div class="span4 banner banner1">
+<div class="banner_inner">
+	
+<img src="/media/images/banner1.png" alt="" class="img">
+
+<div class="txt1">Our Process</div>
+
+<div class="txt2">About our process will go here</div>
+
+<div class="txt3"><a href="">more</a></div>
+
+</div>	
+</div>
+<div class="span4 banner banner2">
+<div class="banner_inner">
+	
+<img src="/media/images/banner2.png" alt="" class="img">
+
+<div class="txt1">About Us</div>
+
+<div class="txt2">About us will go here</div>
+
+<div class="txt3"><a href="about.html">more</a></div>
+
+</div>	
+</div>
+<div class="span4 banner banner3">
+<div class="banner_inner">
+	
+<img src="/media/images/banner3.png" alt="" class="img">
+
+<div class="txt1">Services</div>
+
+<div class="txt2">About our services will go here</div>
+
+<div class="txt3"><a href="">more</a></div>
+
+</div>	
+</div>	
+</div>	
+</div>	
+</div>
+
+<div id="content">
+<div class="container">
+<div class="row">
+<div class="span8">
+
+<h1 class="c1">Hello from Busiwiggle Painting</h1>	
+
+<div class="thumb1">
+	<div class="thumbnail clearfix">
+		<figure class=""><img src="/media/images/home01.png" alt="Painter Ready to Paint"></figure>
+		<div class="caption">
+			<h4>Hello Caption</h4>
+			<p>
+           Yo Fool		   
+         </p>
+			<a href="about.html" class="button1">Read more about Bizwiggle Painting</a>
+		</div>
+	</div>
+</div>
+
+	
+</div>	
+<div class="span4">
+	
+<h3 class="c3">Services</h3>
+
+<div class="box3">
+<div class="box3_inner">
+	
+<ul class="ul1">
+  <li><a href="#">Residential Painting</a></li>
+  <li><a href="#">Commercial Painting</a></li>
+</ul>
+
+</div>	
+</div>
+</div>
+</div>	
+</div>	
+</div>
+   
+{% include 'bottom_banner.html' %}
+
+
+{% endblock %}
