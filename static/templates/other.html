@@ -19,7 +19,8 @@ $(window).load(function() {
 <div class="container">
 <div class="row">
 <div class="span12">
-<div class="breadcrumbs1"><a href="{% url 'index' %}">Home Page</a><span></span>Services</div>	
+<div class="breadcrumbs1"><a href="{% url 'index' %}">Home Page</a><span></span>	
+ <a href="{% url 'services' %}">Services</a><span></span>Other Services</div>
 </div>	
 </div>	
 </div>	
@@ -41,7 +42,7 @@ $(window).load(function() {
 <div class="row">
 <div class="span8">
 
-<h1>Services Overview</h1>	
+<h1>Other Services</h1>	
 	
 <div class="thumb3">
 	<div class="thumbnail clearfix">
@@ -51,7 +52,7 @@ $(window).load(function() {
 			<p>
 				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
 			</p>
-			<a href="{% url 'residential' %}" class="button1">Learn more</a>
+			<a href="{% url 'residential' %}" class="button1">Read more</a>
 		</div>
 	</div>
 </div>
@@ -64,7 +65,7 @@ $(window).load(function() {
 			<p>
 				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
 			</p>
-			<a href="{% url 'comercial' %}" class="button1">Learn more</a>
+			<a href="{% url 'comercial' %}" class="button1">Read more</a>
 		</div>
 	</div>
 </div>
@@ -77,7 +78,7 @@ $(window).load(function() {
 			<p>
 				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
 			</p>
-			<a href="{% url 'other' %}" class="button1">Learn more</a>
+			<a href="{% url 'other' %}" class="button1">Read more</a>
 		</div>
 	</div>
 </div>
@@ -89,6 +90,7 @@ $(window).load(function() {
 {% include 'services_block.html' %}
 <br><br>
 </div>
+
 
 </div>	
 </div>

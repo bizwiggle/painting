@@ -29,7 +29,7 @@
 		
 		height				: '50%',	//here you can type pixels (for instance '300px'), a percentage (relative to the width of the slideshow, for instance '50%') or 'auto'
 		
-		imagePath			: '../../../media/painting/images/',	//he path to the image folder (it serves for the blank.gif, when you want to display videos)
+		imagePath			: '../../../media/images/',	//he path to the image folder (it serves for the blank.gif, when you want to display videos)
 		
 		hover				: true,	//true, false. Puase on state hover. Not available for mobile devices
 				
@@ -194,7 +194,7 @@
 		
 	}
 
-	fakeHover.append('<img src="../../../media/painting/images/girl1.png" alt="" class="girl1">');// tola	
+	fakeHover.append('<img src="../../../media/images/girl1.png" alt="" class="girl1">');// tola	
 		
 	wrap.append(
 		'<div class="camera_loader"></div>'

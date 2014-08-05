@@ -10,7 +10,7 @@ from pages import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
-    url(r'^our_process/$', views.our_process, name='our-process'),
+    url(r'^why_us/$', views.why_us, name='why-us'),
     url(r'^services/$', views.services, name='services'),
     url(r'^services/residential/$', views.residential, name='residential'),
     url(r'^services/comercial/$', views.comercial, name='comercial'),

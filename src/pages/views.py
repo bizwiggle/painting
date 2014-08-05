@@ -13,8 +13,12 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-def our_process(request):
-    return HttpResponse("Painting Our Process")
+def why_us(request):
+    context = {
+        'page_title':'Painting Our Process Title',
+        'page_description':'Enter page description',
+    }
+    return render(request, 'why_us.html', context)
 
 def services(request):
     context = {
@@ -24,13 +28,25 @@ def services(request):
     return render(request, 'services.html', context)
 
 def residential(request):
-    return HttpResponse("Painting Residential Service")
+    context = {
+        'page_title':'Painting Residential Painting Title',
+        'page_description':'Enter page description',
+    }
+    return render(request, 'residential.html', context)
 
 def comercial(request):
-    return HttpResponse("Painting Comercial Service")
+    context = {
+        'page_title':'Painting Comercial Painting Title',
+        'page_description':'Enter page description',
+    }
+    return render(request, 'comercial.html', context)
 
 def other(request):
-    return HttpResponse("Painting Other Services")
+    context = {
+        'page_title':'Painting Other Services Title',
+        'page_description':'Enter page description',
+    }
+    return render(request, 'other.html', context)
 
 def portfolio(request):
     context = {
