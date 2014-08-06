@@ -34,7 +34,7 @@ header{float: left;}
 .phone1 .txt1{font-size: 14px; color: #fff; line-height: 20px;}
 .phone1 .txt2{font-size: 26px; color: #fff; line-height: 30px; font-weight: 700;}
 
-.shadow1{vertical-align: top; line-height: 1px;}
+.shadow1{vertical-align: top; line-height: 1px; margin-bottom:-90px;}
 .shadow1 img{width: 100%;}
 
 
@@ -162,10 +162,39 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 #modal-form input{background: #DEEEFC; border: 1px solid #516B82; color: #686868; padding-top: 10px; padding-bottom: 10px; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; -moz-box-shadow: inset  0px 3px 20px 3px  #f6f4f2; -webkit-box-shadow: inset  0px 3px 20px 3px  #f6f4f2; box-shadow: inset  0px 3px 20px 3px  #f6f4f2; width: 100%; display: block;-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; height: auto;}
 #modal-form input:focus {border-color:#686868; }
 #modal-form img{float:left; width:170px; height:42px;margin-bottom: 10px;}
-#modal-form .submit{border: 0; margin: 0; display: inline-block;height: 44px; line-height:44px;  text-decoration: none;font-size:18px; font-family:'Roboto'; font-weight: 700; color:#fff; white-space:nowrap; letter-spacing:0px; background:#32A4C9; padding:0px 30px; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;
+#modal-form .submit{border: 0; margin: 0; display: inline-block;height: 44px; line-height:44px;  text-decoration: none;font-size:18px; font-family:'Roboto'; font-weight: 700; color:#fff; white-space:nowrap; letter-spacing:0px; background:#32A4C9; padding:0px 20%; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;
 transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-transition: all 0.3s ease-out; -o-transition: all 0.3s ease-out;
 }
 #modal-form .submit:hover{ color:#fff; background: #308fae;}
+#myModalLabel { font-family:'Roboto'; font-weight:700; font-size:28px; color:#535353; line-height:35px; padding:25px 0 20px 0; margin: 0;}
+
+#modal-btn{
+border: 0; 
+margin: 0;
+position: fixed;
+display: inline-block;
+top: 350px;
+z-index: 100;
+right: -77px;
+height: 22px; 
+line-height:20px;  
+text-decoration: none;
+font-size:18px; 
+font-family:'Roboto'; 
+font-weight: 700; 
+color:#fff; 
+white-space:nowrap; 
+letter-spacing:0px; 
+background:#32A4C9; 
+padding:0px 15px; 
+transform:rotate(90deg);
+-ms-transform:rotate(90deg);
+-webkit-transform:rotate(90deg);
+border-radius:11px; 
+-moz-border-radius:11px; 
+-webkit-border-radius:11px;
+}
+#modal-btn:hover{ color:#fff; background: #308fae;}
 
 
 /* ============================= main layout ====================== */
@@ -360,16 +389,22 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 #ajax-contact-form .control-group{margin-bottom: 10px;}
 #ajax-contact-form .control-label{display: none;}
 #ajax-contact-form .controls{margin-left: 0;}
-#ajax-contact-form input, #ajax-contact-form textarea{background: #fff; border: 1px solid #e3e2e2; color: #686868; padding-top: 10px; padding-bottom: 10px; border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px; -moz-box-shadow: inset  0px 3px 20px 3px  #f6f4f2; -webkit-box-shadow: inset  0px 3px 20px 3px  #f6f4f2; box-shadow: inset  0px 3px 20px 3px  #f6f4f2; width: 100%; display: block;-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; height: auto;}
+#ajax-contact-form input, #ajax-contact-form textarea{background: transparent; border: 1px solid #C4C4C4; color: #686868; padding-top: 10px; padding-bottom: 10px; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -moz-box-shadow: inset  0px 3px 20px 3px  #f6f4f2; -webkit-box-shadow: inset  0px 3px 20px 3px  #f6f4f2; box-shadow: inset  0px 3px 20px 3px  #f6f4f2; width: 100%; display: block;-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; height: auto;}
 #ajax-contact-form input:focus, #ajax-contact-form textarea:focus{border-color:#686868; }
 #ajax-contact-form textarea{height: 124px;}
 #ajax-contact-form .control-group.capthca{margin-bottom: 0px;}
 #ajax-contact-form .capthca input{width: 126px; float: left; margin-right: 30px;margin-bottom: 10px;}
 #ajax-contact-form img{float:left; width:170px; height:42px;margin-bottom: 10px;}
-#ajax-contact-form .submit{border: 0; margin: 0; display: inline-block;height: 44px; line-height:44px;  text-decoration: none;font-size:18px; font-family:'Roboto'; font-weight: 700; color:#fff; white-space:nowrap; letter-spacing:0px; background:#308fae; padding:0px 30px; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;
+#ajax-contact-form .submit{border: 0; margin: 0; display: inline-block;height: 44px; line-height:44px;  text-decoration: none;font-size:18px; font-family:'Roboto'; font-weight: 700; color:#fff; white-space:nowrap; letter-spacing:0px; background:#32A4c9; padding:0px 30px; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;
 transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-transition: all 0.3s ease-out; -o-transition: all 0.3s ease-out;
 }
-#ajax-contact-form .submit:hover{ color:#fff; background: #be3b3b;}
+#ajax-contact-form .submit:hover{ color:#fff; background: #308FAE;}
+
+/* ========= Contact Table ========== */
+#contact_box {margin-bottom: 20px;}
+#contact_box td{padding: 5px 5%;}
+#contact_box th{padding: 5px 5%;}
+
 
 /*================= 404 =========================*/
 .page-404{text-align: center;}
@@ -458,12 +493,13 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 
 	h2{ font-size:18px; line-height:25px;}
 
-	h3{font-size:18px; line-height:25px;}
+	h3{ font-size:18px; line-height:25px;}
 
 		
 }
 @media (min-width: 481px) and (max-width: 767px) {
 	.banners .banner_inner{padding: 0 80px;}
+   #content {padding-top:65px;}
 
 	
 
@@ -484,7 +520,7 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 
 	.page-404 .txt1{font-size: 150px; line-height: 150px;}
 	.page-404 .txt2{font-size: 50px; line-height: 50px;}
-
+   #content {padding-top:65px;}
 
 
 }

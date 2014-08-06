@@ -40,61 +40,78 @@ $(window).load(function() {
 <div class="row">
 <div class="span6">
 
-<h1>Our Location</h1>	
+<h1>Contact Us</h1>	
 
-<h4>Paint Studio</h4>
-<p>
-Kansas City, MO 64106<br>
-Telephone: +1 800 123 1895<br>
-E-mail: <a href="#">mail@bteamny.com</a>
-</p>
-<br>
-<h4>Hours?</h4>
-<p>
-Kansas City, MO 64106<br>
-Telephone: +1 800 123 1895<br>
-E-mail: <a href="#">mail@bteamny.com</a>
-</p>
+<div id="contact_box" class="box3">
+<div class="box3_inner">
+   
+<table>
+<tbody>
+<tr>
+	<th><strong>Address:</strong></th>
+	<td>1616 W. 6th Street<br>
+		 Unit 234<br>
+		 Austin, TX 78703</td>
+</tr>
+<tr>
+	<th><strong>Phone:</strong></th>
+	<td><a href="tel:1-512-282-2912">(512) 282-2912</a></td>
+</tr>
+	<tr>
+	<th><strong>Fax:</strong></th>
+	<td><a href="tel:1-512-821-4700">(512) 821-4700</a></td>
+</tr>
+	<tr>
+	<th><strong>Email:</strong></th>
+	<td><a href="mailto:admin@bizwiggle.com">admin@bizwiggle.com</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div> 
 
 <figure class="google_map">
-    <iframe src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Glasgow,&amp;aq=&amp;sll=46.975033,31.994583&amp;sspn=0.368248,0.617294&amp;vpsrc=6&amp;ie=UTF8&amp;hq=&amp;hnear=Glasgow,+Glasgow+City,+United+Kingdom&amp;t=m&amp;ll=55.866932,-4.256344&amp;spn=0.020324,0.070896&amp;z=13&amp;output=embed"></iframe>
+<iframe
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBgIq9fGzbDd9X1R7TseTnu-f_-ICCLf-0&zoom=13&q=1616+W. 6th Street,Austin+TX">
+</iframe>
+
 </figure>
 
 </div>
 
 <div class="span6">
-<h2>Contact Us</h2>
+<h2>Send Us a Message</h2>
 
 <div id="note"></div>
 <div id="fields">
-	<form id="ajax-contact-form" class="form-horizontal" action="javascript:alert('success!');">
+	<form id="ajax-contact-form" class="form-horizontal" action="">
 		
 		<div class="control-group">
-		    <label class="control-label" for="inputName">Your full name:</label>
+		    <label class="control-label" for="inputName">Name:</label>
 		    <div class="controls">				      
-		      <input class="" type="text" id="inputName" name="name" value="Name:" onBlur="if(this.value=='') this.value='Your full name:'" onFocus="if(this.value =='Your full name:' ) this.value=''">
+		      <input class="" type="text" id="inputName" name="name" value="" placeholder="Name:">
 		    </div>
 		</div>
 
 		<div class="control-group">
 		    <label class="control-label" for="inputEmail">Your email:</label>
 		    <div class="controls">				      
-		      <input class="" type="text" id="inputEmail" name="email" value="Email:" onBlur="if(this.value=='') this.value='Your email:'" onFocus="if(this.value =='Your email:' ) this.value=''">
+		      <input class="" type="text" id="inputEmail" name="email" value="" placeholder="Email:">
 		    </div>
 		</div>
 
 		<div class="control-group">
 		    <label class="control-label" for="inputPhone">Phone number:</label>
 		    <div class="controls">				      
-		      <input class="" type="text" id="inputPhone" name="phone" value="Phone number:" onBlur="if(this.value=='') this.value='Phone number:'" onFocus="if(this.value =='Phone number:' ) this.value=''">
+		      <input class="" type="text" id="inputPhone" name="phone" value="" placeholder="Phone:">
 		    </div>
 		</div>
 
 		<div class="control-group">
 		    <label class="control-label" for="inputMessage">Message:</label>
 		    <div class="controls">				      				      
-		      <textarea class="" id="inputMessage" name="content" onBlur="if(this.value=='') this.value='Message:'" 
-                onFocus="if(this.value =='Message:' ) this.value=''">Message:</textarea>
+		      <textarea class="" id="inputMessage" name="message" value="" placeholder="Message:"></textarea>
 		    </div>
 		</div>
 
