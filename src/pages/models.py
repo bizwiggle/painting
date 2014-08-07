@@ -4,19 +4,27 @@ from django.conf import settings
 
 from auth.models import MyUser
 
-class Home(models.Model):
-    description = models.CharField('Home Page Description', max_length=160, 
-                                   default='An attention grabbing description goes here (less than 160 characters)') 
-    banner_text = models.CharField('First Banner Text', max_length=40,
-                                   default='Professional House Painting Service')
-
-class Painting_Site(models.Model):
+class General_Info(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     site = models.ForeignKey(Site)
-    home_page = models.ForeignKey(Home)
-    phone_number = models.CharField('Business Phone Number', max_length=16, default='Phone Number')  
-    # favicon
+    
+    business_name = models.CharField('Business Name', max_length=64, default='Business Name')
+    
+    street_address = 
+    extra_address = 
+    city = 
+    state = 
+    zip_code = 
 
-    def __unicode__(self):
-        return unicode(self.site)
+    phone =
+    fax = 
+  
+    logo
+    logo_sm
+
+
+class Social(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    site = models.ForeignKey(Site)
+
 

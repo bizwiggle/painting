@@ -22,8 +22,6 @@ body.subpage{background-position: center -200px;}
 #main{margin: 0 auto; position: relative; overflow: hidden;}
 
 
-
-
 /* ============================= header ====================== */
 .top1{padding-top: 20px; padding-bottom: 25px;}
 
@@ -146,6 +144,10 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 .navbar-form a {text-decoration: none; margin: 0; display: inline-block;  width: 42px; height: 28px; background: url(./images/search.png) left top no-repeat; position:absolute; right:0; top: 1px; }
 .navbar-form a:hover { background-position: right;}
 
+/* ============================= credits ====================== */
+.credits {height: 80px; padding-bottom:15px;}
+.credits img {height: 50px; width: auto;}
+
 /* ============================= toTop ====================== */
 #toTop { display:none; text-decoration:none; position:fixed; bottom:10px; right:10px; z-index: 1000; overflow:hidden; width:50px; height:50px; border:none; text-indent:100%; background:url(./images/totop.gif) no-repeat left top; }
 #toTopHover { background:url(./images/totop.gif) no-repeat left bottom; width:50px; height:50px; display:block; overflow:hidden; float:left; opacity: 0; -moz-opacity: 0; filter:alpha(opacity=0); }
@@ -230,7 +232,7 @@ h6{ font-family:'Roboto'; font-weight:400; font-size:18px; line-height: 25px; co
 
 
 /* === */
-.banners{padding-bottom: 15px;}
+.banners{padding: 50px 0 0 0;}
 .banners .banner_inner{margin-bottom: 20px; height: 470px; background: url(./images/banner1_bg.png) center top no-repeat; text-align: center; padding: 0 30px;position: relative;}
 .banners .banner .img{padding-top: 60px; padding-bottom: 30px;}
 .banners .banner .txt1{font-family: 'Syncopate'; font-weight: 700; font-size: 24px; color: #fff; line-height: 24px; text-transform: uppercase; padding-bottom: 20px;}
@@ -319,7 +321,7 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 .ul3 > li .txt2{vertical-align: top; display: block; float: right;overflow: hidden;  width: 60px; text-align: center; line-height: 20px; font-size: 15px; font-weight: 700; color: #686868; background: #fff; padding: 7px 0;border: 1px solid #e3e2e2; font-weight: 300;}
 
 .google_map{ position: relative; overflow: hidden; margin: 0 0 20px 0; padding: 5px; background: #fff; border: 1px solid #cfcfcf;line-height: 1px;}
-.google_map iframe{position: relative; width: 100%; height: 470px; border: none; background: #fff;}
+.google_map iframe{position: relative; width: 100%; height: 320px; border: none; background: #fff;}
 
 
 /* ============================= thumbnail ====================== */
@@ -402,9 +404,12 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 
 /* ========= Contact Table ========== */
 #contact_box {margin-bottom: 20px;}
-#contact_box td{padding: 5px 5%;}
-#contact_box th{padding: 5px 5%;}
+#contact_box td{padding: 5px 5px;}
+#contact_box th{padding: 5px 5px;}
 
+/* ========= About  ================= */
+#about_box_header {padding-top: 0px;}
+#about_box_list li {color:#686868;}
 
 /*================= 404 =========================*/
 .page-404{text-align: center;}
