@@ -49,21 +49,23 @@ $(window).load(function() {
 <tbody>
 <tr>
 	<th><strong>Address:</strong></th>
-	<td>1616 W. 6th Street<br>
-		 Unit 234<br>
-		 Austin, TX 78703</td>
+	<td>{{ general_info.street_address }}<br>
+		  {% if general_info.extra_address %}{{ general_info.extra_address }}<br>{% endif %}
+		 {{ general_info.city }}, {{ general_info.state }} {{ general_info.zip_code }}</td>
 </tr>
 <tr>
 	<th><strong>Phone:</strong></th>
-	<td><a href="tel:1-512-282-2912">(512) 282-2912</a></td>
+	<td>{{ general_info.phone }}</td>
 </tr>
-	<tr>
+{% if general_info.fax %}
+<tr>
 	<th><strong>Fax:</strong></th>
-	<td><a href="tel:1-512-821-4700">(512) 821-4700</a></td>
+	<td>{{ general_info.fax }}</td>
 </tr>
-	<tr>
+{% endif %}
+<tr>
 	<th><strong>Email:</strong></th>
-	<td><a href="mailto:admin@bizwiggle.com">admin@bizwiggle.com</a></td>
+	<td><a href="mailto:{{ general_info.email }}">{{ general_info.email }}</a></td>
 </tr>
 </tbody>
 </table>

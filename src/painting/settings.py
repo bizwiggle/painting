@@ -8,7 +8,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 from painting.constants import SITE_IDS
-SITE_ID = SITE_IDS['painting.bizwiggle.com']
+SITE_NAME = 'painting.bizwiggle.com'
+SITE_ID = SITE_IDS[SITE_NAME]
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os

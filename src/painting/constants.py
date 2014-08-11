@@ -3,6 +3,9 @@ SITE_IDS = {
     'painting.test.com': 2,
 }
 
+BANNER_LINE_LENGTH = 40
+
+
 STATES = ( 
     ('AL', 'Alabama'),
     ('AK', 'Alaska'),

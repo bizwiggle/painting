@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^portfolio/$', views.portfolio, name='portfolio'),
     url(r'^about/$', views.about, name='about'),
     url(r'^contact/$', views.contact, name='contact'),
-    url(r'^wiggle-admin/', include(admin.site.urls)),
+    url(r'^wiggle/', include(admin.site.urls)),
 )
 
 if settings.DEBUG:
