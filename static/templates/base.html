@@ -72,11 +72,13 @@
            <li {% if active == 'why-us' %}class="active"{% endif %}><a href="{% url 'why-us' %}">Why Choose Us?</a></li>
            <li class="sub-menu sub-menu-1 {% if active == 'services' %}active{% endif %}">
            	 <a href="{% url 'services' %}">Services</a>
+				 {% if general_info.has_residential_page or general_info.has_comercial_page or general_info.has_other_services_page %}
 	          <ul>
-		         <li><a href="{% url 'residential' %}">Residential Painting</a></li>
-		         <li><a href="{% url 'comercial' %}">Comercial Painting</a></li>
-		         <li><a href="{% url 'other' %}">Other Services</a></li>						
+		         {% if general_info.has_residential_page %}<li><a href="{% url 'residential' %}">Residential Painting</a></li>{% endif %}
+		         {% if general_info.has_comercial_page %}<li><a href="{% url 'comercial' %}">Comercial Painting</a></li>{% endif %}
+		         {% if general_info.has_other_services_page %}<li><a href="{% url 'other' %}">Other Services</a></li>{% endif %}
              </ul>
+				{% endif %}
            </li>
            <li  {% if active == 'portfolio' %}class="active"{% endif %}>
                <a href="{% url 'portfolio' %}">Portfolio</a></li>
@@ -178,6 +180,7 @@ E-mail: <a href="mailto:admin@bizwiggle.com">admin@bizwiggle.com</a>
 </div>
 
 </div>
+{% block bottom-script %} {% endblock %}
 <script type="text/javascript" src="/static/js/bootstrap.js"></script>
 
 {% endautoescape %}

@@ -43,47 +43,74 @@ $(window).load(function() {
 <div class="span8">
 
 <h1>Residential Painting</h1>	
-	
+
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		<figure class="img-polaroid"><img src="/media/images/services/services01.jpg" alt=""></figure>
+		{% if residential_service.use_default_pic1 or residential_service.pic1 %}
+		   <figure class="img-polaroid">
+			{% if residential_service.use_default_pic1 %}
+				<img src="/media/images/services/residential01.jpg" alt="">
+			{% else %}
+				<img src="{{ MEDIA_URL }}{{ residential_services.pic1 }}" alt="">
+			{% endif %}
+		</figure>
+		{% endif %}
+		{% if residential_service.paragraph1 %}
 		<div class="caption">
-			<h4>Residential Painting</h4>
+			<h4>{{ residential_service.paragraph_headline1 }}</h4>
 			<p>
-				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
+			{{ residential_service.paragraph1 }}
 			</p>
-			<a href="{% url 'residential' %}" class="button1">Read more</a>
 		</div>
+		{% endif %}
 	</div>
 </div>
 
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		<figure class="img-polaroid"><img src="/media/images/services/services02.jpg" alt=""></figure>
+		{% if residential_service.use_default_pic2 or residential_service.pic2 %}
+		   <figure class="img-polaroid">
+			{% if residential_service.use_default_pic2 %}
+				<img src="/media/images/services/residential02.jpg" alt="">
+			{% else %}
+				<img src="{{ MEDIA_URL }}{{ residential_services.pic2 }}" alt="">
+			{% endif %}
+		</figure>
+		{% endif %}
+		{% if residential_service.paragraph2 %}
 		<div class="caption">
-			<h4>Comercial Painting</h4>
+			<h4>{{ residential_service.paragraph_headline2 }}</h4>
 			<p>
-				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
+			{{ residential_service.paragraph2 }}
 			</p>
-			<a href="{% url 'comercial' %}" class="button1">Read more</a>
 		</div>
+		{% endif %}
 	</div>
 </div>
 
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		<figure class="img-polaroid"><img src="/media/images/services/services03.jpg" alt=""></figure>
+		{% if residential_service.use_default_pic3 or residential_service.pic3 %}
+		   <figure class="img-polaroid">
+			{% if residential_service.use_default_pic3 %}
+				<img src="/media/images/services/residential03.jpg" alt="">
+			{% else %}
+				<img src="{{ MEDIA_URL }}{{ residential_services.pic3 }}" alt="">
+			{% endif %}
+		</figure>
+		{% endif %}
+		{% if residential_service.paragraph3 %}
 		<div class="caption">
-			<h4>Other Services</h4>
+			<h4>{{ residential_service.paragraph_headline3 }}</h4>
 			<p>
-				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
+			{{ residential_service.paragraph3 }}
 			</p>
-			<a href="{% url 'other' %}" class="button1">Read more</a>
 		</div>
+		{% endif %}
 	</div>
 </div>
 
-</div>
+</div> 
 
 <div class="span4">
 {% include 'service_area_block.html' %}

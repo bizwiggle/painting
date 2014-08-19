@@ -42,46 +42,69 @@ $(window).load(function() {
 <div class="span8">
 
 <h1>Services Overview</h1>	
-	
+
+{% if services.residential_blurb %}	
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		<figure class="img-polaroid"><img src="/media/images/services/services01.jpg" alt=""></figure>
+		<figure class="img-polaroid">
+      	{% if services.residential_pic %}
+      		<img src="{{ services.residential_pic }}" alt="">
+      	{% else %}
+      		<img src="/media/images/services/services01.jpg" alt="">
+      	{% endif %}   
+      </figure>
 		<div class="caption">
 			<h4>Residential Painting</h4>
 			<p>
-				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
-			</p>
-			<a href="{% url 'residential' %}" class="button1">Learn more</a>
+			{{ services.residential_blurb }}
+         </p>
+			<a href="{% url 'residential' %}" class="button1">More about residential painting</a>
 		</div>
 	</div>
 </div>
+{% endif %}
 
+{% if services.comercial_blurb %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		<figure class="img-polaroid"><img src="/media/images/services/services02.jpg" alt=""></figure>
+		<figure class="img-polaroid">
+      	{% if services.residential_pic %}
+      		<img src="{{ services.comercial_pic }}" alt="">
+      	{% else %}
+      		<img src="/media/images/services/services02.jpg" alt="">
+      	{% endif %}   
+		</figure>
 		<div class="caption">
 			<h4>Comercial Painting</h4>
 			<p>
-				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
+			{{ services.comercial_blurb }}
 			</p>
-			<a href="{% url 'comercial' %}" class="button1">Learn more</a>
+			<a href="{% url 'comercial' %}" class="button1">More about comercial painting</a>
 		</div>
 	</div>
 </div>
+{% endif %}
 
+{% if services.other_services_blurb %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		<figure class="img-polaroid"><img src="/media/images/services/services03.jpg" alt=""></figure>
+		<figure class="img-polaroid">
+      	{% if services.other_services_pic %}
+      		<img src="{{ services.other_services_pic }}" alt="">
+      	{% else %}
+      		<img src="/media/images/services/services03.jpg" alt="">
+      	{% endif %}   
+		</figure>
 		<div class="caption">
 			<h4>Other Services</h4>
 			<p>
-				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
+			{{ services.other_services_blurb }}
 			</p>
-			<a href="{% url 'other' %}" class="button1">Learn more</a>
+			<a href="{% url 'other' %}" class="button1">More about other services</a>
 		</div>
 	</div>
 </div>
-
+{% endif %}
 </div>
 
 <div class="span4">

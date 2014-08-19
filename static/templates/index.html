@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 
+
 {% block extra_css %}
 <link rel="stylesheet" href="/static/css/camera.css" type="text/css" media="screen">
 {% endblock %}
-
 {% block top-script %}
-<script type="text/javascript" src="/static/js/camera.js"></script>
 <script>
 $(document).ready(function() {
 // camera
 	$('#camera_wrap').camera({
-		autoAdvance			: true,		
+   	autoAdvance			: true,		
 		mobileAutoAdvance	: true,
 		height: '40%',
 		hover: false,
@@ -54,9 +53,11 @@ $(window).load(function() {
 	
 <img src="/media/images/banner1.png" alt="" class="img">
 
-<div class="txt1">Why Choose Us?</div>
+<div class="txt1">Why Us?</div>
 
-<div class="txt2">Why Choose Us Goes here, maybe a list...</div>
+<div class="txt2">
+{{ index.why_us_blurb }}
+</div>
 
 <div class="txt3"><a href="{% url 'why-us' %}">more</a></div>
 
@@ -69,7 +70,10 @@ $(window).load(function() {
 
 <div class="txt1">About Us</div>
 
-<div class="txt2">About us will go here</div>
+<div class="txt2">
+{{ index.about_blurb }}
+</ul>
+</div>
 
 <div class="txt3"><a href="{% url 'about' %}">more</a></div>
 
@@ -124,20 +128,34 @@ $(window).load(function() {
 <div class="row">
 
 <div class="span2">
+	{% if index.affilation_pic1 %}
+		<img src="{{ MEDIA_URL }}{{ index.affilation_pic1 }}" alt="">
+   {% endif %}
 </div>
 <div class="span2">
-	<img src="/media/images/credits/credit3.jpg">
+	{% if index.affilation_pic2 %}
+		<img src="{{ MEDIA_URL }}{{ index.affilation_pic2 }}" alt="">
+	{% endif %}
 </div>
 <div class="span2">
-	<img src="/media/images/credits/credit2.png">
+	{% if index.affilation_pic3 %}
+		<img src="{{ MEDIA_URL }}{{ index.affilation_pic3 }}" alt="">
+	{% endif %}
 </div>
 <div class="span2">
-	<img src="/media/images/credits/credit1.png">
+	{% if index.affilation_pic4 %}
+		<img src="{{ MEDIA_URL }}{{ index.affilation_pic4 }}" alt="">
+	{% endif %}
 </div>
 <div class="span2">
-	<img src="/media/images/credits/credit5.png">
+	{% if index.affilation_pic5 %}
+		<img src="{{ MEDIA_URL }}{{ index.affilation_pic5 }}" alt="">
+	{% endif %}
 </div>
 <div class="span2">
+	{% if index.affilation_pic6 %}
+		<img src="{{ MEDIA_URL }}{{ index.affilation_pic6 }}" alt="">
+	{% endif %}
 </div>
 
 </div>
@@ -155,13 +173,19 @@ $(window).load(function() {
 
 <div class="thumb1">
 	<div class="thumbnail clearfix">
-		<figure class=""><img src="/media/images/home01.png" alt="Painter Ready to Paint"></figure>
+		<figure class="">
+		{% if index.hello_pic %}
+			<img src="{{ MEDIA_URL }}{{ index.hello_pic }}" alt="">
+		{% else %}	
+			<img src="/media/images/home01.png" alt="Painter Ready to Paint">
+		{% endif %}
+		</figure>
 		<div class="caption">
-			<h4>Hello Caption</h4>
+			<h4>{{ index.hello_title }}</h4>
 			<p>
-           Yo Fool		   
+           {{ index.hello_txt }}
          </p>
-			<a href="about.html" class="button1">Read more about Bizwiggle Painting</a>
+			<a href="{% url 'about' %}" class="button1">Read more about Bizwiggle Painting</a>
 		</div>
 	</div>
 </div>
@@ -179,5 +203,8 @@ $(window).load(function() {
    
 {% include 'bottom_banner.html' %}
 
-
 {% endblock %}
+
+{% block bottom-script %}
+ <script type="text/javascript" src="/static/js/camera.js"></script>  
+ {% endblock %}

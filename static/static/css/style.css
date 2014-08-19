@@ -16,7 +16,7 @@ a[href^="tel:"] { color: inherit; text-decoration: none;}
 a{ color:#c55b5b; text-decoration: underline; outline:none}
 a:hover{ color:#c55b5b; text-decoration: none; outline:none}
 
-body{ background:url(./images/bg1.jpg) center top no-repeat #fff; border:0; font: 14px "Roboto", Arial, Helvetica, sans-serif; color:#686868 ; line-height:20px; min-width:360px;}
+body{ background:url(./images/bg1.jpg) center top no-repeat #fff; border:0; font: 15px "Roboto", Arial, Helvetica, sans-serif; color:#4F4F4F ; line-height:20px; min-width:360px;}
 body.subpage{background-position: center -200px;}
 
 #main{margin: 0 auto; position: relative; overflow: hidden;}
@@ -236,7 +236,7 @@ h6{ font-family:'Roboto'; font-weight:400; font-size:18px; line-height: 25px; co
 .banners .banner_inner{margin-bottom: 20px; height: 470px; background: url(./images/banner1_bg.png) center top no-repeat; text-align: center; padding: 0 30px;position: relative;}
 .banners .banner .img{padding-top: 60px; padding-bottom: 30px;}
 .banners .banner .txt1{font-family: 'Syncopate'; font-weight: 700; font-size: 24px; color: #fff; line-height: 24px; text-transform: uppercase; padding-bottom: 20px;}
-.banners .banner .txt2{font-size: 14px; color: #fff; line-height: 20px; padding-bottom: 30px;}
+.banners .banner .txt2{font-size: 15px; color: #F5F4F4; line-height: 20px; padding-bottom: 30px;}
 .banners .banner .txt3{position: absolute; width: 100%; left: 0; bottom: 70px;}
 .banners .banner .txt3 a{display: inline-block; text-decoration: none; background: #fff; background: rgba(255, 255, 255, 0.2); font-size: 14px; color: #fff; line-height: 20px; padding: 10px 30px;border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px;}
 .banners .banner .txt3 a:hover{background: #fff; background: rgba(255, 255, 255, 1);  color: #424242;}

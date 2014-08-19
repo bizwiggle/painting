@@ -43,54 +43,124 @@ $(window).load(function() {
 <div class="span8">
 
 <h1>Other Services</h1>	
-	
+
+{% if other_services.service1 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		<figure class="img-polaroid"><img src="/media/images/services/services01.jpg" alt=""></figure>
+		{% if other_services.use_default_pic1 or other_services.pic1 %}
+		   <figure class="img-polaroid">
+			{% if other_services.use_default_pic1 %}
+				<img src="/media/images/services/other_service01.jpg" alt="">
+			{% else %}
+				<img src="{{ MEDIA_URL }}{{ other_services.pic1 }}" alt="">
+			{% endif %}
+		</figure>
+		{% endif %}
 		<div class="caption">
-			<h4>Residential Painting</h4>
+			<h4>{{ other_services.service_headline1 }}</h4>
 			<p>
-				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
+			{{ other_services.service1 }}
 			</p>
-			<a href="{% url 'residential' %}" class="button1">Read more</a>
 		</div>
 	</div>
 </div>
+{% endif %}
 
+{% if other_services.service2 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		<figure class="img-polaroid"><img src="/media/images/services/services02.jpg" alt=""></figure>
+		{% if other_services.use_default_pic2 or other_services.pic2 %}
+		   <figure class="img-polaroid">
+			{% if other_services.use_default_pic2 %}
+				<img src="/media/images/services/other_service02.jpg" alt="">
+			{% else %}
+				<img src="{{ MEDIA_URL }}{{ other_services.pic2 }}" alt="">
+			{% endif %}
+		</figure>
+		{% endif %}
 		<div class="caption">
-			<h4>Comercial Painting</h4>
+			<h4>{{ other_services.service_headline2 }}</h4>
 			<p>
-				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
+			{{ other_services.service2 }}
 			</p>
-			<a href="{% url 'comercial' %}" class="button1">Read more</a>
 		</div>
 	</div>
 </div>
+{% endif %}
 
+{% if other_services.service3 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		<figure class="img-polaroid"><img src="/media/images/services/services03.jpg" alt=""></figure>
+		{% if other_services.use_default_pic3 or other_services.pic3 %}
+		   <figure class="img-polaroid">
+			{% if other_services.use_default_pic1 %}
+				<img src="/media/images/services/other_service03.jpg" alt="">
+			{% else %}
+				<img src="{{ MEDIA_URL }}{{ other_services.pic3 }}" alt="">
+			{% endif %}
+		</figure>
+		{% endif %}
 		<div class="caption">
-			<h4>Other Services</h4>
+			<h4>{{ other_services.service_headline3 }}</h4>
 			<p>
-				Vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam 
+			{{ other_services.service3 }}
 			</p>
-			<a href="{% url 'other' %}" class="button1">Read more</a>
 		</div>
 	</div>
 </div>
+{% endif %}
 
+{% if other_services.service4 %}
+<div class="thumb3">
+	<div class="thumbnail clearfix">
+		{% if other_services.use_default_pic4 or other_services.pic4 %}
+		   <figure class="img-polaroid">
+			{% if other_services.use_default_pic4 %}
+				<img src="/media/images/services/other_service04.jpg" alt="">
+			{% else %}
+				<img src="{{ MEDIA_URL }}{{ other_services.pic4 }}" alt="">
+			{% endif %}
+		</figure>
+		{% endif %}
+		<div class="caption">
+			<h4>{{ other_services.service_headline4 }}</h4>
+			<p>
+			{{ other_services.service4 }}
+			</p>
+		</div>
+	</div>
 </div>
+{% endif %}
+
+{% if other_services.service5 %}
+<div class="thumb3">
+	<div class="thumbnail clearfix">
+		{% if other_services.use_default_pic5 or other_services.pic5 %}
+		   <figure class="img-polaroid">
+			{% if other_services.use_default_pic5 %}
+				<img src="/media/images/services/other_service05.jpg" alt="">
+			{% else %}
+				<img src="{{ MEDIA_URL }}{{ other_services.pic5 }}" alt="">
+			{% endif %}
+		</figure>
+		{% endif %}
+		<div class="caption">
+			<h4>{{ other_services.service_headline5 }}</h4>
+			<p>
+			{{ other_services.service5 }}
+			</p>
+		</div>
+	</div>
+</div>
+{% endif %}
+
+</div> 
 
 <div class="span4">
 {% include 'service_area_block.html' %}
 {% include 'services_block.html' %}
 <br><br>
 </div>
-
 
 </div>	
 </div>

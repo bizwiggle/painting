@@ -1,5 +1,8 @@
 # Compiled File
 *.pyc
 
+# VI Swap Files
+*.swp
+
 # Test Database Files
 *.sqlite3

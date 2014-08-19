@@ -46,7 +46,7 @@ $(window).load(function() {
 
 <div class="thumb2">
 	<div class="thumbnail clearfix">
-		<figure class="img-polaroid"><img src="/media/images/about01.jpg" alt=""></figure>
+		<figure class="img-polaroid"><img src="{{ MEDIA_URL }}{{ about.pic }}" alt=""></figure>
 		<div class="caption">
 			
 		</div>
@@ -56,32 +56,31 @@ $(window).load(function() {
 </div>
 
 <div class="span4">
-<h4>Integer lacinia, velit sit amet bibendum hendrerit. </h4>
+<h4>{{ about.about_headline }}</h4>
 <p>
-	Sed sodales, enim quis ultricies gravida, mauris libero hendrerit lorem, vel vulputate urna lacus quis mauris. Duis aliquam. Vivamus ac ligula. Cras et metus a ipsum suscipit aliquam. Morbi at justo. Nulla in pede id dui consectetuer vulputate. Aliquam lobortis. Nunc dignissim pharetra urna. Mauris scelerisque augue eu felis. Nunc quam massa, mattis quis, hendrerit sed, mattis eu, est. Vivamus pretium metus ut nisl. Nullam aliquet mauris eu neque. 
+{{ about.about_text }}
 </p>
 </div>
 </div>
 </div>
 <div class="span4">
-<h3 id="about_box_header" class="c1">The Bottom Line</h3>
+<h3 id="about_box_header" class="c1">{{ about.info_headline }}</h3>
 
 <div class="box1">
 <div class="box1_inner">
    
 <ul class="ul1" id="about_box_list">
-  <li>Family Owned &amp; Operated</li>
-  <li>10 Years of Service</li>
-  <li>Insured &amp; Bonded</li>
-  <li>Nunc suscipit</li>
-  <li>Suspendisse enim arcu</li>  
+  {% if about.info1 %}<li>{{ about.info1 }}</li>{% endif %}
+  {% if about.info2 %}<li>{{ about.info2 }}</li>{% endif %}
+  {% if about.info3 %}<li>{{ about.info3 }}</li>{% endif %}
+  {% if about.info4 %}<li>{{ about.info4 }}</li>{% endif %}
+  {% if about.info5 %}<li>{{ about.info5 }}</li>{% endif %}  
 </ul>
 <div class="clearfix"></div>
 
 </div> 
 
 </div>
-
 
 </div>	
 </div>
@@ -92,18 +91,23 @@ $(window).load(function() {
 
 <h1 class="c1">Our People</h1> 
 
-<div class="thumb1">
+{% for person in our_people %}
+<div class="thumb3">
    <div class="thumbnail clearfix">
-      <figure class=""><img src="/media/images/home01.png" alt="Painter Ready to Paint"></figure>
+      {% if person.pic %}
+      <figure class="img-polaroid">
+      	<img src="{{ MEDIA_URL }}{{ person.pic }}" alt="">
+      </figure>
+      {% endif %}
       <div class="caption">
-         <h4>Hello Caption</h4>
-         <p> 
-           Yo Fool    
+         <h4>{{ person.headline }}</h4>
+         <p>
+         {{ person.text }}
          </p>
       </div>
    </div>
 </div>
-
+{% endfor %}
    
 </div>   
 

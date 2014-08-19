@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load pages_extras %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="/static/css/touchTouch.css" type="text/css" media="screen">
@@ -84,138 +85,27 @@ $(window).load(function() {
         <li><a href="#" class="selected" data-filter="*">Show All</a></li> 
         <li><a href="#" data-filter=".isotope-filter1">Interrior Painting</a></li> 
         <li><a href="#" data-filter=".isotope-filter2">Exterrior Painting</a></li> 
-        <li><a href="#" data-filter=".isotope-filter3">Other Services</a></li> 	             
+        <li><a href="#" data-filter=".isotope-filter3">Comercial Painting</a></li> 	             
+        <li><a href="#" data-filter=".isotope-filter4">Other Services</a></li> 	             
+        <li><a href="#" data-filter=".isotope-filter5">On the Job</a></li> 	             
     </ul>            
 </div>
 
+
 <ul class="thumbnails" id="isotope-items">		  
-    <li class="span4 isotope-element isotope-filter1">
+	{% for pic in portfolio_pics %}
+    <li class="span4 isotope-element {{ pic.pic_type|isotope }}">
 		<div class="thumb-isotope">
 			<div class="thumbnail clearfix">
-				<a href="/media/images/portfolio/portfolio01.jpg">
+				<a href="{{ MEDIA_URL }}{{ pic.pic }}">
 					<figure>
-						<img src="/media/images/portfolio/portfolio01.jpg" alt=""><em></em>
+						<img src="{{ MEDIA_URL }}{{ pic.thumb }}" alt=""><em></em>
 					</figure>
-					<div class="caption">							
-						Lorem ipsum dolor sit amet conse ctetur
-					</div>
 				</a>				
 			</div>
 		</div>
-    </li>
-    <li class="span4 isotope-element isotope-filter2">
-		<div class="thumb-isotope">
-			<div class="thumbnail clearfix">
-				<a href="images/blank.png">
-					<figure>
-						<img src="/media/images/portfolio/portfolio02.jpg" alt=""><em></em>
-					</figure>
-					<div class="caption">							
-						Lorem ipsum dolor sit amet conse ctetur
-					</div>
-				</a>				
-			</div>
-		</div>
-    </li>
-    <li class="span4 isotope-element isotope-filter3">
-		<div class="thumb-isotope">
-			<div class="thumbnail clearfix">
-				<a href="images/blank.png">
-					<figure>
-						<img src="/media/images/portfolio/portfolio03.jpg" alt=""><em></em>
-					</figure>
-					<div class="caption">							
-						Lorem ipsum dolor sit amet conse ctetur
-					</div>
-				</a>				
-			</div>
-		</div>
-    </li>
-    <li class="span4 isotope-element isotope-filter1">
-		<div class="thumb-isotope">
-			<div class="thumbnail clearfix">
-				<a href="images/blank.png">
-					<figure>
-						<img src="/media/images/portfolio/portfolio04.jpg" alt=""><em></em>
-					</figure>
-					<div class="caption">							
-						Lorem ipsum dolor sit amet conse ctetur
-					</div>
-				</a>				
-			</div>
-		</div>
-    </li>
-    <li class="span4 isotope-element isotope-filter2">
-		<div class="thumb-isotope">
-			<div class="thumbnail clearfix">
-				<a href="images/blank.png">
-					<figure>
-						<img src="/media/images/portfolio/portfolio05.jpg" alt=""><em></em>
-					</figure>
-					<div class="caption">							
-						Lorem ipsum dolor sit amet conse ctetur
-					</div>
-				</a>				
-			</div>
-		</div>
-    </li>
-    <li class="span4 isotope-element isotope-filter3">
-		<div class="thumb-isotope">
-			<div class="thumbnail clearfix">
-				<a href="images/blank.png">
-					<figure>
-						<img src="/media/images/portfolio/portfolio06.jpg" alt=""><em></em>
-					</figure>
-					<div class="caption">							
-						Lorem ipsum dolor sit amet conse ctetur
-					</div>
-				</a>				
-			</div>
-		</div>
-    </li>
-    <li class="span4 isotope-element isotope-filter1">
-		<div class="thumb-isotope">
-			<div class="thumbnail clearfix">
-				<a href="images/blank.png">
-					<figure>
-						<img src="/media/images/portfolio/portfolio07.jpg" alt=""><em></em>
-					</figure>
-					<div class="caption">							
-						Lorem ipsum dolor sit amet conse ctetur
-					</div>
-				</a>				
-			</div>
-		</div>
-    </li>
-    <li class="span4 isotope-element isotope-filter2">
-		<div class="thumb-isotope">
-			<div class="thumbnail clearfix">
-				<a href="images/blank.png">
-					<figure>
-						<img src="/media/images/portfolio/portfolio08.jpg" alt=""><em></em>
-					</figure>
-					<div class="caption">							
-						Lorem ipsum dolor sit amet conse ctetur
-					</div>
-				</a>				
-			</div>
-		</div>
-    </li>
-    <li class="span4 isotope-element isotope-filter3">
-		<div class="thumb-isotope">
-			<div class="thumbnail clearfix">
-				<a href="images/blank.png">
-					<figure>
-						<img src="/media/images/portfolio/portfolio09.jpg" alt=""><em></em>
-					</figure>
-					<div class="caption">							
-						Lorem ipsum dolor sit amet conse ctetur
-					</div>
-				</a>				
-			</div>
-		</div>
-    </li>
-       
+	</li>
+	{% endfor %}
 </ul>
 
 

@@ -6,15 +6,36 @@
 <div class="box3_inner">
    
 <ul class="ul1">
-  {{ test|service_pages_link }}
-  <li><a href="#">Lorem ipsum dolor hendrerit sed</a></li>
-  <li><a href="#">Sit amet consectetue sed sodales, enim quis ultricies</a></li>
-  <li><a href="#">Adipiscing elit</a></li>
-  <li><a href="#">Nunc suscipit</a></li>
-  <li><a href="#">Suspendisse enim arcu</a></li>  
-  <li><a href="#">Convallis non cursus sed</a></li>
-  <li><a href="#">Dignissim et est</a></li>
-  <li><a href="#">Aenean semper aliquet libero</a></li>     
+  {% if services.service_list1 %}
+  <li><a href="{{ services.service_list1_link|service_pages_link }}">{{ services.service_list1 }}</a></li>
+  {% endif %}
+  {% if services.service_list2 %}
+  <li><a href="{{ services.service_list2_link|service_pages_link }}">{{ services.service_list2 }}</a></li>
+  {% endif %}
+  {% if services.service_list3 %}
+  <li><a href="{{ services.service_list3_link|service_pages_link }}">{{ services.service_list3 }}</a></li>
+  {% endif %}
+  {% if services.service_list4 %}
+  <li><a href="{{ services.service_list4_link|service_pages_link }}">{{ services.service_list4 }}</a></li>
+  {% endif %}
+  {% if services.service_list5 %}
+  <li><a href="{{ services.service_list5_link|service_pages_link }}">{{ services.service_list5 }}</a></li>
+  {% endif %}
+  {% if services.service_list6 %}
+  <li><a href="{{ services.service_list6_link|service_pages_link }}">{{ services.service_list6 }}</a></li>
+  {% endif %}
+  {% if services.service_list7 %}
+  <li><a href="{{ services.service_list7_link|service_pages_link }}">{{ services.service_list7 }}</a></li>
+  {% endif %}
+  {% if services.service_list8 %}
+  <li><a href="{{ services.service_list8_link|service_pages_link }}">{{ services.service_list8 }}</a></li>
+  {% endif %}
+  {% if services.service_list9 %}
+  <li><a href="{{ services.service_list9_link|service_pages_link }}">{{ services.service_list9 }}</a></li>
+  {% endif %}
+  {% if services.service_list10 %}
+  <li><a href="{{ services.service_list10_link|service_pages_link }}">{{ services.service_list10 }}</a></li>
+  {% endif %}
 </ul>
 
 </div>
