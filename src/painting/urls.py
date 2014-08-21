@@ -10,7 +10,7 @@ from pages import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
-    url(r'^why_us/$', views.why_us, name='why-us'),
+    url(r'^why-us/$', views.why_us, name='why-us'),
     url(r'^services/$', views.services, name='services'),
     url(r'^services/residential/$', views.residential, name='residential'),
     url(r'^services/comercial/$', views.comercial, name='comercial'),
@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^portfolio/$', views.portfolio, name='portfolio'),
     url(r'^about/$', views.about, name='about'),
     url(r'^contact/$', views.contact, name='contact'),
+    url(r'^admin/', include('interface.urls')),
     url(r'^wiggle/', include(admin.site.urls)),
 )
 

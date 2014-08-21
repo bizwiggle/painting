@@ -424,7 +424,7 @@ class Why_Us(models.Model):
     site = models.ForeignKey(Site)
     
     reason1 = models.CharField('Reason 1', max_length=48, blank=True)
-    reason1_blurb = models.CharField('Reason 1 Blurb', max_length=256, blank=True)
+    reason1_blurb = models.CharField('Reason 1 Blurb', max_length=350, blank=True)
     reason1_pic  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                        processors=[ResizeToFill(214, 214)],
                                        options={'quality': 80},
@@ -433,7 +433,7 @@ class Why_Us(models.Model):
                    )  
     
     reason2 = models.CharField('Reason 2', max_length=48, blank=True)
-    reason2_blurb = models.CharField('Reason 2 Blurb', max_length=256, blank=True)
+    reason2_blurb = models.CharField('Reason 2 Blurb', max_length=350, blank=True)
     reason2_pic  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                        processors=[ResizeToFill(214, 214)],
                                        options={'quality': 80},
@@ -442,7 +442,7 @@ class Why_Us(models.Model):
                    )  
 
     reason3 = models.CharField('Reason 3', max_length=48, blank=True)
-    reason3_blurb = models.CharField('Reason 3 Blurb', max_length=256, blank=True)
+    reason3_blurb = models.CharField('Reason 3 Blurb', max_length=350, blank=True)
     reason3_pic  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                        processors=[ResizeToFill(214, 214)],
                                        options={'quality': 80},
@@ -451,7 +451,7 @@ class Why_Us(models.Model):
                    )  
 
     reason4 = models.CharField('Reason 4', max_length=48, blank=True)
-    reason4_blurb = models.CharField('Reason 4 Blurb', max_length=256, blank=True)
+    reason4_blurb = models.CharField('Reason 4 Blurb', max_length=350, blank=True)
     reason4_pic  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                        processors=[ResizeToFill(214, 214)],
                                        options={'quality': 80},
@@ -460,7 +460,7 @@ class Why_Us(models.Model):
                    )  
 
     reason5 = models.CharField('Reason 5', max_length=48, blank=True)
-    reason5_blurb = models.CharField('Reason 5 Blurb', max_length=256, blank=True)
+    reason5_blurb = models.CharField('Reason 5 Blurb', max_length=350, blank=True)
     reason5_pic  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                        processors=[ResizeToFill(214, 214)],
                                        options={'quality': 80},

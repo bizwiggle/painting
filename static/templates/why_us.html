@@ -47,7 +47,7 @@ $(window).load(function() {
 	<div class="thumbnail clearfix">
 		<figure class="img-polaroid">
 			{% if why_us.reason1_pic %}
-         	<img src="{{ why_us.reason1_pic }}" alt="">
+         	<img src="{{ MEDIA_URL }}{{ why_us.reason1_pic }}" alt="">
 			{% else %}
 				<img src="/media/images/why_us/why_us01.jpg" alt="">
 			{% endif %}
@@ -67,7 +67,7 @@ $(window).load(function() {
 	<div class="thumbnail clearfix">
 		<figure class="img-polaroid">
 			{% if why_us.reason2_pic %}
-				<img src="{{ why_us.reason2_pic }}" alt="">
+				<img src="{{ MEDIA_URL }}{{ why_us.reason2_pic }}" alt="">
 			{% else %}
 				<img src="/media/images/why_us/why_us02.jpg" alt="">
 			{% endif %}
@@ -87,7 +87,7 @@ $(window).load(function() {
 	<div class="thumbnail clearfix">
 		<figure class="img-polaroid">
 			{% if why_us.reason3_pic %}
-				<img src="{{ why_us.reason3_pic }}" alt="">
+				<img src="{{ MEDIA_URL }}{{ why_us.reason3_pic }}" alt="">
 			{% else %}
 				<img src="/media/images/why_us/why_us03.jpg" alt="">
 			{% endif %}
@@ -107,7 +107,7 @@ $(window).load(function() {
 	<div class="thumbnail clearfix">
 		<figure class="img-polaroid">
 			{% if why_us.reason4_pic %}
-				<img src="{{ why_us.reason4_pic }}" alt="">
+				<img src="{{ MEDIA_URL }}{{ why_us.reason4_pic }}" alt="">
 			{% else %}
 				<img src="/media/images/why_us/why_us04.jpg" alt="">
 			{% endif %}
@@ -127,7 +127,7 @@ $(window).load(function() {
 	<div class="thumbnail clearfix">
 		<figure class="img-polaroid">
 			{% if why_us.reason5_pic %}
-				<img src="{{ why_us.reason5_pic }}" alt="">
+				<img src="{{ MEDIA_URL }}{{ why_us.reason5_pic }}" alt="">
 			{% else %}
 				<img src="/media/images/why_us/why_us05.jpg" alt="">
 			{% endif %}

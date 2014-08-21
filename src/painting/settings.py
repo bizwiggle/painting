@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'imagekit',
     'auth',
     'pages',
+    'interface',
 )
 
 MIDDLEWARE_CLASSES = (
