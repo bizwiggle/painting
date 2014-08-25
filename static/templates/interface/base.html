@@ -13,6 +13,7 @@
  		<!-- PLUGINS CSS -->
      
       <link href="/static/plugins/validator/bootstrapValidator.min.css" rel="stylesheet">
+	   <link href="/static/plugins/prettify/prettify.min.css" rel="stylesheet">	
 		
 		<!-- MAIN CSS (REQUIRED ALL PAGE)-->
 		<link href="/static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -225,6 +226,32 @@
 			<!-- BEGIN PAGE CONTENT -->
 			<div class="page-content">
 				<div class="container-fluid">
+					{% block header-breadcrumb %}{% endblock %}
+               <!-- Help Message -->
+					{% if use_help_message %}
+						<div class="row">
+   						<div class="col-md-12">
+      						<div class="alert alert-success alert-bold-border square fade in alert-dismissable">
+         						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+         						<strong>Helpful Hint!</strong> {{ help_message }}  
+      						</div>     
+   						</div>
+						</div>
+					{% endif %}
+					<!-- Messages -->
+					{% if messages %}
+   					{% for message in messages %}
+   					<div class="row">
+      					<div class="col-md-12">
+         					<div class="alert {% if message.tags %}alert-{{ message.tags}} {% else %}alert-success{% endif %}alert-bold-border square fade in alert-dismissable">
+            					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            					{{ message }}  
+         					</div>              
+      					</div>
+   					</div>
+   				{% endfor %}
+				{% endif %}
+
 					{% block content %}{% endblock %}
 				</div><!-- /.container-fluid -->
 				
@@ -264,11 +291,12 @@
 		<script src="/static/plugins/backstretch/jquery.backstretch.min.js"></script>
 	
       <!-- PLUGIN JAVASCRIPT -->
-		<script src="/static/plugins/validator/bootstrapValidator.min.js"></script>
-
-      <!-- EXTRA JS -->
+      <script src="/static/plugins/prettify/prettify.js"></script>
+      <script src="/static/plugins/validator/bootstrapValidator.min.js"></script>
+     
+ 		<!-- EXTRA JS -->
       {% block extra_js %}{% endblock %}
-      
+		
 		<!-- MAIN APPS JS -->
 		<script src="/static/js/interface/apps.js"></script>
 	
