@@ -1,0 +1,150 @@
+{% extends "interface/base.html" %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">About Admin</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">About</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+<form id="AboutForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+
+<!-- Main About Section -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
+					Main About Section
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-minus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-1" class="collapse in">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Main About Section</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Headline</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="headline" value="{{ about.headline }}" />
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="5" name="text">{{ about.text }}</textarea>
+            </div>
+         </div>
+         {% if about.pic %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic" /> Delete current pic <small> - {{ about.pic }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="pic">
+               <p class="help-block">Recommended Size: 350 x 350 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Success Story 1 -->
+
+<!-- About Us List -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-2">
+					About Us List
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-2" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>About Us List</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="info_headline" value="{{ about.info_headline }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">List Item 1</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="info1" value="{{ about.info1 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">List Item 2</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="info2" value="{{ about.info2 }}" />
+				</div>
+         </div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">List Item 3</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="info3" value="{{ about.info3 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">List Item 4</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="info4" value="{{ about.info4 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">List Item 5</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="info5" value="{{ about.info5 }}" />
+				</div>
+			</div>
+			</fieldset>				  
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end About List -->
+
+<div class="form-group">
+	<div class="col-md-9 col-md-offset-2">
+		<button type="submit" class="btn btn-info">Save All</button>
+	</div>
+</div>
+</form>
+                   
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+{% endblock %}

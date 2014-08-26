@@ -27,7 +27,13 @@
 	</div>
 </div>
 
-Insert other reviews link
+{% if success_stories.other_URL %}
+<div class="testimonial1">
+   <div class="txt1">
+		See more testimonials at {{ success_stories.other_URL|urlizetrunc:40 }} 
+	</div>
+</div>
+{% endif %}
 
 </div>   
 </div>

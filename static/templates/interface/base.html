@@ -167,8 +167,22 @@
 						</a>
 						<ul class="submenu{% if active_page == 'admin_index' or active_page == 'admin_why_us' or active_page == 'admin_about' %} visible{% endif %}">
 							<li><a href="{% url 'admin_index' %}">Index</a></li>
-							<li><a href="{% url 'admin_why_us' %}">Why Choose Us</a></li>
-							<li><a href="">About</a></li>
+							<li>
+								<a href="{% url 'admin_why_us' %}">
+									Why Choose Us
+                           {% if not progress.has_why_us %}
+										<span class="label label-warning span-sidebar">Needed</span>
+									{% endif %}
+								</a>
+							</li>
+							<li>
+								<a href="{% url 'admin_about' %}">
+									About
+                           {% if not progress.has_about %}
+										<span class="label label-warning span-sidebar">Needed</span>
+									{% endif %}
+								</a>
+							</li>
 						</ul>
 					</li>
 					<li>
@@ -197,13 +211,31 @@
 					</li>
 					<li>
 						<a href="#fakelink">
-							<i class="fa fa-folder icon-sidebar"></i>
+							<i class="fa fa-group icon-sidebar"></i>
+							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
+							Our People
+							</a>
+						<ul class="submenu">
+							<li><a href="#">Add New Person</a></li>
+							<li><a href="#">Edit Our People</a></li>
+						</ul>
+					<li>
+						<a href="#fakelink">
+							<i class="fa fa-folder-open icon-sidebar"></i>
 							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
 							Other Site Info
 							</a>
 						<ul class="submenu{% if active_page == 'admin_success_stories' or active_page == 'admin_social_links' %} visible{% endif %}">
+							<li><a href="">SEO Tools</a></li>
 							<li><a href="">Social Links</a></li>
-							<li><a href="{% url 'admin_success_stories' %}">Testimonials</a></li>
+							<li>
+								<a href="{% url 'admin_success_stories' %}">
+									Testimonials
+                           {% if not progress.has_success_stories %}
+										<span class="label label-warning span-sidebar">Needed</span>
+									{% endif %}
+								</a>
+							</li>
 						</ul>
 					</li>
 					<li>
