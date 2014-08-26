@@ -187,6 +187,8 @@ class Success_Stories(models.Model):
     story3_name = models.CharField('Success Story 3 Name', max_length=64, blank=True)
     story3_URL = models.URLField('Success Story 3 Link', blank=True)
 
+    other_URL = models.URLField('Other URL', blank=True)
+
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Success Stories'])
 

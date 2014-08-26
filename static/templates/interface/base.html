@@ -163,9 +163,9 @@
 						<a href="#fakelink">
 							<i class="fa fa-desktop icon-sidebar"></i>
 							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
-							Pages
+							Main Pages
 						</a>
-						<ul class="submenu{% if active_page == 'index' or active_page == 'why_us' or active_page == 'about' %} visible{% endif %}">
+						<ul class="submenu{% if active_page == 'admin_index' or active_page == 'admin_why_us' or active_page == 'admin_about' %} visible{% endif %}">
 							<li><a href="{% url 'admin_index' %}">Index</a></li>
 							<li><a href="{% url 'admin_why_us' %}">Why Choose Us</a></li>
 							<li><a href="">About</a></li>
@@ -201,9 +201,9 @@
 							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
 							Other Site Info
 							</a>
-						<ul class="submenu">
-							<li><a href="#">Social Links</a></li>
-							<li><a href="#">Testimonials</a></li>
+						<ul class="submenu{% if active_page == 'admin_success_stories' or active_page == 'admin_social_links' %} visible{% endif %}">
+							<li><a href="">Social Links</a></li>
+							<li><a href="{% url 'admin_success_stories' %}">Testimonials</a></li>
 						</ul>
 					</li>
 					<li>
@@ -283,8 +283,8 @@
 		===========================================================
 		-->
 		<!-- MAIN JAVASRCIPT (REQUIRED ALL PAGE)-->
-		<script src="/static/js/interface/jquery.min.js"></script>
-		<script src="/static/js/interface/bootstrap.min.js"></script>
+		<script src="/static/js/interface/interface_jquery.min.js"></script>
+		<script src="/static/js/interface/interface_bootstrap.min.js"></script>
 		<script src="/static/plugins/retina/retina.min.js"></script>
 		<script src="/static/plugins/nicescroll/jquery.nicescroll.js"></script>
 		<script src="/static/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -298,7 +298,7 @@
       {% block extra_js %}{% endblock %}
 		
 		<!-- MAIN APPS JS -->
-		<script src="/static/js/interface/apps.js"></script>
+		<script src="/static/js/interface/interface_apps.js"></script>
 	
 	</body>
 </html>

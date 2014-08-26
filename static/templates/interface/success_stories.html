@@ -1,0 +1,203 @@
+{% extends "interface/base.html" %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">Testimonials Admin</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">Testimonials</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+<form id="SuccessStoriesForm" method="post" action="" class="form-horizontal">
+{% csrf_token %}
+
+<!-- Success Story 1 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
+					Testimonial 1
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-minus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-1" class="collapse in">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Testimonials 1</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Testimonial</label>
+				<div class="col-md-9">
+					<textarea class="form-control" rows="4" name="story1">{{ success_stories.story1 }}</textarea>		
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Reviewer's Name</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="story1_name" value="{{ success_stories.story1_name }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">External URL for Testimonial</label>
+				<div class="col-md-9">
+					<input type="url" class="form-control" name="story1_URL" value="{{ success_stories.story1_URL }}" />
+				</div>
+			</div>
+			</fieldset>				  
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Success Story 1 -->
+
+<!-- Success Story 2 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-2">
+					Testimonial 2
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-2" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Testimonials 2</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Testimonial</label>
+				<div class="col-md-9">
+					<textarea class="form-control" rows="4" name="story2">{{ success_stories.story2 }}</textarea>		
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Reviewer's Name</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="story2_name" value="{{ success_stories.story2_name }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">External URL for Testimonial</label>
+				<div class="col-md-9">
+					<input type="url" class="form-control" name="story2_URL" value="{{ success_stories.story2_URL }}" />
+				</div>
+			</div>
+			</fieldset>				  
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Success Story 2 -->
+
+<!-- Success Story 3 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-3">
+					Testimonial 3
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-3" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Testimonials 3</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Testimonial</label>
+				<div class="col-md-9">
+					<textarea class="form-control" rows="4" name="story3">{{ success_stories.story3 }}</textarea>		
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Reviewer's Name</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="story3_name" value="{{ success_stories.story3_name }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">External URL for Testimonial</label>
+				<div class="col-md-9">
+					<input type="url" class="form-control" name="story3_URL" value="{{ success_stories.story3_URL }}" />
+				</div>
+			</div>
+			</fieldset>				  
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Success Story 3 -->
+
+<!-- other -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-4">
+					Other Testimonial Info
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-4" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Other Testimonial Info</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">External URL for More Testimonials</label>
+				<div class="col-md-9">
+					<input type="url" class="form-control" name="other_URL" value="{{ success_stories.other_URL}}" />
+				</div>
+			</div>
+			</fieldset>				  
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end other -->
+
+
+<div class="form-group">
+	<div class="col-md-9 col-md-offset-2">
+		<button type="submit" class="btn btn-info">Save All</button>
+	</div>
+</div>
+</form>
+                   
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+{% endblock %}

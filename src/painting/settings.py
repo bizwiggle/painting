@@ -56,8 +56,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-# Authorization for bizwiggle
+# Authorization
 AUTH_USER_MODEL = 'auth.MyUser'
+LOGIN_URL = '/admin/login/'
 
 ROOT_URLCONF = 'painting.urls'
 
