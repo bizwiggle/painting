@@ -29,7 +29,7 @@ def slider_pages_link(value):
 @stringfilter
 def service_pages_link(value): 
     pages = {
-        Index.RESIDENTIAL:reverse('residential'),
+        Services.RESIDENTIAL:reverse('residential'),
         Services.COMERCIAL:reverse('comercial'),
         Services.OTHER:reverse('other'),
     }

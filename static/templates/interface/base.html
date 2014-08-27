@@ -191,10 +191,17 @@
 							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
 							My Services
 						</a>
-						<ul class="submenu">
-							<li><a href="#">Services Overview<span class="label label-warning span-sidebar">Needed</span></a></li>
+						<ul class="submenu{% if active_page == 'admin_services' or active_page == 'admin_residential' or active_page == 'admin_comercial' or active_page == 'admin_other' %} visible{% endif %}">
+							<li>
+								<a href="{% url 'admin_services' %}">
+									Services Overview
+									{% if not progress.has_services %}
+									<span class="label label-warning span-sidebar">Needed</span>
+									{% endif %}
+								</a>
+							</li>
 							<li><a href="#">Residential Painting</a></li>
-							<li><a href="#">Comercial Painting<span class="label label-success span-sidebar">Optional</span></a></li>
+							<li><a href="#">Commercial Painting<span class="label label-success span-sidebar">Optional</span></a></li>
 							<li><a href="#">Other Services<span class="label label-success span-sidebar">Optional</span></a></li>
 						</ul>
 					</li>

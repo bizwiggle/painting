@@ -1,0 +1,438 @@
+{% extends "interface/base.html" %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">Services Overview</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">Services Overview</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+<form id="ServicesForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+
+<!-- Residential Services -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
+					Residential Services
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-minus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-1" class="collapse in">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Residential Services</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="residential_blurb">{{ services.residential_blurb }}</textarea>
+               <p class="help-block">Leave text blank to remove residential services section.</p>
+            </div>
+         </div>
+         {% if services.residential_pic %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_residential_pic" /> Delete current pic <small> - {{ services.residential_pic }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <p class="help-block">Default pic will be used if one is not uploaded</p>
+               <input type="file" name="residential_pic">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Residential Services-->
+
+<!-- Comercial Services -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-2">
+					Commercial Services
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-2" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Commercial Services</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="comercial_blurb">{{ services.comercial_blurb }}</textarea>
+               <p class="help-block">Leave text blank to remove commercial services section.</p>
+            </div>
+         </div>
+         {% if services.comercial_pic %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_comercial_pic" /> Delete current pic <small> - {{ services.comercial_pic }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <p class="help-block">Default pic will be used if one is not uploaded</p>
+               <input type="file" name="comercial_pic">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Comercial Services-->
+
+<!-- Other Services -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-3">
+					Other Services
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-3" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Other Services</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="other_services_blurb">{{ services.other_services_blurb }}</textarea>
+               <p class="help-block">Leave text blank to remove other services section.</p>
+            </div>
+         </div>
+         {% if services.other_services_pic %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_other_services_pic" /> Delete current pic <small> - {{ services.other_services_pic }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <p class="help-block">Default pic will be used if one is not uploaded</p>
+               <input type="file" name="other_services_pic">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Other Services-->
+
+<!-- Service Area -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-4">
+					Services Area
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-4" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Service Area</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Describe Your Service Area</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="2" name="service_area_blurb">{{ services.service_area_blurb }}</textarea>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Other Services-->
+
+
+<!-- Services List -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-5">
+					My Services List
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-5" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>About Us List</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 1</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="service_list1" value="{{ services.service_list1 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 1 Page to Link</label>
+				<div class="col-md-3">
+					<select class="form-control" name="service_list1_link">
+					{% for link_page in services.SERVICE_PAGE_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list1_link %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         <hr>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 2</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="service_list2" value="{{ services.service_list2 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 2 Page to Link</label>
+				<div class="col-md-3">
+					<select class="form-control" name="service_list2_link">
+					{% for link_page in services.SERVICE_PAGE_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list2_link %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         <hr>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 3</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="service_list3" value="{{ services.service_list3 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 3 Page to Link</label>
+				<div class="col-md-3">
+					<select class="form-control" name="service_list3_link">
+					{% for link_page in services.SERVICE_PAGE_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list3_link %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         <hr>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 4</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="service_list4" value="{{ services.service_list4 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 4 Page to Link</label>
+				<div class="col-md-3">
+					<select class="form-control" name="service_list4_link">
+					{% for link_page in services.SERVICE_PAGE_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list4_link %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         <hr>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 5</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="service_list5" value="{{ services.service_list5 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 5 Page to Link</label>
+				<div class="col-md-3">
+					<select class="form-control" name="service_list5_link">
+					{% for link_page in services.SERVICE_PAGE_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list5_link %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         <hr>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 6</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="service_list6" value="{{ services.service_list6 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 6 Page to Link</label>
+				<div class="col-md-3">
+					<select class="form-control" name="service_list6_link">
+					{% for link_page in services.SERVICE_PAGE_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list6_link %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         <hr>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 7</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="service_list7" value="{{ services.service_list7 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 7 Page to Link</label>
+				<div class="col-md-3">
+					<select class="form-control" name="service_list7_link">
+					{% for link_page in services.SERVICE_PAGE_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list7_link %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         <hr>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 8</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="service_list8" value="{{ services.service_list8 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 8 Page to Link</label>
+				<div class="col-md-3">
+					<select class="form-control" name="service_list8_link">
+					{% for link_page in services.SERVICE_PAGE_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list8_link %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         <hr>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 9</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="service_list9" value="{{ services.service_list9 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 9 Page to Link</label>
+				<div class="col-md-3">
+					<select class="form-control" name="service_list9_link">
+					{% for link_page in services.SERVICE_PAGE_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list9_link %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         <hr>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 10</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="service_list10" value="{{ services.service_list10 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Service 10 Page to Link</label>
+				<div class="col-md-3">
+					<select class="form-control" name="service_list10_link">
+					{% for link_page in services.SERVICE_PAGE_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list10_link %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+			</fieldset>				  
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end About List -->
+
+<div class="form-group">
+	<div class="col-md-9 col-md-offset-2">
+		<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i> Save</button>
+	</div>
+</div>
+</form>
+                   
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+{% endblock %}

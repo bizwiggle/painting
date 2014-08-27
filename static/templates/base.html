@@ -75,7 +75,7 @@
 				 {% if general_info.has_residential_page or general_info.has_comercial_page or general_info.has_other_services_page %}
 	          <ul>
 		         {% if general_info.has_residential_page %}<li><a href="{% url 'residential' %}">Residential Painting</a></li>{% endif %}
-		         {% if general_info.has_comercial_page %}<li><a href="{% url 'comercial' %}">Comercial Painting</a></li>{% endif %}
+		         {% if general_info.has_comercial_page %}<li><a href="{% url 'comercial' %}">Commercial Painting</a></li>{% endif %}
 		         {% if general_info.has_other_services_page %}<li><a href="{% url 'other' %}">Other Services</a></li>{% endif %}
              </ul>
 				{% endif %}

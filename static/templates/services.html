@@ -68,18 +68,18 @@ $(window).load(function() {
 <div class="thumb3">
 	<div class="thumbnail clearfix">
 		<figure class="img-polaroid">
-      	{% if services.residential_pic %}
+      	{% if services.comercial_pic %}
       		<img src="{{ services.comercial_pic }}" alt="">
       	{% else %}
       		<img src="/media/images/services/services02.jpg" alt="">
       	{% endif %}   
 		</figure>
 		<div class="caption">
-			<h4>Comercial Painting</h4>
+			<h4>Commercial Painting</h4>
 			<p>
 			{{ services.comercial_blurb }}
 			</p>
-			<a href="{% url 'comercial' %}" class="button1">More about comercial painting</a>
+			<a href="{% url 'comercial' %}" class="button1">More about commercial painting</a>
 		</div>
 	</div>
 </div>
@@ -113,7 +113,7 @@ $(window).load(function() {
 <br><br>
 </div>
 
-</div>	
+</div>
 </div>
 
 {% include 'bottom_banner.html' %}

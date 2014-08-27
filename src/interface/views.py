@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import get_current_site
 from django.contrib import messages
 
-from pages.models import (Why_Us, Success_Stories, About) 
+from pages.models import (Why_Us, Success_Stories, About, Services) 
 
 from interface.models import Progress 
 from interface.user_messages import *
@@ -41,14 +41,12 @@ def interface_about(request):
         about = About.objects.get(site__id__exact=get_current_site(request).id)
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
     except:
-        # add new and checkoff the why us on tasks
         raise Http404
 
     # Check User belongs to this site
     if about.user != user or progress.user != user:
         # add message
-        # return redirect to login
-        raise Http404
+        return redirect('admin_login')
 
     use_help_message = True 
     if request.POST:
@@ -75,7 +73,7 @@ def interface_about(request):
             use_help_message = False
             messages.success(request, "Your 'About' has successfully been updated.")
         except:
-            messages.warning(request, "A problem happened and it's not your fault!  A technical dificulty caused us to not be able to save your 'About'.  Please try again or contact Bizwiggle for help.")
+            messages.warning(request, SAVE_EXCEPTION)
    
     context = { 
          'page_title':'Sitename Dashboard',
@@ -101,14 +99,12 @@ def interface_why_us(request):
         why_us = Why_Us.objects.get(site__id__exact=get_current_site(request).id)
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
     except:
-        # add new and checkoff the why us on tasks
         raise Http404
 
     # Check User belongs to this site
     if why_us.user != user or progress.user != user:
         # add message
-        # return redirect to login
-        raise Http404
+        return redirect('admin_login')
 
     use_help_message = True 
     if request.POST:
@@ -156,7 +152,7 @@ def interface_why_us(request):
             use_help_message = False
             messages.success(request, "Your 'Why Us' has successfully been updated.")
         except:
-            messages.warning(request, "A problem happened and it's not your fault!  A technical dificulty caused us to not be able to save your 'Why Us'.  Please try again or contact Bizwiggle for help.")
+            messages.warning(request, SAVE_EXCEPTION)
    
     context = { 
          'page_title':'Sitename Dashboard',
@@ -168,6 +164,90 @@ def interface_why_us(request):
          'progress':progress,
     }  
     return render(request, 'interface/why_us.html', context)
+
+@login_required
+def interface_services(request):
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    # Retrieve Data
+    try:
+        services = Services.objects.get(site__id__exact=get_current_site(request).id)
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    # Check User belongs to this site
+    if services.user != user or progress.user != user:
+        # add message
+        return redirect('admin_login')
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            services.residential_blurb = request.POST.get('residential_blurb', '')
+            if request.POST.get('delete_residential_pic'):
+                services.residential_pic.delete(save=False)
+            if request.FILES.get('residential_pic'):
+                services.residential_pic = request.FILES.get('residential_pic')
+            
+            services.comercial_blurb = request.POST.get('comercial_blurb', '')
+            if request.POST.get('delete_comercial_pic'):
+                services.comercial_pic.delete(save=False)
+            if request.FILES.get('comercial_pic'):
+                services.comercial_pic = request.FILES.get('comercial_pic')
+
+            services.other_services_blurb = request.POST.get('other_services_blurb', '')
+            if request.POST.get('delete_other_services_pic'):
+                services.other_services_pic.delete(save=False)
+            if request.FILES.get('other_services_pic'):
+                services.other_services_pic = request.FILES.get('other_services_pic')
+
+            services.service_list1 = request.POST.get('service_list1', '')
+            services.service_list1_link = request.POST.get('service_list1_link', '')
+            services.service_list2 = request.POST.get('service_list2', '')
+            services.service_list2_link = request.POST.get('service_list2_link', '')
+            services.service_list3 = request.POST.get('service_list3', '')
+            services.service_list3_link = request.POST.get('service_list3_link', '')
+            services.service_list4 = request.POST.get('service_list4', '')
+            services.service_list4_link = request.POST.get('service_list4_link', '')
+            services.service_list5 = request.POST.get('service_list5', '')
+            services.service_list5_link = request.POST.get('service_list5_link', '')
+            services.service_list6 = request.POST.get('service_list6', '')
+            services.service_list6_link = request.POST.get('service_list6_link', '')
+            services.service_list7 = request.POST.get('service_list7', '')
+            services.service_list7_link = request.POST.get('service_list7_link', '')
+            services.service_list8 = request.POST.get('service_list8', '')
+            services.service_list8_link = request.POST.get('service_list8_link', '')
+            services.service_list9 = request.POST.get('service_list9', '')
+            services.service_list9_link = request.POST.get('service_list9_link', '')
+            services.service_list10 = request.POST.get('service_list10', '')
+            services.service_list10_link = request.POST.get('service_list10_link', '')
+
+            services.service_area_blurb = request.POST.get('service_area_blurb', '')            
+            services.save()
+
+            progress.has_services = True
+            progress.save()
+
+            use_help_message = False
+            messages.success(request, "Your 'Services' have successfully been updated.")
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title':'Site Admin Services',
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_services',
+         'use_help_message':use_help_message,
+         'help_message':SERVICES_HELP_MESSAGE,
+         'services':services,
+         'progress':progress,
+    }  
+    return render(request, 'interface/services.html', context)
 
 @login_required
 def interface_success_stories(request):
@@ -182,14 +262,12 @@ def interface_success_stories(request):
         success_stories = Success_Stories.objects.get(site__id__exact=get_current_site(request).id)
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
     except:
-        # checkoff the why us on tasks
         raise Http404
     
     # Check User belongs to this site
     if success_stories.user != user or progress.user != user:
         # add message
-        # return redirect to login
-        raise Http404
+        return redirect('admin_login')
 
     use_help_message = True 
     if request.POST:
