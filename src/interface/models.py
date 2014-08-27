@@ -12,6 +12,9 @@ class Progress(models.Model):
     has_about = models.BooleanField('Has About Filled Out', default=False)
     has_success_stories = models.BooleanField('Has Success Stories Filled Out', default=False)
     has_services = models.BooleanField('Has Services Filled Out', default=False)
+    has_residential_services =  models.BooleanField('Has Residential Services Filled Out', default=False)
+    has_comercial_services =  models.BooleanField('Has Commercial Services Filled Out', default=False)
+    has_other_services =  models.BooleanField('Has Other Services Filled Out', default=False)
 
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Progress'])

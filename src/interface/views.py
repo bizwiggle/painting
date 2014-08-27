@@ -26,7 +26,7 @@ def interface_general_info(request):
 
 @login_required
 def interface_index(request):
-    return HttpResonse('This is the index interface')
+    return HttpResponse('This is the index interface')
 
 @login_required
 def interface_about(request):
@@ -248,6 +248,18 @@ def interface_services(request):
          'progress':progress,
     }  
     return render(request, 'interface/services.html', context)
+
+@login_required
+def interface_residential(request):
+    return HttpResponse('This is the admin residential page')
+
+@login_required
+def interface_comercial(request):
+    return HttpResponse('This is the admin commercial page')
+
+@login_required
+def interface_other_services(request):
+    return HttpResponse('This is the admin other services page')
 
 @login_required
 def interface_success_stories(request):

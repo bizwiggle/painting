@@ -200,9 +200,30 @@
 									{% endif %}
 								</a>
 							</li>
-							<li><a href="#">Residential Painting</a></li>
-							<li><a href="#">Commercial Painting<span class="label label-success span-sidebar">Optional</span></a></li>
-							<li><a href="#">Other Services<span class="label label-success span-sidebar">Optional</span></a></li>
+							<li>
+								<a href="{% url 'admin_residential' %}">
+									Residential Painting
+									{% if not progress.has_residential_services %}
+										<span class="label label-success span-sidebar">Optional</span>
+									{% endif %}
+								</a>
+							</li>
+							<li>
+								<a href="{% url 'admin_comercial' %}">
+									Commercial Painting
+									{% if not progress.has_comercial_services %}
+										<span class="label label-success span-sidebar">Optional</span>
+									{% endif %}
+								</a>
+							</li>
+							<li>
+								<a href="{% url 'admin_other_services' %}">
+									Other Services
+									{% if not progress.has_other_services %}
+										<span class="label label-success span-sidebar">Optional</span>
+									{% endif %}
+								</a>
+							</li>
 						</ul>
 					</li>
 					<li>
