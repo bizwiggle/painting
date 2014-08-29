@@ -4759,24 +4759,28 @@ LABEL AND BADGE
 .label-success[href]:hover,
 .label-success[href]:focus {
 	background-color: #8CC152;
+	font-size: 65%;
 }
 .label-info,
 .badge-info,
 .label-info[href]:hover,
 .label-info[href]:focus {
 	background-color: #3BAFDA;
+	font-size: 65%;
 }
 .label-warning,
 .badge-warning,
 .label-warning[href]:hover,
 .label-warning[href]:focus {
 	background-color: #F6BB42;
+	font-size: 65%;
 }
 .label-danger,
 .badge-danger,
 .label-danger[href]:hover,
 .label-danger[href]:focus {
 	background-color: #E9573F;
+	font-size: 65%;
 }
 
 

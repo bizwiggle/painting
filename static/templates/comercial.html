@@ -44,71 +44,65 @@ $(window).load(function() {
 
 <h1>Commercial Painting</h1>	
 
+{% if comercial_service.paragraph_headline1 or comercial_service.paragraph1 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		{% if comercial_service.use_default_pic1 or comercial_service.pic1 %}
-		   <figure class="img-polaroid">
-			{% if comercial_service.use_default_pic1 %}
-				<img src="/media/images/services/comercial01.jpg" alt="">
+		<figure class="img-polaroid">
+			{% if comercial_service.pic1 %}
+				<img src="{{ MEDIA_URL }}{{ comercial_service.pic1 }}" alt="">
 			{% else %}
-				<img src="{{ MEDIA_URL }}{{ comercial_services.pic1 }}" alt="">
+				<img src="/media/images/services/comercial01.jpg" alt="">
 			{% endif %}
 		</figure>
-		{% endif %}
-		{% if comercial_service.paragraph1 %}
 		<div class="caption">
 			<h4>{{ comercial_service.paragraph_headline1 }}</h4>
 			<p>
 			{{ comercial_service.paragraph1 }}
 			</p>
 		</div>
-		{% endif %}
 	</div>
 </div>
+{% endif %}
 
+{% if comercial_service.paragraph_headline2 or comercial_service.paragraph2 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		{% if comercial_service.use_default_pic2 or comercial_service.pic2 %}
-		   <figure class="img-polaroid">
-			{% if comercial_service.use_default_pic2 %}
-				<img src="/media/images/services/comercial02.jpg" alt="">
+		<figure class="img-polaroid">
+			{% if comercial_service.pic2 %}
+				<img src="{{ MEDIA_URL }}{{ comercial_service.pic2 }}" alt="">
 			{% else %}
-				<img src="{{ MEDIA_URL }}{{ comercial_services.pic2 }}" alt="">
+				<img src="/media/images/services/comercial02.jpg" alt="">
 			{% endif %}
 		</figure>
-		{% endif %}
-		{% if comercial_service.paragraph2 %}
 		<div class="caption">
 			<h4>{{ comercial_service.paragraph_headline2 }}</h4>
 			<p>
 			{{ comercial_service.paragraph2 }}
 			</p>
 		</div>
-		{% endif %}
 	</div>
 </div>
+{% endif %}
 
+{% if comercial_service.paragraph_headline3 or comercial_service.paragraph3 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		{% if comercial_service.use_default_pic3 or comercial_service.pic3 %}
-		   <figure class="img-polaroid">
-			{% if comercial_service.use_default_pic3 %}
-				<img src="/media/images/services/comercial03.jpg" alt="">
+		<figure class="img-polaroid">
+			{% if comercial_service.pic3 %}
+				<img src="{{ MEDIA_URL }}{{ comercial_service.pic3 }}" alt="">
 			{% else %}
-				<img src="{{ MEDIA_URL }}{{ comercial_services.pic3 }}" alt="">
+				<img src="/media/images/services/comercial03.jpg" alt="">
 			{% endif %}
 		</figure>
-		{% endif %}
-		{% if comercial_service.paragraph3 %}
 		<div class="caption">
 			<h4>{{ comercial_service.paragraph_headline3 }}</h4>
 			<p>
 			{{ comercial_service.paragraph3 }}
 			</p>
 		</div>
-		{% endif %}
 	</div>
 </div>
+{% endif %}
 
 </div> 
 

@@ -7,7 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import get_current_site
 from django.contrib import messages
 
-from pages.models import (Why_Us, Success_Stories, About, Services) 
+from pages.models import (Why_Us, Success_Stories, About, Services, Residential_Service,
+                          General_Info) 
 
 from interface.models import Progress 
 from interface.user_messages import *
@@ -251,7 +252,77 @@ def interface_services(request):
 
 @login_required
 def interface_residential(request):
-    return HttpResponse('This is the admin residential page')
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    # Retrieve Data
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        residential_service = Residential_Service.objects.get(site__id__exact=get_current_site(request).id)
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
+        pass
+    except:
+        raise Http404
+
+    # Check User belongs to this site
+    if residential_service.user != user or progress.user != user or general_info.user != user:
+        # add message
+        return redirect('admin_login')
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            # need to fix with a switch
+            if request.POST.get('has_residential') == 'on':
+                general_info.has_residential_page = True 
+            else:
+                general_info.has_residential_page = False 
+
+            residential_service.paragraph_headline1 = request.POST.get('paragraph_headline1', '')
+            residential_service.paragraph1 = request.POST.get('paragraph1', '')
+            if request.POST.get('delete_pic1'):
+                residential_service.pic1.delete(save=False)
+            if request.FILES.get('pic1'):
+                residential_service.pic1 = request.FILES.get('pic1')
+            
+            residential_service.paragraph_headline2 = request.POST.get('paragraph_headline2', '')
+            residential_service.paragraph2 = request.POST.get('paragraph2', '')
+            if request.POST.get('delete_pic2'):
+                residential_service.pic1.delete(save=False)
+            if request.FILES.get('pic2'):
+                residential_service.pic1 = request.FILES.get('pic2')
+            
+            residential_service.paragraph_headline1 = request.POST.get('paragraph_headline3', '')
+            residential_service.paragraph1 = request.POST.get('paragraph3', '')
+            if request.POST.get('delete_pic3'):
+                residential_service.pic1.delete(save=False)
+            if request.FILES.get('pic3'):
+                residential_service.pic1 = request.FILES.get('pic3')
+            
+            general_info.save()
+            residential_service.save()            
+            progress.has_residential_services = True
+            progress.save()
+
+            use_help_message = False
+            messages.success(request, "Your 'Residential Services' have successfully been updated.")
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title':'Site Admin Residential Services',
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_residential',
+         'use_help_message':use_help_message,
+         'help_message':RESIDENTIAL_HELP_MESSAGE,
+         'residential_service':residential_service,
+         'progress':progress,
+         'has_residential_page':general_info.has_residential_page,
+    }  
+    return render(request, 'interface/residential.html', context)
 
 @login_required
 def interface_comercial(request):

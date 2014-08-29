@@ -167,7 +167,7 @@
 						</a>
 						<ul class="submenu{% if active_page == 'admin_index' or active_page == 'admin_why_us' or active_page == 'admin_about' %} visible{% endif %}">
 							<li><a href="{% url 'admin_index' %}">Index</a></li>
-							<li>
+							<li{% if active_page == 'admin_why_us' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_why_us' %}">
 									Why Choose Us
                            {% if not progress.has_why_us %}
@@ -175,7 +175,7 @@
 									{% endif %}
 								</a>
 							</li>
-							<li>
+							<li{% if active_page == 'admin_about' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_about' %}">
 									About
                            {% if not progress.has_about %}
@@ -192,7 +192,7 @@
 							My Services
 						</a>
 						<ul class="submenu{% if active_page == 'admin_services' or active_page == 'admin_residential' or active_page == 'admin_comercial' or active_page == 'admin_other' %} visible{% endif %}">
-							<li>
+							<li{% if active_page == 'admin_services' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_services' %}">
 									Services Overview
 									{% if not progress.has_services %}
@@ -200,7 +200,7 @@
 									{% endif %}
 								</a>
 							</li>
-							<li>
+							<li{% if active_page == 'admin_residential' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_residential' %}">
 									Residential Painting
 									{% if not progress.has_residential_services %}
@@ -208,7 +208,7 @@
 									{% endif %}
 								</a>
 							</li>
-							<li>
+							<li{% if active_page == 'admin_comercial' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_comercial' %}">
 									Commercial Painting
 									{% if not progress.has_comercial_services %}
@@ -216,7 +216,7 @@
 									{% endif %}
 								</a>
 							</li>
-							<li>
+							<li{% if active_page == 'admin_other_services' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_other_services' %}">
 									Other Services
 									{% if not progress.has_other_services %}
@@ -256,7 +256,7 @@
 						<ul class="submenu{% if active_page == 'admin_success_stories' or active_page == 'admin_social_links' %} visible{% endif %}">
 							<li><a href="">SEO Tools</a></li>
 							<li><a href="">Social Links</a></li>
-							<li>
+							<li {% if active_page == 'admin_success_stories' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_success_stories' %}">
 									Testimonials
                            {% if not progress.has_success_stories %}

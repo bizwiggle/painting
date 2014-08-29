@@ -44,18 +44,16 @@ $(window).load(function() {
 
 <h1>Other Services</h1>	
 
-{% if other_services.service1 %}
+{% if other_services.service1 or other_services.service_headline1 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		{% if other_services.use_default_pic1 or other_services.pic1 %}
-		   <figure class="img-polaroid">
-			{% if other_services.use_default_pic1 %}
-				<img src="/media/images/services/other_service01.jpg" alt="">
-			{% else %}
+		<figure class="img-polaroid">
+			{% if other_services.pic1 %}
 				<img src="{{ MEDIA_URL }}{{ other_services.pic1 }}" alt="">
+			{% else %}
+				<img src="/media/images/services/other_service01.jpg" alt="">
 			{% endif %}
 		</figure>
-		{% endif %}
 		<div class="caption">
 			<h4>{{ other_services.service_headline1 }}</h4>
 			<p>
@@ -66,18 +64,16 @@ $(window).load(function() {
 </div>
 {% endif %}
 
-{% if other_services.service2 %}
+{% if other_services.service2 or other_services.service_headline2 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		{% if other_services.use_default_pic2 or other_services.pic2 %}
-		   <figure class="img-polaroid">
-			{% if other_services.use_default_pic2 %}
-				<img src="/media/images/services/other_service02.jpg" alt="">
-			{% else %}
+		<figure class="img-polaroid">
+			{% if other_services.pic2 %}
 				<img src="{{ MEDIA_URL }}{{ other_services.pic2 }}" alt="">
+			{% else %}
+				<img src="/media/images/services/other_service02.jpg" alt="">
 			{% endif %}
 		</figure>
-		{% endif %}
 		<div class="caption">
 			<h4>{{ other_services.service_headline2 }}</h4>
 			<p>
@@ -88,18 +84,16 @@ $(window).load(function() {
 </div>
 {% endif %}
 
-{% if other_services.service3 %}
+{% if other_services.service3 or other_services.service_headline3 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		{% if other_services.use_default_pic3 or other_services.pic3 %}
-		   <figure class="img-polaroid">
-			{% if other_services.use_default_pic1 %}
-				<img src="/media/images/services/other_service03.jpg" alt="">
-			{% else %}
+		<figure class="img-polaroid">
+			{% if other_services.pic3 %}
 				<img src="{{ MEDIA_URL }}{{ other_services.pic3 }}" alt="">
+			{% else %}
+				<img src="/media/images/services/other_service03.jpg" alt="">
 			{% endif %}
 		</figure>
-		{% endif %}
 		<div class="caption">
 			<h4>{{ other_services.service_headline3 }}</h4>
 			<p>
@@ -110,18 +104,16 @@ $(window).load(function() {
 </div>
 {% endif %}
 
-{% if other_services.service4 %}
+{% if other_services.service4 or other_services.service_headline4 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		{% if other_services.use_default_pic4 or other_services.pic4 %}
-		   <figure class="img-polaroid">
-			{% if other_services.use_default_pic4 %}
-				<img src="/media/images/services/other_service04.jpg" alt="">
-			{% else %}
+		<figure class="img-polaroid">
+			{% if other_services.pic4 %}
 				<img src="{{ MEDIA_URL }}{{ other_services.pic4 }}" alt="">
+			{% else %}
+				<img src="/media/images/services/other_service04.jpg" alt="">
 			{% endif %}
 		</figure>
-		{% endif %}
 		<div class="caption">
 			<h4>{{ other_services.service_headline4 }}</h4>
 			<p>
@@ -132,18 +124,16 @@ $(window).load(function() {
 </div>
 {% endif %}
 
-{% if other_services.service5 %}
+{% if other_services.service5 or other_services.service_headline5 %}
 <div class="thumb3">
 	<div class="thumbnail clearfix">
-		{% if other_services.use_default_pic5 or other_services.pic5 %}
-		   <figure class="img-polaroid">
-			{% if other_services.use_default_pic5 %}
-				<img src="/media/images/services/other_service05.jpg" alt="">
-			{% else %}
+		<figure class="img-polaroid">
+			{% if other_services.pic5 %}
 				<img src="{{ MEDIA_URL }}{{ other_services.pic5 }}" alt="">
+			{% else %}
+				<img src="/media/images/services/other_service05.jpg" alt="">
 			{% endif %}
 		</figure>
-		{% endif %}
 		<div class="caption">
 			<h4>{{ other_services.service_headline5 }}</h4>
 			<p>

@@ -1,5 +1,7 @@
 SERVICES_HELP_MESSAGE = 'This is the Services Help Message'
 
+RESIDENTIAL_HELP_MESSAGE = 'This is the Residential Services Help Message'
+
 
 INACTIVE_ACCOUNT_MSG = "Your account is currently inactive.   Please re-activate your account by providing a  current credit card or contact Bizwiggle for help."
 

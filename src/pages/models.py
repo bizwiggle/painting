@@ -165,8 +165,7 @@ class Index(models.Model):
 			                            null=True,
                                      blank=True,
                       )
-
-    meta_description = models.CharField('Meta Descrption', max_length=160, blank=True)
+    last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Index'])
@@ -189,6 +188,8 @@ class Success_Stories(models.Model):
 
     other_URL = models.URLField('Other URL', blank=True)
 
+    last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
+    
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Success Stories'])
 
@@ -263,8 +264,8 @@ class Services(models.Model):
     service_list10 = models.CharField('Service List 10', max_length=64, blank=True)
     service_list10_link = models.CharField('Service List 10 Link', max_length=1, blank=True, choices=SERVICE_PAGE_CHOICES, default=NONE)
 
-    meta_description = models.CharField('Meta Descrption', max_length=160, blank=True)
-
+    last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
+    
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Services'])
 
@@ -273,10 +274,6 @@ class Residential_Service(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     site = models.ForeignKey(Site)
 
-    use_default_pic1 = models.BooleanField('Use Default Pic 1', default=False)
-    use_default_pic2 = models.BooleanField('Use Default Pic 2', default=False)
-    use_default_pic3 = models.BooleanField('Use Default Pic 3', default=False)
-
     pic1  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                           processors=[ResizeToFill(214, 214)],
                                           options={'quality': 80},
@@ -307,9 +304,8 @@ class Residential_Service(models.Model):
     paragraph_headline3 = models.CharField('Paragraph 3 Headline', max_length=64, blank=True)
     paragraph3 = models.CharField('Paragraph 3', max_length=512, blank=True)
 
-    meta_description = models.CharField('Meta Descrption', max_length=160, blank=True)
-
-
+    last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
+    
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Residential Service'])
 
@@ -317,10 +313,6 @@ class Comercial_Service(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     site = models.ForeignKey(Site)
 
-    use_default_pic1 = models.BooleanField('Use Default Pic 1', default=False)
-    use_default_pic2 = models.BooleanField('Use Default Pic 2', default=False)
-    use_default_pic3 = models.BooleanField('Use Default Pic 3', default=False)
-
     pic1  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                           processors=[ResizeToFill(214, 214)],
                                           options={'quality': 80},
@@ -351,7 +343,7 @@ class Comercial_Service(models.Model):
     paragraph_headline3 = models.CharField('Paragraph 3 Headline', max_length=64, blank=True)
     paragraph3 = models.CharField('Paragraph 3', max_length=512, blank=True)
 
-    meta_description = models.CharField('Meta Descrption', max_length=160, blank=True)
+    last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Comercial Service'])
@@ -359,13 +351,7 @@ class Comercial_Service(models.Model):
 class Other_Services(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     site = models.ForeignKey(Site)
-
-    use_default_pic1 = models.BooleanField('Use Default Pic 1', default=False)
-    use_default_pic2 = models.BooleanField('Use Default Pic 2', default=False)
-    use_default_pic3 = models.BooleanField('Use Default Pic 3', default=False)
-    use_default_pic4 = models.BooleanField('Use Default Pic 4', default=False)
-    use_default_pic5 = models.BooleanField('Use Default Pic 5', default=False)
-
+    
     pic1  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                           processors=[ResizeToFill(214, 214)],
                                           options={'quality': 80},
@@ -416,7 +402,7 @@ class Other_Services(models.Model):
     service_headline5 = models.CharField('Service 5 Headline', max_length=64, blank=True)
     service5 = models.CharField('Service 5', max_length=512, blank=True)
     
-    meta_description = models.CharField('Meta Descrption', max_length=160, blank=True)
+    last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Other Services'])
@@ -469,7 +455,8 @@ class Why_Us(models.Model):
 			                              null=True,
                                        blank=True,
                    )  
-    meta_description = models.CharField('Meta Descrption', max_length=160, blank=True)
+    
+    last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Why_Us'])
@@ -506,6 +493,8 @@ class Portfolio_Pic(models.Model):
           )
     pic_type = models.CharField('Pic Type', max_length=1, blank=True, choices=PIC_TYPE_CHOICES)
     
+    last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
+    
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Portfolio Pic'])
 
@@ -530,7 +519,7 @@ class About(models.Model):
     info4 = models.CharField('Info Item 4', max_length=64, blank=True)
     info5 = models.CharField('Info Item 5', max_length=64, blank=True)
 
-    meta_description = models.CharField('Meta Descrption', max_length=160, blank=True)
+    last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'About'])
@@ -548,6 +537,8 @@ class Our_People(models.Model):
                                          null=True,
                                          blank=True,
            )
+    
+    last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'About', self.headline])
