@@ -1,0 +1,352 @@
+{% extends "interface/base.html" %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">Other Services</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">Other Services</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+<form id="OtherServicesForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+
+<!-- Other Services Options-->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-6">
+					Other Service Page Options
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-minus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-6" class="collapse in">
+		<div class="panel-body">
+		<label class="radio-inline">
+  			<input type="radio" name="has_other_services" value="on" {% if has_other_services_page %} checked {% endif %}> Turn Page On
+		</label>
+		<label class="radio-inline">
+  		<input type="radio" name="has_other_services" value="off" {% if not has_other_services_page %} checked {% endif %}> Turn Page Off
+</label>
+
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Other Service Options-->
+
+<!-- Other Services 1 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
+					Other Services 1
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-minus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-1" class="collapse in">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Other Service 1</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Headline</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="service_headline1" value="{{ other_services.service_headline1 }}" />
+            </div>
+         </div>
+			<div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="service1">{{ other_services.service1 }}</textarea>
+               <p class="help-block">Leave text and headline blank to remove this optional service section.</p>
+            </div>
+         </div>
+         {% if other_services.pic1 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic1" /> Delete current pic <small> - {{ other_services.pic1 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <p class="help-block">Default pic will be used if one is not uploaded</p>
+               <input type="file" name="pic1">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Other Services 1-->
+
+<!-- Other Services 2 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-2">
+					Other Services 2
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-2" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Other Service 2</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Headline</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="service_headline2" value="{{ other_services.service_headline2 }}" />
+            </div>
+         </div>
+			<div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="service2">{{ other_services.service2 }}</textarea>
+               <p class="help-block">Leave text and headline blank to remove this optional service section.</p>
+            </div>
+         </div>
+         {% if other_services.pic2 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic2" /> Delete current pic <small> - {{ other_services.pic2 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <p class="help-block">Default pic will be used if one is not uploaded</p>
+               <input type="file" name="pic2">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Other Services 2-->
+
+<!-- Other Services 3 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-3">
+					Other Services 3
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-3" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Other Service 3</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Headline</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="service_headline3" value="{{ other_services.service_headline3 }}" />
+            </div>
+         </div>
+			<div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="service3">{{ other_services.service3 }}</textarea>
+               <p class="help-block">Leave text and headline blank to remove this optional service section.</p>
+            </div>
+         </div>
+         {% if other_services.pic3 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic3" /> Delete current pic <small> - {{ other_services.pic3 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <p class="help-block">Default pic will be used if one is not uploaded</p>
+               <input type="file" name="pic3">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Other Services 3-->
+
+<!-- Other Services 4 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-4">
+					Other Services 4
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-4" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Other Service 4</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Headline</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="service_headline4" value="{{ other_services.service_headline4 }}" />
+            </div>
+         </div>
+			<div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="service4">{{ other_services.service4 }}</textarea>
+               <p class="help-block">Leave text and headline blank to remove this optional service section.</p>
+            </div>
+         </div>
+         {% if other_services.pic4 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic4" /> Delete current pic <small> - {{ other_services.pic4 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <p class="help-block">Default pic will be used if one is not uploaded</p>
+               <input type="file" name="pic4">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Other Services 4-->
+
+<!-- Other Services 5 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-5">
+					Other Services 5
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-5" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Other Service 5</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Headline</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="service_headline5" value="{{ other_services.service_headline5 }}" />
+            </div>
+         </div>
+			<div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="service5">{{ other_services.service5 }}</textarea>
+               <p class="help-block">Leave text and headline blank to remove this optional service section.</p>
+            </div>
+         </div>
+         {% if other_services.pic5 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic5" /> Delete current pic <small> - {{ other_services.pic5 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <p class="help-block">Default pic will be used if one is not uploaded</p>
+               <input type="file" name="pic5">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Other Services 5-->
+
+<div class="form-group">
+	<div class="col-md-9 col-md-offset-2">
+		<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i> Save All</button>
+	</div>
+</div>
+</form>
+                   
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+{% endblock %}

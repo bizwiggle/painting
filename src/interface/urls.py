@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^commercial/$', views.interface_comercial, name='admin_comercial'),
     url(r'^other-services/$', views.interface_other_services, name='admin_other_services'),
     url(r'^why-us/$', views.interface_why_us, name='admin_why_us'),
+    url(r'^social/$', views.interface_social, name='admin_social'),
     url(r'^testimonials/$', views.interface_success_stories, name='admin_success_stories'),
     url(r'^login/$', views.interface_login, name='admin_login'),
 )

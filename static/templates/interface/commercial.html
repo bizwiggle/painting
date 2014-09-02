@@ -1,28 +1,28 @@
 {% extends "interface/base.html" %}
 
 {% block header-breadcrumb %}
-<h1 class="page-heading">Residential Service</h1>
+<h1 class="page-heading">Commercial Service</h1>
                    
 <!-- Begin breadcrumb -->
 <ol class="breadcrumb default square rsaquo sm">
 	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
-   <li class="active">Residential Service</li>
+   <li class="active">Commercial Service</li>
 </ol>
 <!-- End breadcrumb -->
 {% endblock %}
 
 {% block content %}
-<form id="ServicesForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+<form id="CommercialServicesForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
 {% csrf_token %}
 
-<!-- Residential Service 1 -->
+<!-- Other Services Options -->
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
 	<div class="panel panel-danger">
 		<div class="panel-heading">
 			<h3 class="panel-title">
 				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-4">
-					Residential Service Page Options
+					Commercial Service Page Options
 					<span class="right-content">
 						<span class="right-icon">
 							<i class="glyphicon glyphicon-minus icon-collapse"></i>
@@ -34,10 +34,10 @@
 	<div id="panel-collapse-4" class="collapse in">
 		<div class="panel-body">
 		<label class="radio-inline">
-  			<input type="radio" name="has_residential" value="on" {% if has_residential_page %} checked {% endif %}> Turn Page On
+  			<input type="radio" name="has_comercial" value="on" {% if has_comercial_page %} checked {% endif %}> Turn Page On
 		</label>
 		<label class="radio-inline">
-  		<input type="radio" name="has_residential" value="off" {% if not has_residential_page %} checked {% endif %}> Turn Page Off
+  		<input type="radio" name="has_comercial" value="off" {% if not has_comercial_page %} checked {% endif %}> Turn Page Off
 </label>
 
 		</div><!-- /.panel-body -->
@@ -45,16 +45,16 @@
 	</div><!-- /.panel panel-primary -->
 </div><!-- /.col-sm-12 -->
 </div>
-<!-- end Residential Service Options-->
+<!-- end Commercial Service Options-->
 
-<!-- Residential Service 1 -->
+<!-- Commercial Service 1 -->
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
 	<div class="panel panel-success">
 		<div class="panel-heading">
 			<h3 class="panel-title">
 				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
-					Residential Service Paragraph 1
+					Commercial Service Paragraph 1
 					<span class="right-content">
 						<span class="right-icon">
 							<i class="glyphicon glyphicon-minus icon-collapse"></i>
@@ -66,25 +66,25 @@
 	<div id="panel-collapse-1" class="collapse in">
 		<div class="panel-body">
 			<fieldset>
-			<legend>Residential Service Paragraph 1</legend>
+			<legend>Commercial Service Paragraph 1</legend>
          <div class="form-group">
             <label class="col-md-2 control-label">Headline</label>
             <div class="col-md-9">
-               <input type="text" class="form-control" name="paragraph_headline1" value="{{ residential_service.paragraph_headline1 }}" />
+               <input type="text" class="form-control" name="paragraph_headline1" value="{{ comercial_service.paragraph_headline1 }}" />
             </div>
          </div>
 			<div class="form-group">
             <label class="col-md-2 control-label">Text</label>
             <div class="col-md-9">
-               <textarea class="form-control" rows="4" name="paragraph1">{{ residential_service.paragraph1 }}</textarea>
-               <p class="help-block">Leave text blank to remove residential services section.</p>
+               <textarea class="form-control" rows="4" name="paragraph1">{{ comercial_service.paragraph1 }}</textarea>
+               <p class="help-block">Leave text and headline blank to remove this commercial service section.</p>
             </div>
          </div>
-         {% if residential_service.pic1 %}
+         {% if comercial_service.pic1 %}
             <div class="form-group">
                <div class="col-md-7 col-md-offset-2">
                   <div class="checkbox">
-                     <input type="checkbox" name="delete_pic1" /> Delete current pic <small> - {{ residential_service.pic1 }}</small>
+                     <input type="checkbox" name="delete_pic1" /> Delete current pic <small> - {{ comercial_service.pic1 }}</small>
                   </div>
                </div>
             </div>
@@ -103,16 +103,16 @@
 	</div><!-- /.panel panel-primary -->
 </div><!-- /.col-sm-12 -->
 </div>
-<!-- end Residential Service 1-->
+<!-- end Commercial Service 1-->
 
-<!-- Residential Service 2 -->
+<!-- Commercial Service 2 -->
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
 	<div class="panel panel-info">
 		<div class="panel-heading">
 			<h3 class="panel-title">
 				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-2">
-					Residential Service Paragraph 2
+					Commercial Service Paragraph 2
 					<span class="right-content">
 						<span class="right-icon">
 							<i class="glyphicon glyphicon-plus icon-collapse"></i>
@@ -124,25 +124,25 @@
 	<div id="panel-collapse-2" class="collapse">
 		<div class="panel-body">
 			<fieldset>
-			<legend>Residential Service Paragraph 2</legend>
+			<legend>Commercial Service Paragraph 2</legend>
          <div class="form-group">
             <label class="col-md-2 control-label">Headline</label>
             <div class="col-md-9">
-               <input type="text" class="form-control" name="paragraph_headline2" value="{{ residential_service.paragraph_headline2 }}" />
+               <input type="text" class="form-control" name="paragraph_headline2" value="{{ comercial_service.paragraph_headline2 }}" />
             </div>
          </div>
 			<div class="form-group">
             <label class="col-md-2 control-label">Text</label>
             <div class="col-md-9">
-               <textarea class="form-control" rows="4" name="paragraph2">{{ residential_service.paragraph2 }}</textarea>
-               <p class="help-block">Leave text blank to remove residential services section.</p>
+               <textarea class="form-control" rows="4" name="paragraph2">{{ comercial_service.paragraph2 }}</textarea>
+               <p class="help-block">Leave text and headline blank to remove this commercial service section.</p>
             </div>
          </div>
-         {% if residential_service.pic2 %}
+         {% if comercial_service.pic2 %}
             <div class="form-group">
                <div class="col-md-7 col-md-offset-2">
                   <div class="checkbox">
-                     <input type="checkbox" name="delete_pic2" /> Delete current pic <small> - {{ residential_service.pic2 }}</small>
+                     <input type="checkbox" name="delete_pic2" /> Delete current pic <small> - {{ comercial_service.pic2 }}</small>
                   </div>
                </div>
             </div>
@@ -163,14 +163,14 @@
 </div>
 <!-- end Residential Service 2-->
 
-<!-- Residential Service 3 -->
+<!-- Commercial Service 3 -->
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
 	<div class="panel panel-warning">
 		<div class="panel-heading">
 			<h3 class="panel-title">
 				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-3">
-					Residential Service Paragraph 3
+					Commercial Service Paragraph 3
 					<span class="right-content">
 						<span class="right-icon">
 							<i class="glyphicon glyphicon-plus icon-collapse"></i>
@@ -182,25 +182,25 @@
 	<div id="panel-collapse-3" class="collapse">
 		<div class="panel-body">
 			<fieldset>
-			<legend>Residential Service Paragraph 3</legend>
+			<legend>Commercial Service Paragraph 3</legend>
          <div class="form-group">
             <label class="col-md-2 control-label">Headline</label>
             <div class="col-md-9">
-               <input type="text" class="form-control" name="paragraph_headline3" value="{{ residential_service.paragraph_headline3 }}" />
+               <input type="text" class="form-control" name="paragraph_headline3" value="{{ comercial_service.paragraph_headline3 }}" />
             </div>
          </div>
 			<div class="form-group">
             <label class="col-md-2 control-label">Text</label>
             <div class="col-md-9">
-               <textarea class="form-control" rows="4" name="paragraph3">{{ residential_service.paragraph3 }}</textarea>
-               <p class="help-block">Leave text blank to remove residential services section.</p>
+               <textarea class="form-control" rows="4" name="paragraph3">{{ comercial_service.paragraph3 }}</textarea>
+               <p class="help-block">Leave text and headline blank to remove this commercial service section.</p>
             </div>
          </div>
-         {% if residential_service.pic3 %}
+         {% if comercial_service.pic3 %}
             <div class="form-group">
                <div class="col-md-7 col-md-offset-2">
                   <div class="checkbox">
-                     <input type="checkbox" name="delete_pic3" /> Delete current pic <small> - {{ residential_service.pic3 }}</small>
+                     <input type="checkbox" name="delete_pic3" /> Delete current pic <small> - {{ comercial_service.pic3 }}</small>
                   </div>
                </div>
             </div>
@@ -219,7 +219,7 @@
 	</div><!-- /.panel panel-primary -->
 </div><!-- /.col-sm-12 -->
 </div>
-<!-- end Residential Service 3-->
+<!-- end Commercial Service 3-->
 
 <div class="form-group">
 	<div class="col-md-9 col-md-offset-2">

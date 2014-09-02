@@ -1,14 +1,18 @@
 #for testing only
 from django.http import HttpResponse, Http404
 
+from string import Template
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import get_current_site
 from django.contrib import messages
+from django.contrib.sites.models import Site
 
 from pages.models import (Why_Us, Success_Stories, About, Services, Residential_Service,
-                          General_Info) 
+    Comercial_Service, Other_Services, General_Info
+) 
 
 from interface.models import Progress 
 from interface.user_messages import *
@@ -31,6 +35,8 @@ def interface_index(request):
 
 @login_required
 def interface_about(request):
+    PAGE_NAME = "About" 
+
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
@@ -72,12 +78,12 @@ def interface_about(request):
             progress.save()
 
             use_help_message = False
-            messages.success(request, "Your 'About' has successfully been updated.")
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
         except:
             messages.warning(request, SAVE_EXCEPTION)
    
     context = { 
-         'page_title':'Sitename Dashboard',
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
          'page_description':'Enter page descrption here',
          'active_page':'admin_about',
          'use_help_message':use_help_message,
@@ -88,7 +94,58 @@ def interface_about(request):
     return render(request, 'interface/about.html', context)
 
 @login_required
+def interface_social(request):
+    PAGE_NAME = "Social Links" 
+
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    try:
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    if general_info.user != user or progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            general_info.facebook_URL = request.POST.get('facebook_url', '')
+            general_info.linkedin_URL = request.POST.get('linkedin_url', '')
+            general_info.google_plus_URL = request.POST.get('google_plus_url', '')
+            general_info.twitter_URL = request.POST.get('twitter_url', '')
+            general_info.tumblr_URL = request.POST.get('tumblr_url', '')
+            general_info.pintrest_URL = request.POST.get('pinterest_url', '')
+            general_info.save()
+            
+            progress.has_social = True
+            progress.save()
+
+            use_help_message = False
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_social',
+         'use_help_message':use_help_message,
+         'help_message':SOCIAL_HELP_MESSAGE,
+         'general_info':general_info,
+         'progress':progress,
+    }  
+    return render(request, 'interface/social.html', context)
+
+@login_required
 def interface_why_us(request):
+    PAGE_NAME="Why Us"
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
@@ -151,12 +208,12 @@ def interface_why_us(request):
             progress.save()
 
             use_help_message = False
-            messages.success(request, "Your 'Why Us' has successfully been updated.")
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
         except:
             messages.warning(request, SAVE_EXCEPTION)
    
     context = { 
-         'page_title':'Sitename Dashboard',
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
          'page_description':'Enter page descrption here',
          'active_page':'admin_why_us',
          'use_help_message':use_help_message,
@@ -168,6 +225,7 @@ def interface_why_us(request):
 
 @login_required
 def interface_services(request):
+    PAGE_NAME = "Services Overview"
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
@@ -235,12 +293,12 @@ def interface_services(request):
             progress.save()
 
             use_help_message = False
-            messages.success(request, "Your 'Services' have successfully been updated.")
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
         except:
             messages.warning(request, SAVE_EXCEPTION)
    
     context = { 
-         'page_title':'Site Admin Services',
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
          'page_description':'Enter page descrption here',
          'active_page':'admin_services',
          'use_help_message':use_help_message,
@@ -252,6 +310,8 @@ def interface_services(request):
 
 @login_required
 def interface_residential(request):
+    PAGE_NAME = "Residential Service" 
+
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
@@ -263,7 +323,6 @@ def interface_residential(request):
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
         residential_service = Residential_Service.objects.get(site__id__exact=get_current_site(request).id)
         general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
-        pass
     except:
         raise Http404
 
@@ -275,7 +334,6 @@ def interface_residential(request):
     use_help_message = True 
     if request.POST:
         try:
-            # need to fix with a switch
             if request.POST.get('has_residential') == 'on':
                 general_info.has_residential_page = True 
             else:
@@ -291,16 +349,16 @@ def interface_residential(request):
             residential_service.paragraph_headline2 = request.POST.get('paragraph_headline2', '')
             residential_service.paragraph2 = request.POST.get('paragraph2', '')
             if request.POST.get('delete_pic2'):
-                residential_service.pic1.delete(save=False)
+                residential_service.pic2.delete(save=False)
             if request.FILES.get('pic2'):
-                residential_service.pic1 = request.FILES.get('pic2')
+                residential_service.pic2 = request.FILES.get('pic2')
             
-            residential_service.paragraph_headline1 = request.POST.get('paragraph_headline3', '')
-            residential_service.paragraph1 = request.POST.get('paragraph3', '')
+            residential_service.paragraph_headline3 = request.POST.get('paragraph_headline3', '')
+            residential_service.paragraph3 = request.POST.get('paragraph3', '')
             if request.POST.get('delete_pic3'):
-                residential_service.pic1.delete(save=False)
+                residential_service.pic3.delete(save=False)
             if request.FILES.get('pic3'):
-                residential_service.pic1 = request.FILES.get('pic3')
+                residential_service.pic3 = request.FILES.get('pic3')
             
             general_info.save()
             residential_service.save()            
@@ -308,12 +366,12 @@ def interface_residential(request):
             progress.save()
 
             use_help_message = False
-            messages.success(request, "Your 'Residential Services' have successfully been updated.")
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
         except:
             messages.warning(request, SAVE_EXCEPTION)
    
     context = { 
-         'page_title':'Site Admin Residential Services',
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
          'page_description':'Enter page descrption here',
          'active_page':'admin_residential',
          'use_help_message':use_help_message,
@@ -326,14 +384,170 @@ def interface_residential(request):
 
 @login_required
 def interface_comercial(request):
-    return HttpResponse('This is the admin commercial page')
+    PAGE_NAME = "Commercial Services"
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    # Retrieve Data
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        comercial_service = Comercial_Service.objects.get(site__id__exact=get_current_site(request).id)
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    # Check User belongs to this site
+    if comercial_service.user != user or progress.user != user or general_info.user != user:
+        # add message
+        return redirect('admin_login')
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            if request.POST.get('has_comercial') == 'on':
+                general_info.has_comercial_page = True 
+            else:
+                general_info.has_comercial_page = False 
+            comercial_service.paragraph_headline1 = request.POST.get('paragraph_headline1', '')
+            comercial_service.paragraph1 = request.POST.get('paragraph1', '')
+            if request.POST.get('delete_pic1'):
+                comercial_service.pic1.delete(save=False)
+            if request.FILES.get('pic1'):
+                comercial_service.pic1 = request.FILES.get('pic1')
+            
+            comercial_service.paragraph_headline2 = request.POST.get('paragraph_headline2', '')
+            comercial_service.paragraph2 = request.POST.get('paragraph2', '')
+            if request.POST.get('delete_pic2'):
+                comercial_service.pic2.delete(save=False)
+            if request.FILES.get('pic2'):
+                comercial_service.pic2= request.FILES.get('pic2')
+            
+            comercial_service.paragraph_headline3 = request.POST.get('paragraph_headline3', '')
+            comercial_service.paragraph3 = request.POST.get('paragraph3', '')
+            if request.POST.get('delete_pic3'):
+                comercial_service.pic3.delete(save=False)
+            if request.FILES.get('pic3'):
+                comercial_service.pic3 = request.FILES.get('pic3')
+            
+            general_info.save()
+            comercial_service.save()            
+            
+            progress.has_comercial_services = True
+            progress.save()
+
+            use_help_message = False
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_comercial',
+         'use_help_message':use_help_message,
+         'help_message':COMERCIAL_HELP_MESSAGE,
+         'comercial_service':comercial_service,
+         'progress':progress,
+         'has_comercial_page':general_info.has_comercial_page,
+    }  
+    return render(request, 'interface/commercial.html', context)
 
 @login_required
 def interface_other_services(request):
-    return HttpResponse('This is the admin other services page')
+    PAGE_NAME = "Other Services"
+
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    # Retrieve Data
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        other_services = Other_Services.objects.get(site__id__exact=get_current_site(request).id)
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    # Check User belongs to this site
+    if other_services.user != user or progress.user != user or general_info.user != user:
+        # add message
+        return redirect('admin_login')
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            if request.POST.get('has_other_services') == 'on':
+                general_info.has_other_services_page = True 
+            else:
+                general_info.has_other_services_page = False 
+    
+            other_services.service_headline1 = request.POST.get('service_headline1', '')
+            other_services.service1 = request.POST.get('service1', '')
+            if request.POST.get('delete_pic1'):
+                other_services.pic1.delete(save=False)
+            if request.FILES.get('pic1'):
+                other_services.pic1 = request.FILES.get('pic1')
+            
+            other_services.service_headline2 = request.POST.get('service_headline2', '')
+            other_services.service2 = request.POST.get('service2', '')
+            if request.POST.get('delete_pic2'):
+                other_services.pic1.delete(save=False)
+            if request.FILES.get('pic2'):
+                other_services.pic1 = request.FILES.get('pic2')
+            
+            other_services.service_headline3 = request.POST.get('service_headline3', '')
+            other_services.service3 = request.POST.get('service3', '')
+            if request.POST.get('delete_pic3'):
+                other_services.pic3.delete(save=False)
+            if request.FILES.get('pic3'):
+                other_services.pic3 = request.FILES.get('pic3')
+            
+            other_services.service_headline4 = request.POST.get('service_headline4', '')
+            other_services.service4 = request.POST.get('service4', '')
+            if request.POST.get('delete_pic4'):
+                other_services.pic4.delete(save=False)
+            if request.FILES.get('pic4'):
+                other_services.pic1 = request.FILES.get('pic4')
+            
+            other_services.service_headline5 = request.POST.get('service_headline5', '')
+            other_services.service5 = request.POST.get('service5', '')
+            if request.POST.get('delete_pic5'):
+                other_services.pic5.delete(save=False)
+            if request.FILES.get('pic5'):
+                other_services.pic5 = request.FILES.get('pic5')
+            
+            general_info.save()
+            other_services.save()            
+            
+            progress.has_other_services = True
+            progress.save()
+
+            use_help_message = False
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_other',
+         'use_help_message':use_help_message,
+         'help_message':OTHER_HELP_MESSAGE,
+         'other_services':other_services,
+         'progress':progress,
+         'has_other_services_page':general_info.has_other_services_page,
+    }  
+    return render(request, 'interface/other.html', context)
+
 
 @login_required
 def interface_success_stories(request):
+    PAGE_NAME = "Testimonials"
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
@@ -372,12 +586,12 @@ def interface_success_stories(request):
             progress.save()
             
             use_help_message = False
-            messages.success(request, "Your 'Testimonials' have been successfully been updated.")
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
         except:
-            messages.warning(request, "A problem happened and it's not your fault!  A technical dificulty caused us to not be able to save your 'Testimonials'.  Please try again or contact Bizwiggle for help.")
+            messages.warning(request, SAVE_EXCEPTION)
    
     context = { 
-         'page_title':'Testimonial Admin',
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
          'page_description':'Enter page descrption here',
          'active_page':'admin_success_stories',
          'use_help_message':use_help_message,

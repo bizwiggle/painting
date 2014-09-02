@@ -19,7 +19,7 @@ class General_Info(models.Model):
     business_name = models.CharField('Business Name', max_length=64, default='Business Name', blank=True)
 
     has_residential_page = models.BooleanField('Has Residential Page', default=True)
-    has_comercial_page = models.BooleanField('Has Comercial Page', default=True)
+    has_comercial_page = models.BooleanField('Has Commercial Page', default=True)
     has_other_services_page = models.BooleanField('Has Other Services Page', default=True)
 
     logo  = ProcessedImageField(upload_to=settings.SITE_NAME,
@@ -271,6 +271,7 @@ class Services(models.Model):
 
 
 class Residential_Service(models.Model):
+    PAGE_NAME = "Residential Service"
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     site = models.ForeignKey(Site)
 

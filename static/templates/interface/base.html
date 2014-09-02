@@ -216,7 +216,7 @@
 									{% endif %}
 								</a>
 							</li>
-							<li{% if active_page == 'admin_other_services' %} class="active selected"{% endif %}>
+							<li{% if active_page == 'admin_other' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_other_services' %}">
 									Other Services
 									{% if not progress.has_other_services %}
@@ -253,9 +253,15 @@
 							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
 							Other Site Info
 							</a>
-						<ul class="submenu{% if active_page == 'admin_success_stories' or active_page == 'admin_social_links' %} visible{% endif %}">
+						<ul class="submenu{% if active_page == 'admin_success_stories' or active_page == 'admin_social' %} visible{% endif %}">
 							<li><a href="">SEO Tools</a></li>
-							<li><a href="">Social Links</a></li>
+							<li {% if active_page == 'admin_social' %} class="active selected"{% endif %}>
+								<a href="{% url 'admin_social' %}">Social Links
+                           {% if not progress.has_social %}
+										<span class="label label-success span-sidebar">Optional</span>
+									{% endif %}
+								</a>
+							</li>
 							<li {% if active_page == 'admin_success_stories' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_success_stories' %}">
 									Testimonials
