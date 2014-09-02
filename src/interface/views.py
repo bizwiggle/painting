@@ -36,23 +36,20 @@ def interface_index(request):
 @login_required
 def interface_about(request):
     PAGE_NAME = "About" 
-
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
 	     # should redirect to billing page 
         return redirect('admin_login')
 
-    # Retrieve Data
     try:
         about = About.objects.get(site__id__exact=get_current_site(request).id)
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
 
-    # Check User belongs to this site
     if about.user != user or progress.user != user:
-        # add message
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
     use_help_message = True 
@@ -152,16 +149,14 @@ def interface_why_us(request):
 	     # should redirect to billing page 
         return redirect('admin_login')
 
-    # Retrieve Data
     try:
         why_us = Why_Us.objects.get(site__id__exact=get_current_site(request).id)
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
 
-    # Check User belongs to this site
     if why_us.user != user or progress.user != user:
-        # add message
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
     use_help_message = True 
@@ -232,16 +227,14 @@ def interface_services(request):
 	     # should redirect to billing page 
         return redirect('admin_login')
 
-    # Retrieve Data
     try:
         services = Services.objects.get(site__id__exact=get_current_site(request).id)
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
 
-    # Check User belongs to this site
     if services.user != user or progress.user != user:
-        # add message
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
     use_help_message = True 
@@ -318,7 +311,6 @@ def interface_residential(request):
 	     # should redirect to billing page 
         return redirect('admin_login')
 
-    # Retrieve Data
     try:
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
         residential_service = Residential_Service.objects.get(site__id__exact=get_current_site(request).id)
@@ -326,9 +318,8 @@ def interface_residential(request):
     except:
         raise Http404
 
-    # Check User belongs to this site
     if residential_service.user != user or progress.user != user or general_info.user != user:
-        # add message
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
     use_help_message = True 
@@ -391,7 +382,6 @@ def interface_comercial(request):
 	     # should redirect to billing page 
         return redirect('admin_login')
 
-    # Retrieve Data
     try:
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
         comercial_service = Comercial_Service.objects.get(site__id__exact=get_current_site(request).id)
@@ -399,9 +389,8 @@ def interface_comercial(request):
     except:
         raise Http404
 
-    # Check User belongs to this site
     if comercial_service.user != user or progress.user != user or general_info.user != user:
-        # add message
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
     use_help_message = True 
@@ -465,7 +454,6 @@ def interface_other_services(request):
 	     # should redirect to billing page 
         return redirect('admin_login')
 
-    # Retrieve Data
     try:
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
         other_services = Other_Services.objects.get(site__id__exact=get_current_site(request).id)
@@ -473,9 +461,8 @@ def interface_other_services(request):
     except:
         raise Http404
 
-    # Check User belongs to this site
     if other_services.user != user or progress.user != user or general_info.user != user:
-        # add message
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
     use_help_message = True 
@@ -544,6 +531,46 @@ def interface_other_services(request):
     }  
     return render(request, 'interface/other.html', context)
 
+@login_required
+def interface_add_person(request):
+    PAGE_NAME = "Add Person"
+
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    if progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            
+            use_help_message = False
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_add_person',
+         'use_help_message':use_help_message,
+         'help_message':ADD_PERSON_HELP_MESSAGE,
+         'progress':progress,
+    }  
+    return render(request, 'interface/add_person.html', context)
+
+def interface_edit_peoople(request):
+    return HttpResponse('This is the edit people page')
 
 @login_required
 def interface_success_stories(request):
@@ -554,16 +581,14 @@ def interface_success_stories(request):
 	     # return redirect
         return redirect('admin_login')
 
-    # Retrieve Data
     try:
         success_stories = Success_Stories.objects.get(site__id__exact=get_current_site(request).id)
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
     
-    # Check User belongs to this site
-    if success_stories.user != user or progress.user != user:
-        # add message
+   if success_stories.user != user or progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
     use_help_message = True 

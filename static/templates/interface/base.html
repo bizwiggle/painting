@@ -243,9 +243,13 @@
 							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
 							Our People
 							</a>
-						<ul class="submenu">
-							<li><a href="#">Add New Person</a></li>
-							<li><a href="#">Edit Our People</a></li>
+						<ul class="submenu{% if active_page == 'admin_add_person' or active_page == 'admin_our_people' %} visible{% endif %}" >
+							<li{% if active_page == 'admin_add_person' %} class="active selected"{% endif %}>
+								<a href="{% url 'admin_add_person' %}">Add New Person</a>
+							</li>
+							<li{% if active_page == 'admin_our_people' %} class="active selected"{% endif %}>
+								<a href="{% url 'admin_our_people' %}">Edit Our People</a>
+							</li>
 						</ul>
 					<li>
 						<a href="#fakelink">
