@@ -3,6 +3,7 @@
 
 # VI Swap Files
 *.swp
+*.swo
 
 # Test Database Files
 *.sqlite3

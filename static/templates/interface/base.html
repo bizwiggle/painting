@@ -8,7 +8,7 @@
 		<title>{{ page_title }}</title>
  
 		<!-- BOOTSTRAP CSS (REQUIRED ALL PAGE)-->
-		<link href="/static/css/interface/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/css/interface/interface-bootstrap.min.css" rel="stylesheet">
 
  		<!-- PLUGINS CSS -->
      
@@ -17,8 +17,8 @@
 		
 		<!-- MAIN CSS (REQUIRED ALL PAGE)-->
 		<link href="/static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-		<link href="/static/css/interface/style.css" rel="stylesheet">
-		<link href="/static/css/interface/style-responsive.css" rel="stylesheet">
+		<link href="/static/css/interface/interface-style.css" rel="stylesheet">
+		<link href="/static/css/interface/interface-style-responsive.css" rel="stylesheet">
 
       {% block extra_css %}{% endblock %}
  
@@ -237,20 +237,12 @@
 							<li><a href="#">Edit Portfolio</a></li>
 						</ul>
 					</li>
-					<li>
-						<a href="#fakelink">
+					<li {% if active_page == 'admin_our_people' %} class="active selected"{% endif %}>
+						<a href="{% url 'admin_our_people' %}">
 							<i class="fa fa-group icon-sidebar"></i>
-							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
 							Our People
-							</a>
-						<ul class="submenu{% if active_page == 'admin_add_person' or active_page == 'admin_our_people' %} visible{% endif %}" >
-							<li{% if active_page == 'admin_add_person' %} class="active selected"{% endif %}>
-								<a href="{% url 'admin_add_person' %}">Add New Person</a>
-							</li>
-							<li{% if active_page == 'admin_our_people' %} class="active selected"{% endif %}>
-								<a href="{% url 'admin_our_people' %}">Edit Our People</a>
-							</li>
-						</ul>
+						</a>
+					</li>
 					<li>
 						<a href="#fakelink">
 							<i class="fa fa-folder-open icon-sidebar"></i>

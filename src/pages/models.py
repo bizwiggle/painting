@@ -528,8 +528,10 @@ class About(models.Model):
 class Our_People(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     site = models.ForeignKey(Site)
-   
-    headline = models.CharField('Headline', max_length=48, blank=True)
+
+    name = models.CharField('Name', max_length=48, blank=True)
+    person_title = models.CharField('Title', max_length=48, blank=True)
+       
     text = models.CharField('Text', max_length=256, blank=True)
 
     pic  = ProcessedImageField(upload_to=settings.SITE_NAME,
@@ -542,4 +544,4 @@ class Our_People(models.Model):
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
-        return ' - '.join([unicode(self.site), 'About', self.headline])
+        return ' - '.join([unicode(self.site), 'Our People', self.name])

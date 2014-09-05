@@ -100,7 +100,7 @@ $(window).load(function() {
       </figure>
       {% endif %}
       <div class="caption">
-         <h4>{{ person.headline }}</h4>
+         <h4>{{ person.name }}{% if person.person_title %} - {{ person.person_title }} {% endif %}</h4>
          <p>
          {{ person.text }}
          </p>

@@ -1,0 +1,194 @@
+{% extends "interface/base.html" %}
+
+{% block extra_css %}
+<link href="/static/plugins/datatable/css/bootstrap.datatable.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">Our People</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">Our People</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+
+{% if people_maxed %}
+<div class="row">
+	<div class="col-md-12">
+   	<div class="alert alert-success alert-bold-border square fade in alert-dismissable">
+      	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+         <p>
+				To help with the user experience on your webpage, we only allow {{ MAX_NUM_PEOPLE }} people in the our people section.  
+         	If you need more for your staff.  Combine employees into groups such as painters and sales staff.
+			</p>
+			<p>
+				You will need to remove an employee from the list to add another one.
+			</p>
+		</div>     
+	</div>
+</div>
+
+{% else %}
+<!-- Add to Our People -->
+<form id="AddPersonForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+ 			<h3 class="panel-title">
+            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-{{ MAX_NUM_PEOPLE|add:'1' }}">
+               Add Person
+               <span class="right-content">
+                  <span class="right-icon">
+                     <i class="glyphicon glyphicon-minus icon-collapse"></i>
+                  </span>
+               </span>
+            </a>
+         </h3>		
+		</div>
+	<div id="panel-collapse-{{ MAX_NUM_PEOPLE|add:'1' }}" class="collapse in">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Add To Our People</legend>
+               <p class="help-block">Max People on page = {{ MAX_NUM_PEOPLE }}</p>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Name</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="add_name" />
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Job Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="add_person_title" />
+            </div>
+         </div>
+			<div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="add_text"></textarea>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-6">
+               <input type="file" name="add_pic">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+				<div class="col-md-3">
+					<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-plus"></i>Add Person</button>
+				</div>
+         </div>
+         </fieldset> 
+			</form>
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+</form>
+{% endif %}
+
+
+{% for person in our_people %}
+<form id="EditPeopleForm-{{ forloop.counter }}" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+   <div class="panel 
+      {% if forloop.counter == 1 or forloop.counter == 6 %}
+      	panel-info
+      {% elif forloop.counter == 2 or forloop.counter == 7 %}
+      	panel-warning
+      {% elif forloop.counter == 3 or forloop.counter == 8 %}
+         panel-danger
+      {% elif forloop.counter == 4 or forloop.counter == 9 %}
+      	panel-primary
+      {% else %}
+      	panel-success
+      {% endif %}
+      ">
+      <div class="panel-heading">
+         <h3 class="panel-title">
+            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-{{ forloop.counter }}">
+               Person {{ forloop.counter }} - {{ person.name }}
+               <span class="right-content">
+                  <span class="right-icon">
+                     <i class="glyphicon glyphicon-plus icon-collapse"></i>
+                  </span>
+               </span>
+            </a>
+         </h3>
+      </div>
+   <div id="panel-collapse-{{ forloop.counter }}" class="collapse">
+      <div class="panel-body">
+			<input type="hidden" name="id" value="{{ person.id }}">
+         <fieldset>
+         <legend>Person {{ forloop.counter }} - {{ person.name }}</legend>
+          <div class="form-group">
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-1">
+                  <div class="checkbox">
+                     <input type="checkbox" name="remove_person" /> Remove this person 
+                  </div>
+               </div>
+            </div>
+            <label class="col-md-2 control-label">Name</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="name" value="{{ person.name }}" />
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Job Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="person_title" value="{{ person.person_title }}" />
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="text">{{ person.text }}</textarea>
+            </div>
+         </div>
+		{% if person.pic %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic" /> Delete current pic <small> - {{ person.pic }}</small>
+                  </div>
+               </div>
+            </div>
+       {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-6">
+               <input type="file" name="pic">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+            <div class="col-md-3">
+               <button type="submit" class="btn btn-info btn-lg"><i class="fa fa-plus"></i>Edit Person</button>
+            </div>
+         </div>
+         </fieldset>
+      </div><!-- /.panel-body -->
+   </div><!-- /.collapse in -->
+   </div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+</form>
+{% endfor %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+{% endblock %}

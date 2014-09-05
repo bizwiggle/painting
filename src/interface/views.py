@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.contrib.sites.models import Site
 
 from pages.models import (Why_Us, Success_Stories, About, Services, Residential_Service,
-    Comercial_Service, Other_Services, General_Info
+    Comercial_Service, Other_Services, General_Info, Our_People
 ) 
 
 from interface.models import Progress 
@@ -532,8 +532,9 @@ def interface_other_services(request):
     return render(request, 'interface/other.html', context)
 
 @login_required
-def interface_add_person(request):
-    PAGE_NAME = "Add Person"
+def interface_our_people(request):
+    PAGE_NAME = "Our People"
+    MAX_NUM_PEOPLE = 10
 
     user = request.user
     if not user.is_active:
@@ -543,34 +544,69 @@ def interface_add_person(request):
 
     try:
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        our_people = Our_People.objects.filter(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
 
     if progress.user != user:
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
-
+    
+    num_people = len(our_people) 
     use_help_message = True 
     if request.POST:
         try:
-            
+            if request.POST.get('add_name') != None and request.POST.get('add_name', '') != '': 
+                if (num_people + 1) > MAX_NUM_PEOPLE:
+                    raise Exception()
+                person = Our_People(user = user,
+                                    site = Site.objects.get_current(),
+                                    name = request.POST.get('add_name', ''),
+                                    person_title = request.POST.get('add_person_title', ''),
+                                    text = request.POST.get('add_text', ''),
+			 	    )
+                if request.FILES.get('add_pic'):
+                    person.pic = request.FILES.get('add_pic')  
+                person.save()
+                num_people += 1
+            else:
+                person = Our_People.objects.get(id__exact= int(request.POST.get('id', '') ))
+                person.name = request.POST.get('name', '')
+                person.person_title =  request.POST.get('person_title', '')
+                person.text =  request.POST.get('text', '')
+                if request.POST.get('delete_pic'):
+                    other_services.pic5.delete(save=False)
+                if request.FILES.get('pic'):
+                    other_services.pic5 = request.FILES.get('pic')
+                if request.POST.get('remove_person'):
+                    person.delete()
+                else:
+                    person.save()
+
             use_help_message = False
-            messages.success(request, PAGE_UPDATED_TEMPLATE)
+            
+            if request.POST.get('add_name', '') != '':
+                success_msg = Template(PERSON_ADDED_TEMPLATE).substitute(name=request.POST.get('add_name'))
+            else:
+                success_msg = PAGE_UPDATED_TEMPLATE
+            messages.success(request, success_msg)
+
+            our_people = Our_People.objects.filter(site__id__exact=get_current_site(request).id)
         except:
-            messages.warning(request, SAVE_EXCEPTION)
-   
+		      messages.warning(request, SAVE_EXCEPTION)
+
     context = { 
          'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
          'page_description':'Enter page descrption here',
-         'active_page':'admin_add_person',
+         'active_page':'admin_our_people',
+         'people_maxed':num_people >= MAX_NUM_PEOPLE,
          'use_help_message':use_help_message,
+         'MAX_NUM_PEOPLE':MAX_NUM_PEOPLE,
          'help_message':ADD_PERSON_HELP_MESSAGE,
          'progress':progress,
+         'our_people':our_people,
     }  
-    return render(request, 'interface/add_person.html', context)
-
-def interface_edit_peoople(request):
-    return HttpResponse('This is the edit people page')
+    return render(request, 'interface/our_people.html', context)
 
 @login_required
 def interface_success_stories(request):
@@ -587,7 +623,7 @@ def interface_success_stories(request):
     except:
         raise Http404
     
-   if success_stories.user != user or progress.user != user:
+    if success_stories.user != user or progress.user != user:
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
