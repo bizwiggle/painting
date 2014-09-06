@@ -85,31 +85,194 @@ $(window).load(function() {
 </div>	
 </div>
 
-
+{% if our_people.title1 or our_people.title2 or our_people.title3 or our_people.title4 or our_people.title5 or our_people.title6 or our_people.title7 or our_people.title8 or our_people.title9 or our_people.title10 %}
 <div class="row">
 <div class="span8">
 
 <h1 class="c1">Our People</h1> 
 
-{% for person in our_people %}
+{% if our_people.title1 %}
 <div class="thumb3">
    <div class="thumbnail clearfix">
-      {% if person.pic %}
+      {% if our_people.pic1 %}
       <figure class="img-polaroid">
-      	<img src="{{ MEDIA_URL }}{{ person.pic }}" alt="">
+      	<img src="{{ MEDIA_URL }}{{ our_people.pic1 }}" alt="Pic of {{ our_people.title1 }}">
       </figure>
       {% endif %}
       <div class="caption">
-         <h4>{{ person.name }}{% if person.person_title %} - {{ person.person_title }} {% endif %}</h4>
+         <h4>{{ our_people.title1 }}</h4>
          <p>
-         {{ person.text }}
+         {{ our_people.text1 }}
          </p>
       </div>
    </div>
 </div>
-{% endfor %}
+{% endif %}
    
+{% if our_people.title2 %}
+<div class="thumb3">
+   <div class="thumbnail clearfix">
+      {% if our_people.pic2 %}
+      <figure class="img-polaroid">
+      	<img src="{{ MEDIA_URL }}{{ our_people.pic2 }}" alt="Pic of {{ our_people.title2 }}">
+      </figure>
+      {% endif %}
+      <div class="caption">
+         <h4>{{ our_people.title2 }}</h4>
+         <p>
+         {{ our_people.text2 }}
+         </p>
+      </div>
+   </div>
+</div>
+{% endif %}
+   
+{% if our_people.title3 %}
+<div class="thumb3">
+   <div class="thumbnail clearfix">
+      {% if our_people.pic3 %}
+      <figure class="img-polaroid">
+      	<img src="{{ MEDIA_URL }}{{ our_people.pic3 }}" alt="Pic of {{ our_people.title3 }}">
+      </figure>
+      {% endif %}
+      <div class="caption">
+         <h4>{{ our_people.title3 }}</h4>
+         <p>
+         {{ our_people.text3 }}
+         </p>
+      </div>
+   </div>
+</div>
+{% endif %}
+   
+{% if our_people.title4 %}
+<div class="thumb3">
+   <div class="thumbnail clearfix">
+      {% if our_people.pic4 %}
+      <figure class="img-polaroid">
+      	<img src="{{ MEDIA_URL }}{{ our_people.pic4 }}" alt="Pic of {{ our_people.title4 }}">
+      </figure>
+      {% endif %}
+      <div class="caption">
+         <h4>{{ our_people.title4 }}</h4>
+         <p>
+         {{ our_people.text4 }}
+         </p>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% if our_people.title5 %}
+<div class="thumb3">
+   <div class="thumbnail clearfix">
+      {% if our_people.pic5 %}
+      <figure class="img-polaroid">
+      	<img src="{{ MEDIA_URL }}{{ our_people.pic5 }}" alt="Pic of {{ our_people.title5 }}">
+      </figure>
+      {% endif %}
+      <div class="caption">
+         <h4>{{ our_people.title5 }}</h4>
+         <p>
+         {{ our_people.text5 }}
+         </p>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% if our_people.title6 %}
+<div class="thumb3">
+   <div class="thumbnail clearfix">
+      {% if our_people.pic6 %}
+      <figure class="img-polaroid">
+      	<img src="{{ MEDIA_URL }}{{ our_people.pic6 }}" alt="Pic of {{ our_people.title6 }}">
+      </figure>
+      {% endif %}
+      <div class="caption">
+         <h4>{{ our_people.title6 }}</h4>
+         <p>
+         {{ our_people.text6 }}
+         </p>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% if our_people.title7 %}
+<div class="thumb3">
+   <div class="thumbnail clearfix">
+      {% if our_people.pic7 %}
+      <figure class="img-polaroid">
+      	<img src="{{ MEDIA_URL }}{{ our_people.pic7 }}" alt="Pic of {{ our_people.title7 }}">
+      </figure>
+      {% endif %}
+      <div class="caption">
+         <h4>{{ our_people.title7 }}</h4>
+         <p>
+         {{ our_people.text7 }}
+         </p>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% if our_people.title8 %}
+<div class="thumb3">
+   <div class="thumbnail clearfix">
+      {% if our_people.pic8 %}
+      <figure class="img-polaroid">
+      	<img src="{{ MEDIA_URL }}{{ our_people.pic8 }}" alt="Pic of {{ our_people.title8 }}">
+      </figure>
+      {% endif %}
+      <div class="caption">
+         <h4>{{ our_people.title8 }}</h4>
+         <p>
+         {{ our_people.text8 }}
+         </p>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% if our_people.title9 %}
+<div class="thumb3">
+   <div class="thumbnail clearfix">
+      {% if our_people.pic9 %}
+      <figure class="img-polaroid">
+      	<img src="{{ MEDIA_URL }}{{ our_people.pic9 }}" alt="Pic of {{ our_people.title9 }}">
+      </figure>
+      {% endif %}
+      <div class="caption">
+         <h4>{{ our_people.title9 }}</h4>
+         <p>
+         {{ our_people.text9 }}
+         </p>
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% if our_people.title10 %}
+<div class="thumb3">
+   <div class="thumbnail clearfix">
+      {% if our_people.pic10 %}
+      <figure class="img-polaroid">
+      	<img src="{{ MEDIA_URL }}{{ our_people.pic10 }}" alt="Pic of {{ our_people.title10 }}">
+      </figure>
+      {% endif %}
+      <div class="caption">
+         <h4>{{ our_people.title10 }}</h4>
+         <p>
+         {{ our_people.text10 }}
+         </p>
+      </div>
+   </div>
+</div>
+{% endif %}
+
 </div>   
+{% endif %}
 
 
 <div class="span4">

@@ -534,7 +534,6 @@ def interface_other_services(request):
 @login_required
 def interface_our_people(request):
     PAGE_NAME = "Our People"
-    MAX_NUM_PEOPLE = 10
 
     user = request.user
     if not user.is_active:
@@ -544,7 +543,7 @@ def interface_our_people(request):
 
     try:
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
-        our_people = Our_People.objects.filter(site__id__exact=get_current_site(request).id)
+        our_people = Our_People.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
 
@@ -552,46 +551,87 @@ def interface_our_people(request):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
     
-    num_people = len(our_people) 
     use_help_message = True 
     if request.POST:
         try:
-            if request.POST.get('add_name') != None and request.POST.get('add_name', '') != '': 
-                if (num_people + 1) > MAX_NUM_PEOPLE:
-                    raise Exception()
-                person = Our_People(user = user,
-                                    site = Site.objects.get_current(),
-                                    name = request.POST.get('add_name', ''),
-                                    person_title = request.POST.get('add_person_title', ''),
-                                    text = request.POST.get('add_text', ''),
-			 	    )
-                if request.FILES.get('add_pic'):
-                    person.pic = request.FILES.get('add_pic')  
-                person.save()
-                num_people += 1
-            else:
-                person = Our_People.objects.get(id__exact= int(request.POST.get('id', '') ))
-                person.name = request.POST.get('name', '')
-                person.person_title =  request.POST.get('person_title', '')
-                person.text =  request.POST.get('text', '')
-                if request.POST.get('delete_pic'):
-                    other_services.pic5.delete(save=False)
-                if request.FILES.get('pic'):
-                    other_services.pic5 = request.FILES.get('pic')
-                if request.POST.get('remove_person'):
-                    person.delete()
-                else:
-                    person.save()
+            our_people.title1 = request.POST.get('title1', '')
+            our_people.text1 = request.POST.get('text1', '')
+            if request.POST.get('delete_pic1'):
+                our_people.pic1.delete(save=False)
+            if request.FILES.get('pic1'):
+                our_people.pic1 = request.FILES.get('pic1')
+            
+            our_people.title2 = request.POST.get('title2', '')
+            our_people.text2= request.POST.get('text2', '')
+            if request.POST.get('delete_pic2'):
+                our_people.pic2.delete(save=False)
+            if request.FILES.get('pic2'):
+                our_people.pic2 = request.FILES.get('pic2')
+            
+            our_people.title3 = request.POST.get('title3', '')
+            our_people.text3 = request.POST.get('text3', '')
+            if request.POST.get('delete_pic3'):
+                our_people.pic3.delete(save=False)
+            if request.FILES.get('pic3'):
+                our_people.pic3 = request.FILES.get('pic3')
+            
+            our_people.title4 = request.POST.get('title4', '')
+            our_people.text4 = request.POST.get('text4', '')
+            if request.POST.get('delete_pic4'):
+                our_people.pic4.delete(save=False)
+            if request.FILES.get('pic4'):
+                our_people.pic4 = request.FILES.get('pic4')
+            
+            our_people.title5 = request.POST.get('title5', '')
+            our_people.text5 = request.POST.get('text5', '')
+            if request.POST.get('delete_pic5'):
+                our_people.pic5.delete(save=False)
+            if request.FILES.get('pic5'):
+                our_people.pic5 = request.FILES.get('pic5')
+            
+            our_people.title6 = request.POST.get('title6', '')
+            our_people.text6 = request.POST.get('text6', '')
+            if request.POST.get('delete_pic6'):
+                our_people.pic6.delete(save=False)
+            if request.FILES.get('pic6'):
+                our_people.pic6 = request.FILES.get('pic6')
+            
+            our_people.title7 = request.POST.get('title7', '')
+            our_people.text7 = request.POST.get('text7', '')
+            if request.POST.get('delete_pic7'):
+                our_people.pic7.delete(save=False)
+            if request.FILES.get('pic7'):
+                our_people.pic7 = request.FILES.get('pic7')
+            
+            our_people.title8 = request.POST.get('title8', '')
+            our_people.text8 = request.POST.get('text8', '')
+            if request.POST.get('delete_pic8'):
+                our_people.pic8.delete(save=False)
+            if request.FILES.get('pic8'):
+                our_people.pic8 = request.FILES.get('pic8')
+            
+            our_people.title9 = request.POST.get('title9', '')
+            our_people.text9 = request.POST.get('text9', '')
+            if request.POST.get('delete_pic9'):
+                our_people.pic9.delete(save=False)
+            if request.FILES.get('pic9'):
+                our_people.pic9 = request.FILES.get('pic9')
+            
+            our_people.title10 = request.POST.get('title10', '')
+            our_people.text10 = request.POST.get('text10', '')
+            if request.POST.get('delete_pic10'):
+                our_people.pic10.delete(save=False)
+            if request.FILES.get('pic10'):
+                our_people.pic10 = request.FILES.get('pic10')
+            
+            our_people.save()            
+            
+            progress.has_other_people = True
+            progress.save()
 
             use_help_message = False
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
             
-            if request.POST.get('add_name', '') != '':
-                success_msg = Template(PERSON_ADDED_TEMPLATE).substitute(name=request.POST.get('add_name'))
-            else:
-                success_msg = PAGE_UPDATED_TEMPLATE
-            messages.success(request, success_msg)
-
-            our_people = Our_People.objects.filter(site__id__exact=get_current_site(request).id)
         except:
 		      messages.warning(request, SAVE_EXCEPTION)
 
@@ -599,9 +639,7 @@ def interface_our_people(request):
          'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
          'page_description':'Enter page descrption here',
          'active_page':'admin_our_people',
-         'people_maxed':num_people >= MAX_NUM_PEOPLE,
          'use_help_message':use_help_message,
-         'MAX_NUM_PEOPLE':MAX_NUM_PEOPLE,
          'help_message':ADD_PERSON_HELP_MESSAGE,
          'progress':progress,
          'our_people':our_people,

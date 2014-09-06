@@ -144,7 +144,7 @@ def about(request):
         general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
         success_stories = Success_Stories.objects.get(site__id__exact=get_current_site(request).id)
         about  = About.objects.get(site__id__exact=get_current_site(request).id)
-        our_people = Our_People.objects.filter(site__id__exact=get_current_site(request).id)
+        our_people = Our_People.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
 

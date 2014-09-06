@@ -165,7 +165,7 @@
 							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
 							Main Pages
 						</a>
-						<ul class="submenu{% if active_page == 'admin_index' or active_page == 'admin_why_us' or active_page == 'admin_about' %} visible{% endif %}">
+						<ul class="submenu{% if active_page == 'admin_index' or active_page == 'admin_why_us' or active_page == 'admin_about' or active_page == 'admin_our_people' %} visible{% endif %}">
 							<li><a href="{% url 'admin_index' %}">Index</a></li>
 							<li{% if active_page == 'admin_why_us' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_why_us' %}">
@@ -180,6 +180,14 @@
 									About
                            {% if not progress.has_about %}
 										<span class="label label-warning span-sidebar">Needed</span>
+									{% endif %}
+								</a>
+							</li>
+					   	<li {% if active_page == 'admin_our_people' %} class="active selected"{% endif %}>
+								<a href="{% url 'admin_our_people' %}">
+									Our People
+                           {% if not progress.has_our_people %}
+										<span class="label label-success span-sidebar">Optional</span>
 									{% endif %}
 								</a>
 							</li>
@@ -236,12 +244,6 @@
 							<li><a href="#">Add New Image</a></li>
 							<li><a href="#">Edit Portfolio</a></li>
 						</ul>
-					</li>
-					<li {% if active_page == 'admin_our_people' %} class="active selected"{% endif %}>
-						<a href="{% url 'admin_our_people' %}">
-							<i class="fa fa-group icon-sidebar"></i>
-							Our People
-						</a>
 					</li>
 					<li>
 						<a href="#fakelink">

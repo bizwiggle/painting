@@ -1,9 +1,5 @@
 {% extends "interface/base.html" %}
 
-{% block extra_css %}
-<link href="/static/plugins/datatable/css/bootstrap.datatable.min.css" rel="stylesheet">
-{% endblock %}
-
 {% block header-breadcrumb %}
 <h1 class="page-heading">Our People</h1>
                    
@@ -16,176 +12,586 @@
 {% endblock %}
 
 {% block content %}
-
-{% if people_maxed %}
-<div class="row">
-	<div class="col-md-12">
-   	<div class="alert alert-success alert-bold-border square fade in alert-dismissable">
-      	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-         <p>
-				To help with the user experience on your webpage, we only allow {{ MAX_NUM_PEOPLE }} people in the our people section.  
-         	If you need more for your staff.  Combine employees into groups such as painters and sales staff.
-			</p>
-			<p>
-				You will need to remove an employee from the list to add another one.
-			</p>
-		</div>     
-	</div>
-</div>
-
-{% else %}
-<!-- Add to Our People -->
-<form id="AddPersonForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+<form id="OtherPeopleForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
 {% csrf_token %}
 
+<!-- Our People 1 -->
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
 	<div class="panel panel-success">
 		<div class="panel-heading">
- 			<h3 class="panel-title">
-            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-{{ MAX_NUM_PEOPLE|add:'1' }}">
-               Add Person
-               <span class="right-content">
-                  <span class="right-icon">
-                     <i class="glyphicon glyphicon-minus icon-collapse"></i>
-                  </span>
-               </span>
-            </a>
-         </h3>		
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
+					Our People 1 {% if our_people.title1 %} - {{ our_people.title1 }} {% endif %}
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-minus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
 		</div>
-	<div id="panel-collapse-{{ MAX_NUM_PEOPLE|add:'1' }}" class="collapse in">
+	<div id="panel-collapse-1" class="collapse in">
 		<div class="panel-body">
 			<fieldset>
-			<legend>Add To Our People</legend>
-               <p class="help-block">Max People on page = {{ MAX_NUM_PEOPLE }}</p>
+			<legend>Our People 1</legend>
          <div class="form-group">
-            <label class="col-md-2 control-label">Name</label>
+            <label class="col-md-2 control-label">Title</label>
             <div class="col-md-9">
-               <input type="text" class="form-control" name="add_name" />
+               <input type="text" class="form-control" name="title1" value="{{ our_people.title1 }}" />
+               <p class="help-block">Leave title blank to remove this section.</p>
             </div>
          </div>
          <div class="form-group">
-            <label class="col-md-2 control-label">Job Title</label>
-            <div class="col-md-9">
-               <input type="text" class="form-control" name="add_person_title" />
-            </div>
-         </div>
-			<div class="form-group">
             <label class="col-md-2 control-label">Text</label>
             <div class="col-md-9">
-               <textarea class="form-control" rows="4" name="add_text"></textarea>
+               <textarea class="form-control" rows="4" name="text1">{{ our_people.text1 }}</textarea>
             </div>
          </div>
+         {% if our_people.pic1 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic1" /> Delete current pic <small> - {{ our_people.pic1 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
          <div class="form-group">
             <label class="col-md-2 control-label">Picture</label>
-            <div class="col-md-6">
-               <input type="file" name="add_pic">
+            <div class="col-md-9">
+               <input type="file" name="pic1">
                <p class="help-block">Recommended Size: 214 x 214 px</p>
             </div>
-				<div class="col-md-3">
-					<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-plus"></i>Add Person</button>
-				</div>
          </div>
          </fieldset> 
-			</form>
 		</div><!-- /.panel-body -->
 	</div><!-- /.collapse in -->
 	</div><!-- /.panel panel-primary -->
 </div><!-- /.col-sm-12 -->
 </div>
-</form>
-{% endif %}
+<!-- end Our People 1 -->
 
-
-{% for person in our_people %}
-<form id="EditPeopleForm-{{ forloop.counter }}" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
-{% csrf_token %}
-
+<!-- Our People 2 -->
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
-   <div class="panel 
-      {% if forloop.counter == 1 or forloop.counter == 6 %}
-      	panel-info
-      {% elif forloop.counter == 2 or forloop.counter == 7 %}
-      	panel-warning
-      {% elif forloop.counter == 3 or forloop.counter == 8 %}
-         panel-danger
-      {% elif forloop.counter == 4 or forloop.counter == 9 %}
-      	panel-primary
-      {% else %}
-      	panel-success
-      {% endif %}
-      ">
-      <div class="panel-heading">
-         <h3 class="panel-title">
-            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-{{ forloop.counter }}">
-               Person {{ forloop.counter }} - {{ person.name }}
-               <span class="right-content">
-                  <span class="right-icon">
-                     <i class="glyphicon glyphicon-plus icon-collapse"></i>
-                  </span>
-               </span>
-            </a>
-         </h3>
-      </div>
-   <div id="panel-collapse-{{ forloop.counter }}" class="collapse">
-      <div class="panel-body">
-			<input type="hidden" name="id" value="{{ person.id }}">
-         <fieldset>
-         <legend>Person {{ forloop.counter }} - {{ person.name }}</legend>
-          <div class="form-group">
-            <div class="form-group">
-               <div class="col-md-7 col-md-offset-1">
-                  <div class="checkbox">
-                     <input type="checkbox" name="remove_person" /> Remove this person 
-                  </div>
-               </div>
-            </div>
-            <label class="col-md-2 control-label">Name</label>
-            <div class="col-md-9">
-               <input type="text" class="form-control" name="name" value="{{ person.name }}" />
-            </div>
-         </div>
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-2">
+					Our People 2 {% if our_people.title2 %} - {{ our_people.title2 }} {% endif %}
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-2" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Our People 2</legend>
          <div class="form-group">
-            <label class="col-md-2 control-label">Job Title</label>
+            <label class="col-md-2 control-label">Title</label>
             <div class="col-md-9">
-               <input type="text" class="form-control" name="person_title" value="{{ person.person_title }}" />
+               <input type="text" class="form-control" name="title2" value="{{ our_people.title2 }}" />
+               <p class="help-block">Leave title blank to remove this section.</p>
             </div>
          </div>
          <div class="form-group">
             <label class="col-md-2 control-label">Text</label>
             <div class="col-md-9">
-               <textarea class="form-control" rows="4" name="text">{{ person.text }}</textarea>
+               <textarea class="form-control" rows="4" name="text2">{{ our_people.text2 }}</textarea>
             </div>
          </div>
-		{% if person.pic %}
+         {% if our_people.pic2 %}
             <div class="form-group">
                <div class="col-md-7 col-md-offset-2">
                   <div class="checkbox">
-                     <input type="checkbox" name="delete_pic" /> Delete current pic <small> - {{ person.pic }}</small>
+                     <input type="checkbox" name="delete_pic2" /> Delete current pic <small> - {{ our_people.pic2 }}</small>
                   </div>
                </div>
             </div>
-       {% endif %}
+         {% endif %}
          <div class="form-group">
             <label class="col-md-2 control-label">Picture</label>
-            <div class="col-md-6">
-               <input type="file" name="pic">
+            <div class="col-md-9">
+               <input type="file" name="pic1">
                <p class="help-block">Recommended Size: 214 x 214 px</p>
             </div>
-            <div class="col-md-3">
-               <button type="submit" class="btn btn-info btn-lg"><i class="fa fa-plus"></i>Edit Person</button>
-            </div>
          </div>
-         </fieldset>
-      </div><!-- /.panel-body -->
-   </div><!-- /.collapse in -->
-   </div><!-- /.panel panel-primary -->
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
 </div><!-- /.col-sm-12 -->
 </div>
-</form>
-{% endfor %}
+<!-- end Our People 2 -->
 
+<!-- Our People 3 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-3">
+					Our People 3 {% if our_people.title3 %} - {{ our_people.title3 }} {% endif %}
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-3" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Our People 3</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="title3" value="{{ our_people.title3 }}" />
+               <p class="help-block">Leave title blank to remove this section.</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="text3">{{ our_people.text3 }}</textarea>
+            </div>
+         </div>
+         {% if our_people.pic3 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic3" /> Delete current pic <small> - {{ our_people.pic3 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="pic3">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Our People 3 -->
+
+<!-- Our People 4 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-4">
+					Our People 4 {% if our_people.title4 %} - {{ our_people.title4 }} {% endif %}
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-4" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Our People 4</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="title4" value="{{ our_people.title4 }}" />
+               <p class="help-block">Leave title blank to remove this section.</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="text4">{{ our_people.text4 }}</textarea>
+            </div>
+         </div>
+         {% if our_people.pic4 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic4" /> Delete current pic <small> - {{ our_people.pic4 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="pic4">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Our People 4 -->
+
+<!-- Our People 5 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-5">
+					Our People 5 {% if our_people.title5 %} - {{ our_people.title5 }} {% endif %}
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-5" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Our People 5</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="title5" value="{{ our_people.title5 }}" />
+               <p class="help-block">Leave title blank to remove this section.</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="text5">{{ our_people.text5 }}</textarea>
+            </div>
+         </div>
+         {% if our_people.pic5 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic5" /> Delete current pic <small> - {{ our_people.pic5 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="pic5">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Our People 5 -->
+
+<!-- Our People 6 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-6">
+					Our People 6 {% if our_people.title6 %} - {{ our_people.title6 }} {% endif %}
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-6" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Our People 6</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="title6" value="{{ our_people.title6 }}" />
+               <p class="help-block">Leave title blank to remove this section.</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="text6">{{ our_people.text6 }}</textarea>
+            </div>
+         </div>
+         {% if our_people.pic6 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic6" /> Delete current pic <small> - {{ our_people.pic6 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="pic6">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Our People 6 -->
+
+<!-- Our People 7 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-7">
+					Our People 7 {% if our_people.title7 %} - {{ our_people.title7 }} {% endif %}
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-7" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Our People 7</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="title7" value="{{ our_people.title7 }}" />
+               <p class="help-block">Leave title blank to remove this section.</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="text5">{{ our_people.text7 }}</textarea>
+            </div>
+         </div>
+         {% if our_people.pic7 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic7" /> Delete current pic <small> - {{ our_people.pic7 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="pic4">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Our People 7 -->
+
+<!-- Our People 8 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-8">
+					Our People 8 {% if our_people.title8 %} - {{ our_people.title8 }} {% endif %}
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-8" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Our People 8</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="title8" value="{{ our_people.title8 }}" />
+               <p class="help-block">Leave title blank to remove this section.</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="text8">{{ our_people.text8 }}</textarea>
+            </div>
+         </div>
+         {% if our_people.pic8 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic8" /> Delete current pic <small> - {{ our_people.pic8 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="pic8">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Our People 8 -->
+
+<!-- Our People 9 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-9">
+					Our People 9 {% if our_people.title9 %} - {{ our_people.title9 }} {% endif %}
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-9" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Our People 9</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="title9" value="{{ our_people.title9 }}" />
+               <p class="help-block">Leave title blank to remove this section.</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="text9">{{ our_people.text9 }}</textarea>
+            </div>
+         </div>
+         {% if our_people.pic9 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic9" /> Delete current pic <small> - {{ our_people.pic9 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="pic4">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Our People 9 -->
+
+<!-- Our People 10 -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-10">
+					Our People 5 {% if our_people.title10 %} - {{ our_people.title10 }} {% endif %}
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-10" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Our People 10</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="title10" value="{{ our_people.title10 }}" />
+               <p class="help-block">Leave title blank to remove this section.</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="text5">{{ our_people.text10 }}</textarea>
+            </div>
+         </div>
+         {% if our_people.pic10 %}
+            <div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_pic5" /> Delete current pic <small> - {{ our_people.pic10 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="pic4">
+               <p class="help-block">Recommended Size: 214 x 214 px</p>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Our People 10 -->
+
+<div class="form-group">
+	<div class="col-md-9 col-md-offset-2">
+		<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i> Save All</button>
+	</div>
+</div>
+</form>
+                   
 {% endblock %}
 
 {% block extra_js %}

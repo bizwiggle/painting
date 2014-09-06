@@ -529,19 +529,97 @@ class Our_People(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     site = models.ForeignKey(Site)
 
-    name = models.CharField('Name', max_length=48, blank=True)
-    person_title = models.CharField('Title', max_length=48, blank=True)
-       
-    text = models.CharField('Text', max_length=256, blank=True)
-
-    pic  = ProcessedImageField(upload_to=settings.SITE_NAME,
+    title1 = models.CharField('Name 1', max_length=48, blank=True)
+    text1 = models.CharField('Text 1', max_length=256, blank=True)
+    pic1  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                          processors=[ResizeToFill(214, 214)],
                                          options={'quality': 80},
                                          null=True,
                                          blank=True,
-           )
+    )
+    
+    title2 = models.CharField('Name 2', max_length=48, blank=True)
+    text2 = models.CharField('Text 2', max_length=256, blank=True)
+    pic2  = ProcessedImageField(upload_to=settings.SITE_NAME,
+                                         processors=[ResizeToFill(214, 214)],
+                                         options={'quality': 80},
+                                         null=True,
+                                         blank=True,
+    )
+    
+    title3 = models.CharField('Name 3', max_length=48, blank=True)
+    text3 = models.CharField('Text 3', max_length=256, blank=True)
+    pic3  = ProcessedImageField(upload_to=settings.SITE_NAME,
+                                         processors=[ResizeToFill(214, 214)],
+                                         options={'quality': 80},
+                                         null=True,
+                                         blank=True,
+    )
+    
+    title4 = models.CharField('Name 4', max_length=48, blank=True)
+    text4 = models.CharField('Text 4', max_length=256, blank=True)
+    pic4  = ProcessedImageField(upload_to=settings.SITE_NAME,
+                                         processors=[ResizeToFill(214, 214)],
+                                         options={'quality': 80},
+                                         null=True,
+                                         blank=True,
+    )
+    
+    title5 = models.CharField('Name 5', max_length=48, blank=True)
+    text5 = models.CharField('Text 5', max_length=256, blank=True)
+    pic5  = ProcessedImageField(upload_to=settings.SITE_NAME,
+                                         processors=[ResizeToFill(214, 214)],
+                                         options={'quality': 80},
+                                         null=True,
+                                         blank=True,
+    )
+    
+    title6 = models.CharField('Name 6', max_length=48, blank=True)
+    text6 = models.CharField('Text 6', max_length=256, blank=True)
+    pic6  = ProcessedImageField(upload_to=settings.SITE_NAME,
+                                         processors=[ResizeToFill(214, 214)],
+                                         options={'quality': 80},
+                                         null=True,
+                                         blank=True,
+    )
+    
+    title7 = models.CharField('Name 7', max_length=48, blank=True)
+    text7 = models.CharField('Text 7', max_length=256, blank=True)
+    pic7  = ProcessedImageField(upload_to=settings.SITE_NAME,
+                                         processors=[ResizeToFill(214, 214)],
+                                         options={'quality': 80},
+                                         null=True,
+                                         blank=True,
+    )
+    
+    title8 = models.CharField('Name 8', max_length=48, blank=True)
+    text8 = models.CharField('Text 8', max_length=256, blank=True)
+    pic8  = ProcessedImageField(upload_to=settings.SITE_NAME,
+                                         processors=[ResizeToFill(214, 214)],
+                                         options={'quality': 80},
+                                         null=True,
+                                         blank=True,
+    )
+    
+    title9 = models.CharField('Name 9', max_length=48, blank=True)
+    text9 = models.CharField('Text 9', max_length=256, blank=True)
+    pic9  = ProcessedImageField(upload_to=settings.SITE_NAME,
+                                         processors=[ResizeToFill(214, 214)],
+                                         options={'quality': 80},
+                                         null=True,
+                                         blank=True,
+    )
+    
+    title10 = models.CharField('Name 10', max_length=48, blank=True)
+    text10 = models.CharField('Text 10', max_length=256, blank=True)
+    pic10  = ProcessedImageField(upload_to=settings.SITE_NAME,
+                                         processors=[ResizeToFill(214, 214)],
+                                         options={'quality': 80},
+                                         null=True,
+                                         blank=True,
+    )
     
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
-        return ' - '.join([unicode(self.site), 'Our People', self.name])
+        return ' - '.join([unicode(self.site), 'Our People'])
