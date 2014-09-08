@@ -5,7 +5,7 @@ from interface import views
 urlpatterns = patterns('',
     url(r'^$', views.interface_dashboard, name='admin_dashboard'),
     url(r'^general_info/$', views.interface_general_info, name='admin_general_info'),
-    url(r'^index/$', views.interface_index, name='admin_index'),
+    url(r'^home/$', views.interface_index, name='admin_index'),
     url(r'^about/$', views.interface_about, name='admin_about'),
     url(r'^services/$', views.interface_services, name='admin_services'),
     url(r'^residential/$', views.interface_residential, name='admin_residential'),

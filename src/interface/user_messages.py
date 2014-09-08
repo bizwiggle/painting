@@ -1,11 +1,10 @@
+INDEX_HELP_MESSAGE = 'This is the Index Help Message'
 SERVICES_HELP_MESSAGE = 'This is the Services Help Message'
 RESIDENTIAL_HELP_MESSAGE = 'This is the Residential Service Help Message'
 COMERCIAL_HELP_MESSAGE = 'This is the Commercial Service Help Message'
 OTHER_HELP_MESSAGE = 'This is the Other Service Help Message'
 SOCIAL_HELP_MESSAGE = 'This is the Social Help Message'
 ADD_PERSON_HELP_MESSAGE = 'This is the Add Person Help Message'
-
-
 
 PAGE_TITLE_TEMPLATE = "My Website Admin - $page_name"
 PAGE_UPDATED_TEMPLATE = "Your website has been successfully updated"

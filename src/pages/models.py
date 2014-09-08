@@ -68,19 +68,19 @@ class General_Info(models.Model):
 
 
 class Index(models.Model):
-    WHY_US = 'Why Us'
-    SERVICES = 'Services'
-    RESIDENTIAL = 'Residential Painting'
-    COMERCIAL = 'Comercial Painting'
-    OTHER = 'Other Services'
-    PORTFOLIO = 'Portfolio'
-    ABOUT = 'About Us'
-    CONTACT  = 'Contact'
+    WHY_US = 'A'
+    SERVICES = 'B'
+    RESIDENTIAL = 'C'
+    COMERCIAL = 'D'
+    OTHER = 'E'
+    PORTFOLIO = 'F'
+    ABOUT = 'G'
+    CONTACT  = 'H'
     PAGES_CHOICES = (
         (WHY_US,'Why Us'),
         (SERVICES,'Services'),
         (RESIDENTIAL,'Residential Painting'),
-        (COMERCIAL,'Comercial Painting'),
+        (COMERCIAL,'Commercial Painting'),
         (OTHER,'Other Services'),
         (PORTFOLIO,'Portfolio'),
         (ABOUT,'About Us'),
@@ -130,6 +130,7 @@ class Index(models.Model):
 			                            null=True,
                                      blank=True,
                       )
+    affilation1_URL = models.URLField('Affilation 1 URL', blank=True)
   
     affilation_pic2  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                      processors=[ResizeToFit(120, 50)],
@@ -137,6 +138,7 @@ class Index(models.Model):
 			                            null=True,
                                      blank=True,
                       )
+    affilation2_URL = models.URLField('Affilation 2 URL', blank=True)
   
     affilation_pic3  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                      processors=[ResizeToFit(120, 50)],
@@ -144,6 +146,7 @@ class Index(models.Model):
 			                            null=True,
                                      blank=True,
                       )
+    affilation3_URL = models.URLField('Affilation 3 URL', blank=True)
   
     affilation_pic4  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                      processors=[ResizeToFit(120, 50)],
@@ -151,6 +154,7 @@ class Index(models.Model):
 			                            null=True,
                                      blank=True,
                       )
+    affilation4_URL = models.URLField('Affilation 4 URL', blank=True)
   
     affilation_pic5  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                      processors=[ResizeToFit(120, 50)],
@@ -158,6 +162,7 @@ class Index(models.Model):
 			                            null=True,
                                      blank=True,
                       )
+    affilation5_URL = models.URLField('Affilation 5 URL', blank=True)
  
     affilation_pic6  = ProcessedImageField(upload_to=settings.SITE_NAME,
                                      processors=[ResizeToFit(120, 50)],
@@ -165,6 +170,8 @@ class Index(models.Model):
 			                            null=True,
                                      blank=True,
                       )
+    affilation6_URL = models.URLField('Affilation 6 URL', blank=True)
+
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 
     def __unicode__(self):

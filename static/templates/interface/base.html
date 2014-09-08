@@ -166,7 +166,14 @@
 							Main Pages
 						</a>
 						<ul class="submenu{% if active_page == 'admin_index' or active_page == 'admin_why_us' or active_page == 'admin_about' or active_page == 'admin_our_people' %} visible{% endif %}">
-							<li><a href="{% url 'admin_index' %}">Index</a></li>
+							<li {% if active_page == 'admin_index' %} class="active selected"{% endif %}>
+								<a href="{% url 'admin_index' %}">
+								Home
+                           {% if not progress.has_index %}
+										<span class="label label-warning span-sidebar">Needed</span>
+									{% endif %}
+								</a>
+							</li>
 							<li{% if active_page == 'admin_why_us' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_why_us' %}">
 									Why Choose Us
@@ -185,7 +192,7 @@
 							</li>
 					   	<li {% if active_page == 'admin_our_people' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_our_people' %}">
-									Our People
+									About - Our People
                            {% if not progress.has_our_people %}
 										<span class="label label-success span-sidebar">Optional</span>
 									{% endif %}

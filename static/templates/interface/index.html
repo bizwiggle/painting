@@ -1,0 +1,512 @@
+{% extends "interface/base.html" %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">Home Admin</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">Home Admin</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+<form id="HomeForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+
+<!-- Homepage Why Us  -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+   <div class="panel panel-success">
+      <div class="panel-heading">
+         <h3 class="panel-title">
+            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
+               Homepage Why Us
+               <span class="right-content">
+                  <span class="right-icon">
+                     <i class="glyphicon glyphicon-minus icon-collapse"></i>
+                  </span>
+               </span>
+            </a>
+         </h3>
+      </div>
+   <div id="panel-collapse-1" class="collapse in">
+      <div class="panel-body">
+         <fieldset>
+         <legend>Homepage Why Us</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Why Us Blurb</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="why_us_blurb">{{ index.why_us_blurb }}</textarea>
+            </div>
+         </div>
+         </fieldset>
+      </div><!-- /.panel-body -->
+   </div><!-- /.collapse in -->
+   </div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Homepage Why Us-->
+
+<!-- Homepage Why Us  -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+   <div class="panel panel-info">
+      <div class="panel-heading">
+         <h3 class="panel-title">
+            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-2">
+               Homepage About
+               <span class="right-content">
+                  <span class="right-icon">
+                     <i class="glyphicon glyphicon-plus icon-collapse"></i>
+                  </span>
+               </span>
+            </a>
+         </h3>
+      </div>
+   <div id="panel-collapse-2" class="collapse">
+      <div class="panel-body">
+         <fieldset>
+         <legend>Homepage About</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">About  Blurb</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="about_blurb">{{ index.about_blurb }}</textarea>
+            </div>
+         </div>
+         </fieldset>
+      </div><!-- /.panel-body -->
+   </div><!-- /.collapse in -->
+   </div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Homepage About -->
+
+
+<!-- Slider -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-3">
+					Slider 
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-plus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-3" class="collapse">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Slide 1</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Top Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="slider_txt_top1" value="{{ index.slider_txt_top1 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Bottom Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="slider_txt_bottom1" value="{{ index.slider_txt_bottom1 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Slide Link</label>
+				<div class="col-md-5">
+					<select class="form-control" name="slider_link1">
+					{% for link_page in index.PAGES_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == index.slider_link1 %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         </fieldset>
+			<br> 
+			<fieldset>
+			<legend>Slide 2</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Top Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="slider_txt_top2" value="{{ index.slider_txt_top2 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Bottom Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="slider_txt_bottom2" value="{{ index.slider_txt_bottom2 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Slide Link</label>
+				<div class="col-md-5">
+					<select class="form-control" name="slider_link2">
+					{% for link_page in index.PAGES_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == index.slider_link2 %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         </fieldset>
+			<br> 
+			<fieldset>
+			<legend>Slide 3</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Top Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="slider_txt_top3" value="{{ index.slider_txt_top3 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Bottom Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="slider_txt_bottom3" value="{{ index.slider_txt_bottom3 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Slide Link</label>
+				<div class="col-md-5">
+					<select class="form-control" name="slider_link3">
+					{% for link_page in index.PAGES_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == index.slider_link3 %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         </fieldset>
+			<br> 
+			<fieldset>
+			<legend>Slide 4</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Top Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="slider_txt_top4" value="{{ index.slider_txt_top4 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Bottom Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="slider_txt_bottom4" value="{{ index.slider_txt_bottom4 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Slide Link</label>
+				<div class="col-md-5">
+					<select class="form-control" name="slider_link4">
+					{% for link_page in index.PAGES_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == index.slider_link4 %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         </fieldset>
+			<br> 
+			<fieldset>
+			<legend>Slide 5</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Top Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="slider_txt_top5" value="{{ index.slider_txt_top5 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Bottom Headline</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="slider_txt_bottom5" value="{{ index.slider_txt_bottom5 }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Slide Link</label>
+				<div class="col-md-5">
+					<select class="form-control" name="slider_link5">
+					{% for link_page in index.PAGES_CHOICES %}
+               	<option value={{ link_page.0 }}{% if link_page.0 == index.slider_link5 %} selected{% endif %}>
+							{{ link_page.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         </fieldset>
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Slider -->
+
+<!-- Hello Section -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+   <div class="panel panel-danger">
+      <div class="panel-heading">
+         <h3 class="panel-title">
+            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-4">
+               Hello Section
+               <span class="right-content">
+                  <span class="right-icon">
+                     <i class="glyphicon glyphicon-plus icon-collapse"></i>
+                  </span>
+               </span>
+            </a>
+         </h3>
+      </div>
+   <div id="panel-collapse-4" class="collapse">
+      <div class="panel-body">
+         <fieldset>
+         <legend>Hello Section</legend>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Title</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="hello_title" value="{{ index.hello_title }}" />
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="hello_txt">{{ index.hello_txt }}</textarea>
+            </div>
+         </div>
+         {% if index.hello_pic %}
+				<div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_hello_pic" /> Delete current pic <small> - {{ index.hello_pic }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <p class="help-block">Default pic will be used if one is not uploaded</p>
+               <input type="file" name="hello_pic">
+               <p class="help-block">Recommended Size: 169 x 284 px</p>
+            </div>
+         </div>
+         </fieldset>
+      </div><!-- /.panel-body -->
+   </div><!-- /.collapse in -->
+   </div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Hello Section-->
+
+<!-- Affilations -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+   <div class="panel panel-primary">
+      <div class="panel-heading">
+         <h3 class="panel-title">
+            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-5">
+               Affilations
+               <span class="right-content">
+                  <span class="right-icon">
+                     <i class="glyphicon glyphicon-plus icon-collapse"></i>
+                  </span>
+               </span>
+            </a>
+         </h3>
+      </div>
+   <div id="panel-collapse-5" class="collapse">
+      <div class="panel-body">
+         <fieldset>
+         <legend>Affilation 1</legend>
+         {% if index.affilation_pic1 %}
+				<div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_affilation_pic1" /> Delete current pic <small> - {{ index.affilation_pic1 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="affilation_pic1">
+               <p class="help-block">Recommended Size: 120 x 50 px (or smaller)</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Link URL</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="affilation1_URL" value="{{ index.affilation1_URL }}" />
+               <p class="help-block">Link URL is Optional</p>
+            </div>
+         </div>
+         </fieldset>
+         <br>
+
+         <fieldset>
+         <legend>Affilation 2</legend>
+         {% if index.affilation_pic2 %}
+				<div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_affilation_pic2" /> Delete current pic <small> - {{ index.affilation_pic2 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="affilation_pic2">
+               <p class="help-block">Recommended Size: 120 x 50 px (or smaller)</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Link URL</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="affilation2_URL" value="{{ index.affilation2_URL }}" />
+               <p class="help-block">Link URL is Optional</p>
+            </div>
+         </div>
+         </fieldset>
+         <br>
+         
+         <fieldset>
+         <legend>Affilation 3</legend>
+         {% if index.affilation_pic3 %}
+				<div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_affilation_pic3" /> Delete current pic <small> - {{ index.affilation_pic3 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="affilation_pic3">
+               <p class="help-block">Recommended Size: 120 x 50 px (or smaller)</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Link URL</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="affilation3_URL" value="{{ index.affilation3_URL }}" />
+               <p class="help-block">Link URL is Optional</p>
+            </div>
+         </div>
+         </fieldset>
+         <br>
+
+         <fieldset>
+         <legend>Affilation 4</legend>
+         {% if index.affilation_pic4 %}
+				<div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_affilation_pic4" /> Delete current pic <small> - {{ index.affilation_pic4 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="affilation_pic4">
+               <p class="help-block">Recommended Size: 120 x 50 px (or smaller)</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Link URL</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="affilation4_URL" value="{{ index.affilation4_URL }}" />
+               <p class="help-block">Link URL is Optional</p>
+            </div>
+         </div>
+         </fieldset>
+         <br>
+
+         <fieldset>
+         <legend>Affilation 5</legend>
+         {% if index.affilation_pic5 %}
+				<div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_affilation_pic5" /> Delete current pic <small> - {{ index.affilation_pic5 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="affilation_pic5">
+               <p class="help-block">Recommended Size: 120 x 50 px (or smaller)</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Link URL</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="affilation5_URL" value="{{ index.affilation5_URL }}" />
+               <p class="help-block">Link URL is Optional</p>
+            </div>
+         </div>
+         </fieldset>
+         <br>
+
+         <fieldset>
+         <legend>Affilation 6</legend>
+         {% if index.affilation_pic6 %}
+				<div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="delete_affilation_pic6" /> Delete current pic <small> - {{ index.affilation_pic6 }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Picture</label>
+            <div class="col-md-9">
+               <input type="file" name="affilation_pic6">
+               <p class="help-block">Recommended Size: 120 x 50 px (or smaller)</p>
+            </div>
+         </div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Link URL</label>
+            <div class="col-md-9">
+               <input type="text" class="form-control" name="affilation6_URL" value="{{ index.affilation6_URL }}" />
+               <p class="help-block">Link URL is Optional</p>
+            </div>
+         </div>
+         </fieldset>
+
+      </div><!-- /.panel-body -->
+   </div><!-- /.collapse in -->
+   </div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Affilation -->
+
+<div class="form-group">
+	<div class="col-md-9 col-md-offset-2">
+		<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i> Save All</button>
+	</div>
+</div>
+</form>
+                   
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+{% endblock %}

@@ -8,6 +8,7 @@ class Progress(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     site = models.ForeignKey(Site)
 
+    has_index = models.BooleanField('Has Home Info Filled Out', default=False)
     has_why_us = models.BooleanField('Has Why Us Filled Out', default=False)
     has_about = models.BooleanField('Has About Filled Out', default=False)
     has_success_stories = models.BooleanField('Has Success Stories Filled Out', default=False)

@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.contrib.sites.models import Site
 
 from pages.models import (Why_Us, Success_Stories, About, Services, Residential_Service,
-    Comercial_Service, Other_Services, General_Info, Our_People
+    Comercial_Service, Other_Services, General_Info, Our_People, Index
 ) 
 
 from interface.models import Progress 
@@ -31,7 +31,113 @@ def interface_general_info(request):
 
 @login_required
 def interface_index(request):
-    return HttpResponse('This is the index interface')
+    PAGE_NAME = "Home"
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    try:
+        index = Index.objects.get(site__id__exact=get_current_site(request).id)
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    if index.user != user or progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            index.slider_txt_top1 = request.POST.get('slider_txt_top1', '')
+            index.slider_txt_bottom1 = request.POST.get('slider_txt_bottom1', '')
+            index.slider_link1 = request.POST.get('slider_link1', '')
+           
+            index.slider_txt_top2 = request.POST.get('slider_txt_top2', '')
+            index.slider_txt_bottom2 = request.POST.get('slider_txt_bottom2', '')
+            index.slider_link2 = request.POST.get('slider_link2', '')
+            
+            index.slider_txt_top3 = request.POST.get('slider_txt_top3', '')
+            index.slider_txt_bottom3 = request.POST.get('slider_txt_bottom3', '')
+            index.slider_link3 = request.POST.get('slider_link3', '')
+           
+            index.slider_txt_top4 = request.POST.get('slider_txt_top4', '')
+            index.slider_txt_bottom4 = request.POST.get('slider_txt_bottom4', '')
+            index.slider_link4 = request.POST.get('slider_link4', '')
+
+            index.slider_txt_top5 = request.POST.get('slider_txt_top5', '')
+            index.slider_txt_bottom5 = request.POST.get('slider_txt_bottom5', '')
+            index.slider_link5 = request.POST.get('slider_link5', '')
+
+            index.why_us_blurb = request.POST.get('why_us_blurb', '')
+            index.about_blurb = request.POST.get('about_blurb', '')
+
+            index.hello_title = request.POST.get('hello_title', '')
+            index.hello_txt = request.POST.get('hello_txt', '')
+
+            if request.POST.get('delete_hello_pic'):
+                index.hello_pic.delete(save=False)
+            if request.FILES.get('hello_pic'):
+                index.hello_pic = request.FILES.get('hello_pic')
+            
+            if request.POST.get('delete_affilation_pic1'):
+                index.affilation_pic1.delete(save=False)
+            if request.FILES.get('affilation_pic1'):
+                index.affilation_pic1 = request.FILES.get('affilation_pic1')
+            index.affilation1_URL = request.POST.get('affilation1_URL', '')
+ 
+            if request.POST.get('delete_affilation_pic2'):
+                index.affilation_pic2.delete(save=False)
+            if request.FILES.get('affilation_pic2'):
+                index.affilation_pic2 = request.FILES.get('affilation_pic2')
+            index.affilation2_URL = request.POST.get('affilation2_URL', '')
+ 
+            if request.POST.get('delete_affilation_pic3'):
+                index.affilation_pic3.delete(save=False)
+            if request.FILES.get('affilation_pic3'):
+                index.affilation_pic3 = request.FILES.get('affilation_pic3')
+            index.affilation3_URL = request.POST.get('affilation3_URL', '')
+ 
+            if request.POST.get('delete_affilation_pic4'):
+                index.affilation_pic4.delete(save=False)
+            if request.FILES.get('affilation_pic4'):
+                index.affilation_pic4 = request.FILES.get('affilation_pic4')
+            index.affilation4_URL = request.POST.get('affilation4_URL', '')
+ 
+            if request.POST.get('delete_affilation_pic5'):
+                index.affilation_pic5.delete(save=False)
+            if request.FILES.get('affilation_pic5'):
+                index.affilation_pic5 = request.FILES.get('affilation_pic5')
+            index.affilation5_URL = request.POST.get('affilation5_URL', '')
+ 
+            if request.POST.get('delete_affilation_pic6'):
+                index.affilation_pic6.delete(save=False)
+            if request.FILES.get('affilation_pic6'):
+                index.affilation_pic6 = request.FILES.get('affilation_pic6')
+            index.affilation6_URL = request.POST.get('affilation6_URL', '')
+          
+            index.save()
+            
+            progress.has_index = True
+            progress.save()
+
+            use_help_message = False
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_index',
+         'use_help_message':use_help_message,
+         'help_message':INDEX_HELP_MESSAGE,
+         'index':index,
+         'progress':progress,
+    }  
+    return render(request, 'interface/index.html', context)
 
 @login_required
 def interface_about(request):
@@ -547,7 +653,7 @@ def interface_our_people(request):
     except:
         raise Http404
 
-    if progress.user != user:
+    if progress.user != user or progress.user != user:
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
     
@@ -623,10 +729,10 @@ def interface_our_people(request):
                 our_people.pic10.delete(save=False)
             if request.FILES.get('pic10'):
                 our_people.pic10 = request.FILES.get('pic10')
-            
+           
+             
             our_people.save()            
-            
-            progress.has_other_people = True
+            progress.has_our_people = True
             progress.save()
 
             use_help_message = False
