@@ -153,10 +153,13 @@
 							Dashboard
 						</a>
 					</li>
-					<li>
+					<li {% if active_page == 'admin_general' %} class="active selected"{% endif %}>
 						<a href="{% url 'admin_general_info' %}">
 							<i class="fa fa-info icon-sidebar"></i>
-							General Site Info
+							General Info
+                     	{% if not progress.has_general %}
+									<span class="label label-warning span-sidebar">Needed</span>
+								{% endif %}
 						</a>
 					</li>
 					<li>

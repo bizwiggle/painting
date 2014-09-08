@@ -10,6 +10,8 @@ from django.contrib.sites.models import get_current_site
 from django.contrib import messages
 from django.contrib.sites.models import Site
 
+from painting.constants import STATES
+
 from pages.models import (Why_Us, Success_Stories, About, Services, Residential_Service,
     Comercial_Service, Other_Services, General_Info, Our_People, Index
 ) 
@@ -27,7 +29,68 @@ def interface_dashboard(request):
 
 @login_required
 def interface_general_info(request):
-    return HttpResponse('This is the general info page')
+    PAGE_NAME = "Business Info"
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    if progress.user != user or general_info.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            general_info.business_name = request.POST.get('business_name', '')
+            general_info.email = request.POST.get('email', '')
+            general_info.phone = request.POST.get('phone', '')
+            general_info.fax = request.POST.get('fax', '')
+            general_info.street_address = request.POST.get('street_address', '')
+            general_info.extra_address = request.POST.get('extra_address', '')
+            general_info.city = request.POST.get('city', '')
+            general_info.state = request.POST.get('state', '')
+            general_info.zip_code = request.POST.get('zip_code', '')
+           
+            if request.POST.get('logo'):
+                general_info.logo.delete(save=False)
+                general_info.logo_small.delete(save=False)
+            if request.FILES.get('hello_pic'):
+                general_info.logo = request.FILES.get('logo')
+                general_info.logo_small = request.FILES.get('logo')
+            
+            general_info.why_us_brief = request.POST.get('why_us_brief', '')
+            general_info.banner_text = request.POST.get('banner_text', '')
+            
+            general_info.save()
+            
+            progress.has_index = True
+            progress.save()
+
+            use_help_message = False
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_general',
+         'use_help_message':use_help_message,
+         'help_message':GENERAL_INFO_HELP_MESSAGE,
+         'STATES':STATES,
+         'general_info':general_info,
+         'progress':progress,
+    }  
+    return render(request, 'interface/general.html', context)
+
 
 @login_required
 def interface_index(request):

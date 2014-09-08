@@ -1,0 +1,231 @@
+{% extends "interface/base.html" %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">Business Info Admin</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">Business Info Admin</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+<form id="GeneralInfoForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+
+<!-- Business Info  -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+   <div class="panel panel-success">
+      <div class="panel-heading">
+         <h3 class="panel-title">
+            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
+               Contact Info
+               <span class="right-content">
+                  <span class="right-icon">
+                     <i class="glyphicon glyphicon-minus icon-collapse"></i>
+                  </span>
+               </span>
+            </a>
+         </h3>
+      </div>
+   <div id="panel-collapse-1" class="collapse in">
+      <div class="panel-body">
+         <fieldset>
+         <legend>Contact Info</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Name</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="business_name" value="{{ general_info.business_name }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Email</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="email" value="{{ general_info.email }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Phone</label>
+				<div class="col-md-3">
+					<input type="text" class="form-control" name="phone" value="{{ general_info.phone }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Fax</label>
+				<div class="col-md-3">
+					<input type="text" class="form-control" name="fax" value="{{ general_info.fax }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Address</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="street_address" value="{{ general_info.street_address }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Address Cont.</label>
+				<div class="col-md-9">
+					<input type="text" class="form-control" name="extra_address" value="{{ general_info.extra_address }}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">City</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" name="city" value="{{ general_info.city }}" />
+				</div>
+			</div>
+         <div class="form-group">
+            <label class="col-md-2 control-label">State</label>
+            <div class="col-md-3">
+               <select class="form-control" name="state">
+               {% for state in STATES %}
+                  <option value={{ state.0 }}{% if state.0 == general_info.state %} selected{% endif %}>
+                     {{ state.1 }}
+                  </option>
+               {% endfor %}
+               </select>
+            </div>
+         </div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Zip</label>
+				<div class="col-md-3">
+					<input type="text" class="form-control" name="zip_code" value="{{ general_info.zip_code }}" />
+				</div>
+			</div>
+			</fieldset>
+      </div><!-- /.panel-body -->
+   </div><!-- /.collapse in -->
+   </div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Homepage Why Us-->
+
+
+<!-- Logo -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+   <div class="panel panel-info">
+      <div class="panel-heading">
+         <h3 class="panel-title">
+            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-2">
+               Logo
+               <span class="right-content">
+                  <span class="right-icon">
+                     <i class="glyphicon glyphicon-plus icon-collapse"></i>
+                  </span>
+               </span>
+            </a>
+         </h3>
+      </div>
+   <div id="panel-collapse-2" class="collapse">
+      <div class="panel-body">
+         <fieldset>
+         <legend>Logo</legend>
+         {% if general_info.logo %}
+				<div class="form-group">
+               <div class="col-md-7 col-md-offset-2">
+                  <div class="checkbox">
+                     <input type="checkbox" name="logo" /> Delete current pic <small> - {{ general_info.logo }}</small>
+                  </div>
+               </div>
+            </div>
+         {% endif %}
+         <div class="form-group">
+            <label class="col-md-2 control-label">Upload Pic</label>
+            <div class="col-md-9">
+               <input type="file" name="logo">
+            </div>
+         </div>
+         </fieldset>
+      </div><!-- /.panel-body -->
+   </div><!-- /.collapse in -->
+   </div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Hello Section-->
+
+<!-- Why Us Brief -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+   <div class="panel panel-warning">
+      <div class="panel-heading">
+         <h3 class="panel-title">
+            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-3">
+               Brief Why Us
+               <span class="right-content">
+                  <span class="right-icon">
+                     <i class="glyphicon glyphicon-plus icon-collapse"></i>
+                  </span>
+               </span>
+            </a>
+         </h3>
+      </div>
+   <div id="panel-collapse-3" class="collapse">
+      <div class="panel-body">
+         <fieldset>
+         <legend>Brief Why Us</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Why Us</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="why_us_brief">{{ general_info.why_us_brief }}</textarea>
+            </div>
+         </div>
+         </fieldset>
+      </div><!-- /.panel-body -->
+   </div><!-- /.collapse in -->
+   </div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end why us brief-->
+
+<!-- Bottom Banner Text-->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+   <div class="panel panel-danger">
+      <div class="panel-heading">
+         <h3 class="panel-title">
+            <a class="block-collapse" data-toggle="collapse" href="#panel-collapse-4">
+               Bottom Banner Text
+               <span class="right-content">
+                  <span class="right-icon">
+                     <i class="glyphicon glyphicon-plus icon-collapse"></i>
+                  </span>
+               </span>
+            </a>
+         </h3>
+      </div>
+   <div id="panel-collapse-4" class="collapse">
+      <div class="panel-body">
+         <fieldset>
+         <legend>Bottom Banner Text</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Text</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="banner_text">{{ general_info.banner_text }}</textarea>
+            </div>
+         </div>
+         </fieldset>
+      </div><!-- /.panel-body -->
+   </div><!-- /.collapse in -->
+   </div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end why us brief-->
+
+
+<div class="form-group">
+	<div class="col-md-9 col-md-offset-2">
+		<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i> Save All</button>
+	</div>
+</div>
+</form>
+                   
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+{% endblock %}

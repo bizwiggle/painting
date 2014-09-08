@@ -1,4 +1,5 @@
 INDEX_HELP_MESSAGE = 'This is the Index Help Message'
+GENERAL_INFO_HELP_MESSAGE = 'This is the General Info Help Message'
 SERVICES_HELP_MESSAGE = 'This is the Services Help Message'
 RESIDENTIAL_HELP_MESSAGE = 'This is the Residential Service Help Message'
 COMERCIAL_HELP_MESSAGE = 'This is the Commercial Service Help Message'
