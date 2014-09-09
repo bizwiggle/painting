@@ -80,7 +80,7 @@
 				<div class="col-md-3">
 					<select class="form-control" name="service_list1_link">
 					{% for link_page in services.SERVICE_PAGE_CHOICES %}
-               	<option value={{ link_page.0 }}{% if link_page.0 == services.service_list1_link %} selected{% endif %}>
+               	<option value="{{ link_page.0 }}"{% if link_page.0 == services.service_list1_link %} selected{% endif %}>
 							{{ link_page.1 }}
 						</option>
 					{% endfor %}

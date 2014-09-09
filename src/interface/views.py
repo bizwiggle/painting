@@ -13,7 +13,7 @@ from django.contrib.sites.models import Site
 from painting.constants import STATES
 
 from pages.models import (Why_Us, Success_Stories, About, Services, Residential_Service,
-    Comercial_Service, Other_Services, General_Info, Our_People, Index
+    Comercial_Service, Other_Services, General_Info, Our_People, Index, Portfolio_Pic
 ) 
 
 from interface.models import Progress 
@@ -71,7 +71,7 @@ def interface_general_info(request):
             
             general_info.save()
             
-            progress.has_index = True
+            progress.has_general = True
             progress.save()
 
             use_help_message = False
@@ -870,6 +870,78 @@ def interface_success_stories(request):
     return render(request, 'interface/success_stories.html', context)
    
 
+def interface_add_portfolio(request):
+    PAGE_NAME = "Add Portfolio"
+    MAX_NUM_PICS = 42
+
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        num_pics = Portfolio_Pic.objects.filter(site__id__exact=get_current_site(request).id).count()
+    except:
+        raise Http404
+
+    if progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            if (num_pics + 1) > MAX_NUM_PICS:
+                raise Exception()
+
+            valid_pic_type = True 
+            pic_type = request.POST.get('pic_type', '')
+            if (pic_type != Portfolio_Pic.INTERRIOR_PIC and
+                pic_type != Portfolio_Pic.EXTERRIOR_PIC and
+                pic_type != Portfolio_Pic.COMERCIAL_PIC and
+                pic_type != Portfolio_Pic.OTHER_PIC and
+                pic_type != Portfolio_Pic.WORK_PIC):
+                
+                valid_pic_type = False
+                messages.warning(request, PORTFOLIO_NO_TYPE_MESSAGE)
+                  
+            if not request.FILES.get('pic'):
+                messages.warning(request, PORTFOLIO_NO_PIC_MESSAGE)
+
+            if valid_pic_type and request.FILES.get('pic'):
+                new_pic = Portfolio_Pic(user = user,
+                                        site = Site.objects.get_current(),
+                                        pic_type = request.POST.get('pic_type', ''),                                   
+                                        thumb = request.FILES.get('pic'),
+                                        pic = request.FILES.get('pic'),
+                )
+                new_pic.save()
+               
+                progress.has_portfolio = True
+                progress.save()
+                use_help_message = False
+                messages.success(request, PORTFOLIO_ADDED_TEMPLATE)
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_add_portfolio',
+         'use_help_message':use_help_message,
+         'help_message':ADD_PORTFOLIO_HELP_MESSAGE,
+         'MAX_NUM_PICS':MAX_NUM_PICS,
+         'PIC_TYPE_CHOICES':Portfolio_Pic.PIC_TYPE_CHOICES,
+         'num_pics':num_pics,
+         'progress':progress,
+    }  
+    return render(request, 'interface/add_portfolio.html', context)
+
+def interface_edit_portfolio(request):
+    return HttpResponse('This is the edit for portfolio')
+ 
 def interface_login(request):
     return HttpResponse('This is the login for admin page')
  

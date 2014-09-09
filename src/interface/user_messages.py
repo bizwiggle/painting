@@ -5,11 +5,15 @@ RESIDENTIAL_HELP_MESSAGE = 'This is the Residential Service Help Message'
 COMERCIAL_HELP_MESSAGE = 'This is the Commercial Service Help Message'
 OTHER_HELP_MESSAGE = 'This is the Other Service Help Message'
 SOCIAL_HELP_MESSAGE = 'This is the Social Help Message'
-ADD_PERSON_HELP_MESSAGE = 'This is the Add Person Help Message'
+ADD_PORTFOLIO_HELP_MESSAGE = 'This is the Add Portfolio Help Message'
 
 PAGE_TITLE_TEMPLATE = "My Website Admin - $page_name"
 PAGE_UPDATED_TEMPLATE = "Your website has been successfully updated"
-PERSON_ADDED_TEMPLATE = "$name successfully added to your website"
+
+PORTFOLIO_ADDED_TEMPLATE = "Your portfolio pic has successfully been added"
+PORTFOLIO_NO_TYPE_MESSAGE = "No pic type selected.  Please select both a pic and pic type"
+PORTFOLIO_NO_PIC_MESSAGE = "No pic selected.  Please select both a pic and pic type"
+
 
 INACTIVE_ACCOUNT_MSG = "Your account is currently inactive.   Please re-activate your account by providing a current credit card or contact Bizwiggle for help."
 

@@ -482,7 +482,7 @@ class Portfolio_Pic(models.Model):
     PIC_TYPE_CHOICES = (
         (INTERRIOR_PIC, 'Interrior Pic'),
         (EXTERRIOR_PIC, 'Exterrior Pic'),
-        (COMERCIAL_PIC, 'Comercial Pic'),
+        (COMERCIAL_PIC, 'Commercial Pic'),
         (OTHER_PIC, 'Other Pic'),
         (WORK_PIC, 'Work Pic'),
     )

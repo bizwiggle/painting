@@ -250,9 +250,18 @@
 							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
 							Portfolio
 							</a>
-						<ul class="submenu">
-							<li><a href="#">Add New Image</a></li>
-							<li><a href="#">Edit Portfolio</a></li>
+                  <ul class="submenu{% if active_page == 'admin_add_portfolio' or active_page == 'admin_edit_portfolio' %} visible{% endif %}"> 
+							<li {% if active_page == 'admin_add_portfolio' %} class="active selected"{% endif %}>
+								<a href="{% url 'admin_add_portfolio' %}">
+									Add New Image
+									{% if not progress.has_portfolio %}
+									<span class="label label-warning span-sidebar">Needed</span>
+									{% endif %}
+								</a>
+							</li>
+							<li {% if active_page == 'admin_edit_portfolio' %} class="active selected"{% endif %}>
+								<a href="{% url 'admin_edit_portfolio' %}">Edit Portfolio</a>
+							</li>
 						</ul>
 					</li>
 					<li>

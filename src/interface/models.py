@@ -16,6 +16,7 @@ class Progress(models.Model):
     has_services = models.BooleanField('Has Services Filled Out', default=False)
     has_residential_services =  models.BooleanField('Has Residential Services Filled Out', default=False)
     has_comercial_services =  models.BooleanField('Has Commercial Services Filled Out', default=False)
+    has_portfolio =  models.BooleanField('Has Image added to portfolio', default=False)
     has_other_services =  models.BooleanField('Has Other Services Filled Out', default=False)
     has_social =  models.BooleanField('Has Social Information Filled Out', default=False)
     has_our_people =  models.BooleanField('Has Our People Filled Out', default=False)

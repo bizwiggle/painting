@@ -1,0 +1,82 @@
+{% extends "interface/base.html" %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">Services Overview</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">Services Overview</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+
+{% if MAX_NUM_PICS <= num_pics %}
+<div class="row">
+ 	<div class="col-md-12">
+   	<div class="alert alert-warning alert-success alert-bold-border square fade in alert-dismissable">
+      	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            You have the maximum number of pics in your portfolio.  Delete a pic from your portfolio to add another. 
+      </div>     
+	</div>
+</div>
+{% endif %}
+
+<form id="AddPortfolioForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+
+
+<!-- Add Portfolio Pic -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<br>
+			</h3>
+		</div>
+		<div class="panel-body">
+			<fieldset>
+			<legend>Add Portfolio Pic</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Pic</label>
+            <div class="col-md-9">
+               <input type="file" name="pic">
+            </div>
+         </div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Pic Type</label>
+				<div class="col-md-3">
+					<select class="form-control" name="pic_type">
+               	<option value="">
+						Select Type
+						</option>
+					{% for pic_type in PIC_TYPE_CHOICES %}
+               	<option value="{{ pic_type.0 }}">
+							{{ pic_type.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Add Portfolio-->
+
+<div class="form-group">
+	<div class="col-md-9 col-md-offset-2">
+		<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i>Add Portfolio Pic</button>
+	</div>
+</div>
+</form>
+                   
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+{% endblock %}
