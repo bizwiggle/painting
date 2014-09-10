@@ -1,0 +1,36 @@
+{% extends "interface/base.html" %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">Edit Portfolio</h1>
+    
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+   <li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">Edit Portfolio</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+   {% for pic in portfolio_pics %}
+	<form id="EditPortfolioForm" method="post" action="" class="form-horizontal">
+	{% csrf_token %}
+		<input type="hidden" value="{{ pic.id }}" name="id" />
+		<div class="col-sm-4 col-md-3">
+			<!-- Begin assets item -->
+			<div class="thumbnail media-lib-item">
+				<img src="{{ MEDIA_URL }}{{ pic.thumb }}" alt="...">
+				<div class="caption text-center">
+					<button type="submit" class="btn btn-danger">Delete</button>			
+				</div><!-- /.caption text-center -->
+			</div><!-- /.thumbnail media-lib-item -->
+			<!-- End assets item -->
+		</div><!-- /.col-sm-4 col-md-3 -->
+	</form>
+   {% endfor %}
+</div><!-- /.row -->
+
+{% endblock %}

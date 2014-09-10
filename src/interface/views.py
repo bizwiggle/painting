@@ -809,7 +809,7 @@ def interface_our_people(request):
          'page_description':'Enter page descrption here',
          'active_page':'admin_our_people',
          'use_help_message':use_help_message,
-         'help_message':ADD_PERSON_HELP_MESSAGE,
+         'help_message':OUR_PEOPLE_HELP_MESSAGE,
          'progress':progress,
          'our_people':our_people,
     }  
@@ -869,7 +869,7 @@ def interface_success_stories(request):
     }  
     return render(request, 'interface/success_stories.html', context)
    
-
+@login_required
 def interface_add_portfolio(request):
     PAGE_NAME = "Add Portfolio"
     MAX_NUM_PICS = 42
@@ -941,6 +941,50 @@ def interface_add_portfolio(request):
 
 def interface_edit_portfolio(request):
     return HttpResponse('This is the edit for portfolio')
+@login_required
+def interface_edit_portfolio(request):
+    PAGE_NAME = "Edit Portfolio"
+
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        portfolio_pics = Portfolio_Pic.objects.filter(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    if progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            print "new id"
+            print request.POST.get('id', '')
+            pic_to_delete = Portfolio_Pic.objects.get(pk= int(request.POST.get('id', '')))
+            pic_to_delete.delete()
+            
+            use_help_message = False
+            messages.success(request, PIC_DELETED_TEMPLATE)
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_edit_portfolio',
+         'use_help_message':use_help_message,
+         'help_message':EDIT_PORTFOLIO_HELP_MESSAGE,
+         'portfolio_pics':portfolio_pics,
+         'progress':progress,
+    }  
+    return render(request, 'interface/edit_portfolio.html', context)
  
 def interface_login(request):
     return HttpResponse('This is the login for admin page')

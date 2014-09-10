@@ -6,6 +6,8 @@ COMERCIAL_HELP_MESSAGE = 'This is the Commercial Service Help Message'
 OTHER_HELP_MESSAGE = 'This is the Other Service Help Message'
 SOCIAL_HELP_MESSAGE = 'This is the Social Help Message'
 ADD_PORTFOLIO_HELP_MESSAGE = 'This is the Add Portfolio Help Message'
+EDIT_PORTFOLIO_HELP_MESSAGE = 'This is the Edit Portfolio Help Message'
+OUR_PEOPLE_HELP_MESSAGE = 'This is the Our People Help Message'
 
 PAGE_TITLE_TEMPLATE = "My Website Admin - $page_name"
 PAGE_UPDATED_TEMPLATE = "Your website has been successfully updated"
