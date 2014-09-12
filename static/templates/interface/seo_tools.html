@@ -1,0 +1,121 @@
+{% extends "interface/base.html" %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">SEO Tools</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">SEO Tools</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+<form id="SEOToolsForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+
+<!-- Meta Descriptions -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
+					Meta Descriptions
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-minus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-1" class="collapse in">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Meta Descriptions</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Home</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="index_description">{{ index_description }}</textarea>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Why Us</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="why_us_description">{{ why_us_description }}</textarea>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Services</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="services_description">{{ services_description }}</textarea>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Residential Service</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="residential_description">{{ residential_description }}</textarea>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Commercial Service</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="commercial_description">{{ commercial_description }}</textarea>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Other Services</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="other_description">{{ other_description }}</textarea>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Portfolio</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="portfolio_description">{{ portfolio_description }}</textarea>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-2 control-label">About</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="about_description">{{ about_description }}</textarea>
+            </div>
+         </div>
+         <hr>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Contact</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="3" name="contact_description">{{ contact_description }}</textarea>
+            </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Meta Descriptions-->
+
+
+<div class="form-group">
+	<div class="col-md-9 col-md-offset-2">
+		<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i> Save All</button>
+	</div>
+</div>
+</form>
+                   
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+{% endblock %}

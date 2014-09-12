@@ -1,4 +1,4 @@
-{% extends 'dealer/login_base.html' %}
+{% extends 'interface/login/login_base.html' %}
 
 {% block login_block %}
 <div class="login-wrapper">
@@ -27,6 +27,6 @@
    </form>
 </div><!-- /.login-wrapper -->
 
-<p class="text-center"><strong><a href="{% url 'forgot_password' %}">Forgot your password?</a></strong></p>
+<p class="text-center"><strong><a href="{% url 'admin_forgot_password' %}">Forgot your password?</a></strong></p>
 
 {% endblock %}

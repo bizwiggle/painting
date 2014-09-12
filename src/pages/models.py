@@ -16,7 +16,7 @@ class General_Info(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     site = models.ForeignKey(Site)
     
-    business_name = models.CharField('Business Name', max_length=64, default='Business Name', blank=True)
+    business_name = models.CharField('Business Name', max_length=64, default='Your Business Name', blank=True)
 
     has_residential_page = models.BooleanField('Has Residential Page', default=True)
     has_comercial_page = models.BooleanField('Has Commercial Page', default=True)
@@ -172,6 +172,7 @@ class Index(models.Model):
                       )
     affilation6_URL = models.URLField('Affilation 6 URL', blank=True)
 
+    meta_description = models.CharField('Page Meta Descrption', max_length=160, blank=True)
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 
     def __unicode__(self):
@@ -271,6 +272,7 @@ class Services(models.Model):
     service_list10 = models.CharField('Service List 10', max_length=64, blank=True)
     service_list10_link = models.CharField('Service List 10 Link', max_length=1, blank=True, choices=SERVICE_PAGE_CHOICES, default=NONE)
 
+    meta_description = models.CharField('Page Meta Descrption', max_length=160, blank=True)
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
@@ -312,6 +314,7 @@ class Residential_Service(models.Model):
     paragraph_headline3 = models.CharField('Paragraph 3 Headline', max_length=64, blank=True)
     paragraph3 = models.CharField('Paragraph 3', max_length=512, blank=True)
 
+    meta_description = models.CharField('Page Meta Descrption', max_length=160, blank=True)
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
@@ -351,6 +354,7 @@ class Comercial_Service(models.Model):
     paragraph_headline3 = models.CharField('Paragraph 3 Headline', max_length=64, blank=True)
     paragraph3 = models.CharField('Paragraph 3', max_length=512, blank=True)
 
+    meta_description = models.CharField('Page Meta Descrption', max_length=160, blank=True)
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
@@ -410,6 +414,7 @@ class Other_Services(models.Model):
     service_headline5 = models.CharField('Service 5 Headline', max_length=64, blank=True)
     service5 = models.CharField('Service 5', max_length=512, blank=True)
     
+    meta_description = models.CharField('Page Meta Descrption', max_length=160, blank=True)
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
@@ -464,6 +469,7 @@ class Why_Us(models.Model):
                                        blank=True,
                    )  
     
+    meta_description = models.CharField('Page Meta Descrption', max_length=160, blank=True)
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):
@@ -527,6 +533,7 @@ class About(models.Model):
     info4 = models.CharField('Info Item 4', max_length=64, blank=True)
     info5 = models.CharField('Info Item 5', max_length=64, blank=True)
 
+    meta_description = models.CharField('Page Meta Descrption', max_length=160, blank=True)
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
     
     def __unicode__(self):

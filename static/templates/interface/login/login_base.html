@@ -8,14 +8,14 @@
 		<title>{{ page_title }}</title>
  
 		<!-- BOOTSTRAP CSS (REQUIRED ALL PAGE)-->
-		<link href="/static/dealer/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/static/css/interface/interface-bootstrap.min.css" rel="stylesheet">
 		
-		<!-- MAIN CSS (REQUIRED ALL PAGE)-->
-		<link href="/static/dealer/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-		<link href="/static/dealer/css/style.css" rel="stylesheet">
-		<link href="/static/dealer/css/style-responsive.css" rel="stylesheet">
- 
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- MAIN CSS (REQUIRED ALL PAGE)-->
+      <link href="/static/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+      <link href="/static/css/interface/interface-style.css" rel="stylesheet">
+      <link href="/static/css/interface/interface-style-responsive.css" rel="stylesheet"> 
+		
+      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -25,23 +25,22 @@
 	<body class="login tooltips">
 	
 		<div class="login-header text-center">
-			<img src="/media/logo.png" class="logo" alt="Logo">
+			<img src="{{ MEDIA_URL }}images/bizwiggle_logo.png" class="logo" alt="Bizwiggle Logo">
 		</div>
 		<div class="login-wrapper">
 		   {% block login_block %} {% endblock %}
       </div><!-- /.login-wrapper -->
 		
       <!-- MAIN JAVASRCIPT (REQUIRED ALL PAGE)-->
-		<script src="/static/dealer/js/jquery.min.js"></script>
-		<script src="/static/dealer/js/bootstrap.min.js"></script>
-		<script src="/static/dealer/plugins/retina/retina.min.js"></script>
-		<script src="/static/dealer/plugins/nicescroll/jquery.nicescroll.js"></script>
-		<script src="/static/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-		<script src="/static/plugins/backstretch/jquery.backstretch.min.js"></script>
- 
+      <script src="/static/js/interface/interface_jquery.min.js"></script>
+      <script src="/static/js/interface/interface_bootstrap.min.js"></script>
+      <script src="/static/plugins/retina/retina.min.js"></script>
+      <script src="/static/plugins/nicescroll/jquery.nicescroll.js"></script>
+      <script src="/static/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+      <script src="/static/plugins/backstretch/jquery.backstretch.min.js"></script> 
 		
 		<!-- MAIN APPS JS -->
-		<script src="assets/js/apps.js"></script>
+      <script src="/static/js/interface/interface_apps.js"></script>
 		
 	</body>
 </html>

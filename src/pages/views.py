@@ -20,7 +20,7 @@ def index(request):
     context = {
         
         'page_title':'Painting Index Title',
-#        'page_description':index.meta_description,
+        'page_description':index.meta_description,
         'active':'index',
         'general_info':general_info,
         'index':index,
@@ -38,7 +38,7 @@ def why_us(request):
 
     context = {
         'page_title':'Painting Our Process Title',
- #       'page_description':why_us.meta_description,
+        'page_description':why_us.meta_description,
         'active':'why-us',
         'general_info':general_info,
         'services':services,
@@ -55,7 +55,7 @@ def services(request):
 
     context = {
         'page_title':'Painting About Title',
-  #      'page_description':services.meta_description,
+        'page_description':services.meta_description,
         'active':'services',
         'general_info':general_info,
         'services':services,
@@ -75,7 +75,7 @@ def residential(request):
 
     context = {
         'page_title':'Painting Residential Painting Title',
-   #     'page_description':residential_service.meta_description,
+        'page_description':residential_service.meta_description,
         'active':'services',
         'general_info':general_info,
         'services':services,
@@ -95,7 +95,7 @@ def comercial(request):
 
     context = {
         'page_title':'Painting Comercial Painting Title',
-    #    'page_description':comercial_service.meta_description,
+        'page_description':comercial_service.meta_description,
         'active':'services',
         'general_info':general_info,
         'services':services,
@@ -115,7 +115,7 @@ def other(request):
 
     context = {
         'page_title':'Painting Other Services Title',
-     #   'page_description':other_services.meta_description,
+        'page_description':other_services.meta_description,
         'active':'services',
         'general_info':general_info,
         'services':services,
@@ -132,7 +132,7 @@ def portfolio(request):
 
     context = {
         'page_title':'Painting Portfolio Title',
-      #  'page_description':general_info.portfolio_meta_description,
+        'page_description':general_info.portfolio_meta_description,
         'active':'portfolio',
         'general_info':general_info,
         'portfolio_pics':portfolio_pics,
@@ -150,7 +150,7 @@ def about(request):
 
     context = {
         'page_title':'Painting About Title',
-   #     'page_description':about.meta_description,
+        'page_description':about.meta_description,
         'active':'about',
         'general_info':general_info,
         'success_stories':success_stories,
@@ -167,7 +167,7 @@ def contact(request):
 
     context = {
         'page_title':'Painting Contact Title',
-    #    'page_description':general_info.contact_meta_description,
+        'page_description':general_info.contact_meta_description,
         'active':'contact',
         'general_info':general_info,
     }

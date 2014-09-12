@@ -65,16 +65,14 @@
 						<ul class="nav-user navbar-right">
 							<li class="dropdown">
 							  <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-								Hi, <strong>Site Name</strong>
+								Hi, <strong>{{ progress.business_name }}</strong>
 							  </a>
 							  <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
 								<li><a href="#fakelink">Account setting</a></li>
 								<li><a href="#fakelink">Payment setting</a></li>
 								<li><a href="#fakelink">Change password</a></li>
-								<li><a href="#fakelink">My public profile</a></li>
 								<li class="divider"></li>
-								<li><a href="lock-screen.html">Lock screen</a></li>
-								<li><a href="login.html">Log out</a></li>
+								<li><a href="{% url 'admin_logout' %}">Log out</a></li>
 							  </ul>
 							</li>
 						</ul>
@@ -270,8 +268,14 @@
 							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
 							Other Site Info
 							</a>
-						<ul class="submenu{% if active_page == 'admin_success_stories' or active_page == 'admin_social' %} visible{% endif %}">
-							<li><a href="">SEO Tools</a></li>
+						<ul class="submenu{% if active_page == 'admin_success_stories' or active_page == 'admin_social' or active_page == 'admin_seo_tools' %} visible{% endif %}">
+							<li {% if active_page == 'admin_seo_tools' %} class="active selected"{% endif %}>
+								<a href="{% url 'admin_seo_tools' %}">SEO Tools
+                           {% if not progress.has_seo_tools %}
+										<span class="label label-warning span-sidebar">Needed</span>
+									{% endif %}
+								</a>
+							</li>
 							<li {% if active_page == 'admin_social' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_social' %}">Social Links
                            {% if not progress.has_social %}

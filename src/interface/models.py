@@ -20,6 +20,9 @@ class Progress(models.Model):
     has_other_services =  models.BooleanField('Has Other Services Filled Out', default=False)
     has_social =  models.BooleanField('Has Social Information Filled Out', default=False)
     has_our_people =  models.BooleanField('Has Our People Filled Out', default=False)
+    has_seo_tools =  models.BooleanField('Has SEO Tools Filled Out', default=False)
+
+    business_name = models.CharField('Business Name', max_length=64, default="Business Name Here", blank=True)
 
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Progress'])

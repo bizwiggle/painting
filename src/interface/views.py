@@ -1,8 +1,9 @@
-#for testing only
-from django.http import HttpResponse, Http404
 
+import re
+import uuid
 from string import Template
 
+from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -10,7 +11,9 @@ from django.contrib.sites.models import get_current_site
 from django.contrib import messages
 from django.contrib.sites.models import Site
 
-from painting.constants import STATES
+from auth.models import MyUser
+
+from painting.constants import STATES, BIZWIGGLE_INFO
 
 from pages.models import (Why_Us, Success_Stories, About, Services, Residential_Service,
     Comercial_Service, Other_Services, General_Info, Our_People, Index, Portfolio_Pic
@@ -21,9 +24,27 @@ from interface.user_messages import *
 
 @login_required
 def interface_dashboard(request):
+    PAGE_NAME = "Dashboard"
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        
+    except:
+        raise Http404
+
+    if progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
     context = { 
-        'page_title':'Sitename Dashboard',
+        'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
         'page_description':'Enter page descrption here',
+        'progress':progress,
     }  
     return render(request, 'interface/dashboard.html', context)
 
@@ -70,7 +91,8 @@ def interface_general_info(request):
             general_info.banner_text = request.POST.get('banner_text', '')
             
             general_info.save()
-            
+        
+            progress.business_name = request.POST.get('business_name', '')    
             progress.has_general = True
             progress.save()
 
@@ -870,6 +892,89 @@ def interface_success_stories(request):
     return render(request, 'interface/success_stories.html', context)
    
 @login_required
+def interface_seo_tools(request):
+    PAGE_NAME = "SEO Tool"
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+	     # should redirect to billing page 
+        return redirect('admin_login')
+
+    try:
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
+        index = Index.objects.get(site__id__exact=get_current_site(request).id)
+        services = Services.objects.get(site__id__exact=get_current_site(request).id)
+        residential_service = Residential_Service.objects.get(site__id__exact=get_current_site(request).id)
+        comercial_service = Comercial_Service.objects.get(site__id__exact=get_current_site(request).id)
+        other_services = Other_Services.objects.get(site__id__exact=get_current_site(request).id)
+        about = About.objects.get(site__id__exact=get_current_site(request).id)
+        why_us = Why_Us.objects.get(site__id__exact=get_current_site(request).id)
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    if services.user != user or progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
+    use_help_message = True 
+    if request.POST:
+        try:
+
+            general_info.portfolio_meta_description = request.POST.get('portfolio_description', '')            
+            general_info.contact_meta_description = request.POST.get('contact_description', '')            
+            general_info.save()
+
+            index.meta_description = request.POST.get('index_description', '')            
+            index.save()
+            
+            services.meta_description = request.POST.get('services_description', '')            
+            services.save()
+
+            progress.has_seo_tools = True
+            progress.save()
+            
+            residential_service.meta_description = request.POST.get('residential_description', '')            
+            residential_service.save()
+            
+            comercial_service.meta_description = request.POST.get('commercial_description', '')            
+            comercial_service.save()
+            
+            other_services.meta_description = request.POST.get('other_description', '')            
+            other_services.save()
+            
+            about.meta_description = request.POST.get('about_description', '')            
+            about.save()
+            
+            why_us.meta_description = request.POST.get('why_us_description', '')            
+            why_us.save()
+
+            use_help_message = False
+            messages.success(request, PAGE_UPDATED_TEMPLATE)
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_seo_tools',
+         'use_help_message':use_help_message,
+         'help_message':SEO_TOOLS_HELP_MESSAGE,
+         'contact_description':general_info.contact_meta_description,
+         'portfolio_description':general_info.portfolio_meta_description,
+         'index_description':index.meta_description,
+         'services_description':services.meta_description,
+         'residential_description':residential_service.meta_description,
+         'commercial_description':comercial_service.meta_description,
+         'other_description':other_services.meta_description,
+         'why_us_description':why_us.meta_description,
+         'about_description':about.meta_description,
+         'services':services,
+         'progress':progress,
+    }  
+    return render(request, 'interface/seo_tools.html', context)
+
+@login_required
 def interface_add_portfolio(request):
     PAGE_NAME = "Add Portfolio"
     MAX_NUM_PICS = 42
@@ -939,8 +1044,6 @@ def interface_add_portfolio(request):
     }  
     return render(request, 'interface/add_portfolio.html', context)
 
-def interface_edit_portfolio(request):
-    return HttpResponse('This is the edit for portfolio')
 @login_required
 def interface_edit_portfolio(request):
     PAGE_NAME = "Edit Portfolio"
@@ -965,8 +1068,6 @@ def interface_edit_portfolio(request):
     use_help_message = True 
     if request.POST:
         try:
-            print "new id"
-            print request.POST.get('id', '')
             pic_to_delete = Portfolio_Pic.objects.get(pk= int(request.POST.get('id', '')))
             pic_to_delete.delete()
             
@@ -987,5 +1088,75 @@ def interface_edit_portfolio(request):
     return render(request, 'interface/edit_portfolio.html', context)
  
 def interface_login(request):
-    return HttpResponse('This is the login for admin page')
- 
+    if request.POST:
+        username = request.POST.get('username', False)
+        password = request.POST.get('password', False)
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('admin_dashboard')
+            else:
+                # redirect? to billing??????
+                error_message = "".join(["This account is currently inactive.",
+                                         " Please call %s or email %s",
+                                         " to reactivate this account."])
+                error_message = error_message % (BIZWIGGLE_INFO['phone'], BIZWIGGLE_INFO['email'])
+                messages.error(request, "error message")
+        else:
+            error_message = "Invalid email address or password"
+            messages.error(request, error_message)
+    
+    context = {
+        'page_title':'My Website Login',
+        'page_description':'Enter page descrption here'
+    }
+
+    return render(request, 'interface/login/login.html', context)
+
+def interface_forgot_password(request):
+    if request.POST:
+        message = "".join(["If you are still having trouble, ",
+                           "please contact customer support at %s  or email %s."])
+        messages.warning(request, message % (BIZWIGGLE_INFO['phone'], BIZWIGGLE_INFO['email']))
+        try: 
+            user = MyUser.objects.get(email=request.POST.get('email', False))
+            phone_number = request.POST.get('phone', False)
+      
+            progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+            if progress.user != user:
+                raise Exception
+            
+            phone_number = re.sub(r'\W+', '', phone_number)            
+            if phone_number != user.phone_number:
+                raise Exception                
+
+            new_password = str(uuid.uuid4())[0:20]
+            user.set_password(new_password)
+            user.save()
+            email_subject = "My Website Login from Bizwiggle"
+            email_message = "".join(["You have successfully created a new password.  Please login at",
+                                     " %s/admin/ with your new password %s.  You can change your password",
+                                     " by clicking your name in the top right and selecting account settings.",
+            ])
+            email_message = email_message % ( get_current_site(request), new_password)
+            user.email_user(email_subject, email_message)
+            return redirect('admin_login')
+
+        except:
+            return redirect('admin_login')
+            
+    context = {
+        'page_title':'My Website Reset Password',
+        'page_description':'page description goes here',
+    }
+
+
+    return render(request, 'interface/login/forgot_password.html', context) 
+
+@login_required
+def interface_logout(request):
+    logout(request)
+    return redirect('admin_login')
+

@@ -3,6 +3,11 @@ SITE_IDS = {
     'painting.test.com': 2,
 }
 
+BIZWIGGLE_INFO = {
+    'phone':'(512)555-5555',
+    'email':'admin@bizwiggle.com',
+}
+
 BANNER_LINE_LENGTH = 40
 
 
