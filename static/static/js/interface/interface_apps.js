@@ -197,35 +197,6 @@ $(document).ready(function(){
 	
 	
 	
-	/** BEGIN SUMMERNOTE **/
-	if ($('.summernote-lg').length > 0){
-		$('.summernote-lg').summernote({
-			height: 400
-		});
-	}
-	
-	if ($('.summernote-sm').length > 0){
-		$('.summernote-sm').summernote({
-			height: 200,
-			  toolbar: [
-				//['style', ['style']], // no style button
-				['style', ['bold', 'italic', 'underline', 'clear']],
-				['font', ['strike']],
-				['fontsize', ['fontsize']],
-				['color', ['color']],
-				['para', ['ul', 'ol', 'paragraph']],
-				['height', ['height']],
-				//['insert', ['picture', 'link']], // no insert buttons
-				//['table', ['table']], // no table button
-				//['help', ['help']] //no help button
-			  ]
-		});
-	}
-	/** END SUMMERNOTE **/
-	
-
-   
-
 	/** BEGIN CHOSEN JS **/
 	$(function () {
 		"use strict";
@@ -596,27 +567,6 @@ $(document).ready(function(){
 	
 	
 	
-	/** BEGIN SVG WEATHER ICON **/
-	if (typeof Skycons !== 'undefined'){
-	var icons = new Skycons(
-	  {"color": "#fff"},
-	  {"resizeClear": true}
-	  ),
-          list  = [
-            "clear-day", "clear-night", "partly-cloudy-day",
-            "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-            "fog"
-          ],
-          i;
-
-      for(i = list.length; i--; )
-      icons.set(list[i], list[i]);
-      icons.play();
-	};
-	/** END SVG WEATHER ICON **/
-
-	
-
 	/** BEGIN SLIDER **/
 	if ($('#sl1').length > 0){
 		$('#sl1').slider({
@@ -632,9 +582,6 @@ $(document).ready(function(){
 		$('#eg input').slider();
 	}
 	/** END SLIDER **/
-	
-	
-
    
 	/** BEGIN MAGNIFIC POPUP **/
 	if ($('.magnific-popup-wrap').length > 0){
@@ -671,8 +618,6 @@ $(document).ready(function(){
 	});
 	/** END MAGNIFIC POPUP **/
 	
-
-
 	/** BEGIN OWL CAROUSEL **/
 	if ($('#owl-carousel-single-1').length > 0){
 		$("#owl-carousel-single-1").owlCarousel({
@@ -784,157 +729,6 @@ $(document).ready(function(){
 	/** END OWL CAROUSEL **/
 	
 	
-	
-	
-	/** BEGIN REAL ESTATE DESIGN JS FUNCTION **/
-	var imagesync1 = $("#imagesync1");
-	var imagesync2 = $("#imagesync2");
-	 
-	  imagesync1.owlCarousel({
-		singleItem : true,
-		slideSpeed : 1000,
-		navigation: false,
-		pagination:false,
-		afterAction : syncPosition,
-		lazyLoad : true,
-		responsiveRefreshRate : 200
-	  });
-	 
-	  imagesync2.owlCarousel({
-		items : 5,
-		itemsDesktop      : [1199,5],
-		itemsDesktopSmall : [979,4],
-		itemsTablet       : [768,3],
-		itemsMobile       : [479,2],
-		pagination:false,
-		responsiveRefreshRate : 100,
-		afterInit : function(el){
-		  el.find(".owl-item").eq(0).addClass("synced");
-		}
-	  });
-	 
-	  function syncPosition(el){
-		var current = this.currentItem;
-		$("#imagesync2")
-		  .find(".owl-item")
-		  .removeClass("synced")
-		  .eq(current)
-		  .addClass("synced")
-		if($("#imagesync2").data("owlCarousel") !== undefined){
-		  center(current)
-		}
-	  }
-	 if ($('#imagesync2').length > 0){
-	  $("#imagesync2").on("click", ".owl-item", function(e){
-		e.preventDefault();
-		var number = $(this).data("owlItem");
-		imagesync1.trigger("owl.goTo",number);
-	  });
-	 }
-	  function center(number){
-		var imagesync2visible = imagesync2.data("owlCarousel").owl.visibleItems;
-		var num = number;
-		var found = false;
-		for(var i in imagesync2visible){
-		  if(num === imagesync2visible[i]){
-			var found = true;
-		  }
-		}
-	 
-		if(found===false){
-		  if(num>imagesync2visible[imagesync2visible.length-1]){
-			imagesync2.trigger("owl.goTo", num - imagesync2visible.length+2)
-		  }else{
-			if(num - 1 === -1){
-			  num = 0;
-			}
-			imagesync2.trigger("owl.goTo", num);
-		  }
-		} else if(num === imagesync2visible[imagesync2visible.length-1]){
-		  imagesync2.trigger("owl.goTo", imagesync2visible[1])
-		} else if(num === imagesync2visible[0]){
-		  imagesync2.trigger("owl.goTo", num-1)
-		}
-		
-	  }
-	  
-	  if ($('#property-slide-1').length > 0){
-		  $("#property-slide-1").owlCarousel({
-			  navigation : false,
-			  pagination: false,
-			  slideSpeed : 300,
-			  paginationSpeed : 400,
-			  singleItem:true
-		  });
-	  }
-	  
-	  if ($('#property-slide-2').length > 0){
-		  $("#property-slide-2").owlCarousel({
-			  navigation : false,
-			  pagination: false,
-			  slideSpeed : 300,
-			  paginationSpeed : 400,
-			  singleItem:true
-		  });
-	  }
-	  
-	  if ($('#property-slide-3').length > 0){
-		  $("#property-slide-3").owlCarousel({
-			  navigation : false,
-			  pagination: false,
-			  slideSpeed : 300,
-			  paginationSpeed : 400,
-			  singleItem:true
-		  });
-	  }
-	  
-	  if ($('#property-slide-4').length > 0){
-		  $("#property-slide-4").owlCarousel({
-			  navigation : false,
-			  pagination: false,
-			  slideSpeed : 300,
-			  paginationSpeed : 400,
-			  singleItem:true
-		  });
-	  }
-	  
-	  if ($('#property-slide-5').length > 0){
-		  $("#property-slide-5").owlCarousel({
-			  navigation : false,
-			  pagination: false,
-			  slideSpeed : 300,
-			  paginationSpeed : 400,
-			  singleItem:true
-		  });
-	  }
-	  
-	  if ($('#property-slide-7').length > 0){
-		  $("#property-slide-7").owlCarousel({
-				navigation : false,
-				pagination: false,
-				slideSpeed : 1000,
-				paginationSpeed : 400,
-				singleItem:true,
-				autoPlay: 4000,
-				transitionStyle : 'goDown'
-		  });
-	  }
-	  
-	  if ($('#property-slide-8').length > 0){
-		  $("#property-slide-8").owlCarousel({
-				navigation : false,
-				pagination: false,
-				slideSpeed : 1000,
-				paginationSpeed : 400,
-				singleItem:true,
-				autoPlay: 3000,
-				transitionStyle : 'fadeUp'
-		  });
-	  }
-	/** END REAL ESTATE DESIGN JS FUNCTION **/
-	
-	
-	
 	/** BEGIN BLOG DESIGN JS FUNCTION **/
 	  if ($('#blog-slide-1').length > 0){
 		  $("#blog-slide-1").owlCarousel({
@@ -957,47 +751,6 @@ $(document).ready(function(){
 		  });
 	  }
 	/** END BLOG DESIGN JS FUNCTION **/
-	
-	
-	
-	/** BEGIN STORE DESIGN JS FUNCTION **/
-	if ($('#store-item-carousel-1').length > 0){
-	$("#store-item-carousel-1").owlCarousel({
-		autoPlay: 4000,
-		items : 4,
-		itemsDesktop      : [1199,4],
-		itemsDesktopSmall : [979,3],
-		itemsTablet       : [768,2],
-		itemsMobile       : [479,1],
-		lazyLoad : true,
-		autoHeight : true
-	  });
-	}
-	if ($('#store-item-carousel-2').length > 0){
-	  $("#store-item-carousel-2").owlCarousel({
-			navigation : false,
-			pagination: false,
-			slideSpeed : 1000,
-			paginationSpeed : 400,
-			singleItem:true
-	  });
-	}
-	if ($('#store-item-carousel-3').length > 0){
-		$("#store-item-carousel-3").owlCarousel({
-			autoPlay: 4000,
-			items : 4,
-			itemsDesktop      : [1199,4],
-			itemsDesktopSmall : [979,3],
-			itemsTablet       : [768,2],
-			itemsMobile       : [479,1],
-			lazyLoad : true,
-			autoHeight : true,
-			navigation : false,
-			pagination: false
-		  });
-	}
-	/** END STORE DESIGN JS FUNCTION **/
-	
 	
 	
 	/** BEGIN TILES JS FUNCTION **/

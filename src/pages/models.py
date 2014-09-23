@@ -637,3 +637,4 @@ class Our_People(models.Model):
     
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Our People'])
+

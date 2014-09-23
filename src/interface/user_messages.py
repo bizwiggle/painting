@@ -9,7 +9,7 @@ ADD_PORTFOLIO_HELP_MESSAGE = 'This is the Add Portfolio Help Message'
 EDIT_PORTFOLIO_HELP_MESSAGE = 'This is the Edit Portfolio Help Message'
 OUR_PEOPLE_HELP_MESSAGE = 'This is the Our People Help Message'
 SEO_TOOLS_HELP_MESSAGE = 'This is the SEO Tools Help Message'
-
+BILLING_HELP_MESSAGE = 'This is billing help message'
 
 PAGE_TITLE_TEMPLATE = "My Website Admin - $page_name"
 PAGE_UPDATED_TEMPLATE = "Your website has been successfully updated"
@@ -17,7 +17,7 @@ PAGE_UPDATED_TEMPLATE = "Your website has been successfully updated"
 PORTFOLIO_ADDED_TEMPLATE = "Your portfolio pic has successfully been added"
 PORTFOLIO_NO_TYPE_MESSAGE = "No pic type selected.  Please select both a pic and pic type"
 PORTFOLIO_NO_PIC_MESSAGE = "No pic selected.  Please select both a pic and pic type"
-
+PIC_DELETED_TEMPLATE = "Your portfolio pic has successfully been deleted"
 
 INACTIVE_ACCOUNT_MSG = "Your account is currently inactive.   Please re-activate your account by providing a current credit card or contact Bizwiggle for help."
 

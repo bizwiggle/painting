@@ -1,15 +1,23 @@
 
 import re
 import uuid
+import datetime
 from string import Template
 
+
+import stripe
+
+from django.conf import settings
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import get_current_site
+from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.sites.models import Site
+
+from painting.stripe_info import PUB_KEY, SECRET_KEY
 
 from auth.models import MyUser
 
@@ -19,7 +27,7 @@ from pages.models import (Why_Us, Success_Stories, About, Services, Residential_
     Comercial_Service, Other_Services, General_Info, Our_People, Index, Portfolio_Pic
 ) 
 
-from interface.models import Progress 
+from interface.models import Progress, Billing
 from interface.user_messages import *
 
 @login_required
@@ -31,13 +39,16 @@ def interface_dashboard(request):
 	     # should redirect to billing page 
         return redirect('admin_login')
 
+    first_login = False
     try:
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
-        
     except:
-        raise Http404
+        first_login = True
+    
+    if first_login:
+        create_user_objects(request)
 
-    if progress.user != user:
+    if not first_login and progress.user != user:
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -1045,6 +1056,105 @@ def interface_add_portfolio(request):
     return render(request, 'interface/add_portfolio.html', context)
 
 @login_required
+def interface_billing(request):
+    PAGE_NAME = "Billing Settings"
+    user = request.user
+
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        billing = Billing.objects.get(user=user)
+    except:
+        raise Http404
+
+    if progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
+    stripe.api_key = SECRET_KEY
+    customer = stripe.Customer.retrieve(billing.stripe_id)
+
+    website_subscription = ""
+    for subscription in customer.subscriptions.data:
+        try:
+            if subscription.id == billing.stripe_id_website_sub:
+                website_subscription = subscription
+            subscription.current_period_end = datetime.datetime.fromtimestamp(subscription.current_period_end) 
+            subscription.trial_end =  datetime.datetime.fromtimestamp(subscription.trial_end)
+        except:
+            pass
+    
+    website_active = True
+    print website_subscription.cancel_at_period_end
+    if website_subscription == "" or website_subscription.status == 'canceled' or website_subscription.cancel_at_period_end:
+        website_active = False
+
+    use_help_message = True 
+    if request.POST:
+
+        if 'stripeToken' in request.POST:
+            token = request.POST['stripeToken']
+            new_card = customer.cards.create(card=token)
+            if customer.default_card:
+                customer.default_card = new_card
+                # message : Your card has been updated.
+                if website_subscription != "" and website_subscription.status == "past_due":
+                    print 'website past due' 
+                   # your card has been updated and your account will be charged during our next billing cycle
+            if website_subscription == "":
+                if customer.default_card:
+                    website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN_NO_TRIAL)
+
+                else:
+                    website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN)
+                billing.stripe_id_website_sub = website_subscription.id
+                # message your card has been updated and your subscription is now active
+            customer.save()
+            billing.save()
+            # message : Your card has been updated.
+
+        if 'website_switch' in request.POST:
+            if request.POST['website_switch'] == 'on' and not website_active:
+                if website_subscription != "":
+                    customer.subscriptions.retrieve(billing.stripe_id_website_sub).delete()
+                website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN_NO_TRIAL)
+                billing.stripe_id_website_sub = website_subscription.id
+                billing.save()
+                customer.save()
+
+            if request.POST['website_switch'] == 'off' and website_active:
+                customer.subscriptions.retrieve(billing.stripe_id_website_sub).delete(at_period_end=True)
+                website_active = False 
+                EMAIL_BODY = ''.join([user.email, 'has shut off web service for ', settings.SITE_NAME])
+                send_mail('Important - Customer Shutoff Service', EMAIL_BODY, BIZWIGGLE_INFO['email'], 
+                    [BIZWIGGLE_INFO['email'] ], fail_silently=True
+                )
+
+    if website_subscription.status == 'unpaid':
+        print 'unpaid subscription'
+      # message 
+ 
+    if customer.default_card:
+        card = customer.cards.retrieve(customer.default_card) 
+
+    print customer.subscriptions.retrieve(billing.stripe_id_website_sub)
+
+
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'PUB_KEY':PUB_KEY,
+         'active_page':'admin_billing',
+         'use_help_message':use_help_message,
+         'help_message':BILLING_HELP_MESSAGE,
+         'has_card':customer['default_card'],
+         'website_active':website_active,
+         'customer':customer,
+         'card':card,
+         'progress':progress,
+    }  
+    return render(request, 'interface/billing.html', context)
+
+@login_required
 def interface_edit_portfolio(request):
     PAGE_NAME = "Edit Portfolio"
 
@@ -1070,7 +1180,6 @@ def interface_edit_portfolio(request):
         try:
             pic_to_delete = Portfolio_Pic.objects.get(pk= int(request.POST.get('id', '')))
             pic_to_delete.delete()
-            
             use_help_message = False
             messages.success(request, PIC_DELETED_TEMPLATE)
         except:
@@ -1160,3 +1269,106 @@ def interface_logout(request):
     logout(request)
     return redirect('admin_login')
 
+def create_user_objects(request):
+    user = request.user
+    try:
+        billing = Billing.objects.get(user=user)
+    except:
+        stripe.api_key = SECRET_KEY
+        customer_description = "Painting Website for %s" % get_current_site(request) 
+        stripe_customer = stripe.Customer.create(
+                              description=customer_description,
+                              email=user.email,
+        )
+        billing = Billing(user=user,
+                      stripe_id=stripe_customer.id,        
+        )
+        billing.save()
+    try:
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        general_info = General_Info(user=user,
+                           site=Site.objects.get_current(),
+        )
+        general_info.save()
+
+    try:
+        index = Index.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        index = Index(user=user,
+                    site=Site.objects.get_current(),
+        )
+        index.save()
+
+    try:
+        success_stories = Success_Stories.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        success_stories = Success_Stories(user=user,
+                    site=Site.objects.get_current(),
+        )
+        success_stories.save()
+
+    try:
+        services = Services.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        services = Services(user=user,
+                       site=Site.objects.get_current(),
+        )
+        services.save()
+    
+    try:
+        residential_service = Residential_Service.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        residential_service = Residential_Service(user=user,
+                       site=Site.objects.get_current(),
+        )
+        residential_service.save()
+
+    try:
+        comercial_service = Comercial_Service.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        comercial_service = Comercial_Service(user=user,
+                                site=Site.objects.get_current(),
+        )
+        comercial_service.save()
+
+    try:
+        other_services = Other_Services.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        other_services = Other_Services(user=user,
+                             site=Site.objects.get_current(),
+        )
+        other_services.save()
+    
+    try:
+        why_us = Why_Us.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        why_us = Why_Us(user=user,
+                     site=Site.objects.get_current(),
+        )
+        why_us.save()
+
+    try:
+        about = About.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        about = About(user=user,
+                    site=Site.objects.get_current(),
+        )
+        about.save()
+
+    try:
+        our_people = Our_People.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        our_people = Our_People(user=user,
+                         site=Site.objects.get_current(),
+        )
+        our_people.save()
+        
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        progress = Progress(user=user,
+                       site=Site.objects.get_current(),
+        )
+        progress.save()
+    

@@ -21,8 +21,20 @@ class Progress(models.Model):
     has_social =  models.BooleanField('Has Social Information Filled Out', default=False)
     has_our_people =  models.BooleanField('Has Our People Filled Out', default=False)
     has_seo_tools =  models.BooleanField('Has SEO Tools Filled Out', default=False)
+    has_billing = models.BooleanField('Has SEO Tools Filled Out', default=False)
 
     business_name = models.CharField('Business Name', max_length=64, default="Business Name Here", blank=True)
 
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Progress'])
+
+class Billing(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+    stripe_id = models.CharField('Stripe ID of a user', max_length=120, null=True, blank=True)
+    stripe_id_website_sub = models.CharField('Stripe ID of website subscription', max_length=120, null=True, blank=True)
+    check_stripe_date = models.DateField('Next date to check if customer paid for website', auto_now=False, auto_now_add=True)
+    shutoff_service_date = models.DateField('Date which website will shutdown', auto_now=False, null=True) 
+
+    def __unicode__(self):
+        return ' - '.join(['Billing', self.user.email, self.stripe_id])

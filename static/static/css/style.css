@@ -260,7 +260,6 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 
 
 
-
 .estimate1_wrapper{min-height: 164px; background: url(./images/bg3.png) 0 0 repeat-x; background-size: auto 100%; }
 .estimate1{position: relative;}
 .man1{position: absolute; left: -20px; top: 20px;}

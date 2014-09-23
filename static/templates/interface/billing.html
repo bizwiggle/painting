@@ -1,0 +1,187 @@
+{% extends "interface/base.html" %}
+
+{% block head_js %}
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+{% endblock %}
+
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">Payment Settings</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">Payment Settings</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+
+<!-- Payment info -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-2">
+					Payment Information
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-minus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-2" class="collapse in">
+		<div class="panel-body">
+
+<form action="" method="POST" id="payment-form">
+ {% csrf_token %}
+  <div class="form-row">
+	<fieldset>
+	{% if has_card and customer.subscriptions.data %}
+   <legend>Next Billing Date</legend>
+	<ul class="list-group">
+	{% for subscription in customer.subscriptions.data %}
+		<li class="list_type_none">{{ subscription.plan.name }} - {{ subscription.current_period_end|date:"D, M d , Y" }}</li>
+		{% if subscription.cancel_at_period_end %}
+		<p class="help-block">Your subscrption is scheduled to cancel at the end of this billing period.</p>
+      {% endif %}
+		{% if subscription.trial_end %}
+		<p class="help-block">Your Trial Period ends on {{ subscription.trial_end|date:"D, M d , Y" }} .</p>
+       {% endif %}
+       {% if not forloop.last %} <hr>{% else %} <br>{% endif %}
+	{% endfor %}
+	</ul>
+   {% endif %}
+	{% if has_card %}
+   <legend>Current Payment Card</legend>
+   <h4>{{ card.brand }}...{{ card.last4 }}</h4>
+   <p>Expires at {{ card.exp_month }}/{{ card.exp_year }}</p>
+	<br>
+	{% endif %}
+	<legend>{% if has_card %}Change Payment Card{% else %}Add New Card{% endif %}</legend>
+    <label>
+      <span>Card Number</span>
+      <input type="text" size="20" data-stripe="number"/>
+    </label>
+  </div>
+
+  <div class="form-row">
+    <label>
+      <span>CVC</span>
+      <input type="text" size="4" data-stripe="cvc"/>
+    </label>
+  </div>
+
+  <div class="form-row">
+    <label>
+      <span>Expiration (MM/YYYY)</span>
+      <input type="text" size="2" data-stripe="exp-month"/>
+    </label>
+    <span> / </span>
+    <input type="text" size="4" data-stripe="exp-year"/>
+  </div>
+
+  <button type="submit">{% if has_card %}Change Payment Card{% else %}Add New Card{% endif %}</button>
+    <span class="payment-errors"></span></div>
+	</fieldset>
+</form>
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Payment Info-->
+
+<form id="ServiceOptionsForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+
+<!-- Service Options -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
+					Service Options
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-minus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-1" class="collapse in">
+		<div class="panel-body">
+			<legend>Website</legend>
+				<label class="radio-inline">
+         		<input type="radio" name="website_switch" value="on" {% if website_active %} checked {% endif %}> 
+                {% if website_active %} Website Is Turned On {% else %} Turn On Website {% endif %}
+      		</label>
+      		<label class="radio-inline">
+      			<input type="radio" name="website_switch" value="off" {% if not website_active %} checked {% endif %}> 
+                {% if not website_active %} Website Is Turned Off {% else %} Turn Website Off {% endif %}
+				</label>         
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Payment switch-->
+
+<div class="form-group">
+   <div class="col-md-9 col-md-offset-2">
+      <button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i> Save All</button>
+   </div>
+</div>
+</form>
+
+               
+{% endblock %}
+
+{% block extra_js %}
+
+<script type="text/javascript">
+  Stripe.setPublishableKey('{{ PUB_KEY }}');
+</script>
+
+<script>
+jQuery(function($) {
+  $('#payment-form').submit(function(event) {
+    var $form = $(this);
+
+    // Disable the submit button to prevent repeated clicks
+    $form.find('button').prop('disabled', true);
+
+    Stripe.card.createToken($form, stripeResponseHandler);
+
+    // Prevent the form from submitting with the default action
+    return false;
+  });
+});
+
+function stripeResponseHandler(status, response) {
+  var $form = $('#payment-form');
+
+  if (response.error) {
+    // Show the errors on the form
+    $form.find('.payment-errors').text(response.error.message);
+    $form.find('button').prop('disabled', false);
+  } else {
+    // response contains id and card, which contains additional card details
+    var token = response.id;
+    // Insert the token into the form so it gets submitted to the server
+    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+    // and submit
+    $form.get(0).submit();
+  }
+};
+</script>
+
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+{% endblock %}
