@@ -60,7 +60,9 @@ class General_Info(models.Model):
 
     contact_meta_description = models.CharField('Contact Meta Descrption', max_length=160, blank=True)
     portfolio_meta_description = models.CharField('Portfolio Meta Descrption', max_length=160, blank=True)
- 
+
+    is_website_active = models.BooleanField('Is Website Active?', default=True)
+
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 
     def __unicode__(self):

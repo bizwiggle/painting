@@ -8,6 +8,7 @@ from django.contrib.sites.models import get_current_site
 from django.contrib import messages
 
 from pages.models import *
+from pages.functions import check_user_status
 
 def index(request):
     try:
@@ -36,6 +37,8 @@ def why_us(request):
     except:
         raise Http404
 
+    check_user_status(general_info)
+
     context = {
         'page_title':'Painting Our Process Title',
         'page_description':why_us.meta_description,
@@ -52,6 +55,8 @@ def services(request):
         services = Services.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
+    
+    check_user_status(general_info)
 
     context = {
         'page_title':'Painting About Title',
@@ -72,6 +77,8 @@ def residential(request):
         raise Http404
     if not general_info.has_residential_page:
         raise Http404
+    
+    check_user_status(general_info)
 
     context = {
         'page_title':'Painting Residential Painting Title',
@@ -92,6 +99,8 @@ def comercial(request):
         raise Http404
     if not general_info.has_comercial_page:
         raise Http404
+    
+    check_user_status(general_info)
 
     context = {
         'page_title':'Painting Comercial Painting Title',
@@ -112,6 +121,8 @@ def other(request):
         raise Http404
     if not general_info.has_other_services_page:
         raise Http404
+    
+    check_user_status(general_info)
 
     context = {
         'page_title':'Painting Other Services Title',
@@ -129,6 +140,8 @@ def portfolio(request):
         portfolio_pics = Portfolio_Pic.objects.filter(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
+    
+    check_user_status(general_info)
 
     context = {
         'page_title':'Painting Portfolio Title',
@@ -147,6 +160,8 @@ def about(request):
         our_people = Our_People.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
+    
+    check_user_status(general_info)
 
     context = {
         'page_title':'Painting About Title',
@@ -164,6 +179,8 @@ def contact(request):
         general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
+    
+    check_user_status(general_info)
 
     context = {
         'page_title':'Painting Contact Title',

@@ -1,4 +1,3 @@
-
 import re
 import uuid
 import datetime
@@ -34,9 +33,9 @@ from interface.user_messages import *
 def interface_dashboard(request):
     PAGE_NAME = "Dashboard"
     user = request.user
+
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
-	     # should redirect to billing page 
         return redirect('admin_login')
 
     first_login = False
@@ -47,8 +46,12 @@ def interface_dashboard(request):
     
     if first_login:
         create_user_objects(request)
+        try:
+            progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        except:
+            raise Http404    
 
-    if not first_login and progress.user != user:
+    if not user.is_superuser and not first_login and progress.user != user:
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -65,7 +68,6 @@ def interface_general_info(request):
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
-	     # should redirect to billing page 
         return redirect('admin_login')
 
     try:
@@ -74,7 +76,7 @@ def interface_general_info(request):
     except:
         raise Http404
 
-    if progress.user != user or general_info.user != user:
+    if not user.is_superuser and (progress.user != user or general_info.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -140,7 +142,7 @@ def interface_index(request):
     except:
         raise Http404
 
-    if index.user != user or progress.user != user:
+    if not user.is_superuser and (index.user != user or progress.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -250,7 +252,7 @@ def interface_about(request):
     except:
         raise Http404
 
-    if about.user != user or progress.user != user:
+    if not user.is_superuser and (about.user != user or progress.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -308,7 +310,7 @@ def interface_social(request):
     except:
         raise Http404
 
-    if general_info.user != user or progress.user != user:
+    if not user.is_superuser and (general_info.user != user or progress.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -348,7 +350,6 @@ def interface_why_us(request):
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
-	     # should redirect to billing page 
         return redirect('admin_login')
 
     try:
@@ -357,7 +358,7 @@ def interface_why_us(request):
     except:
         raise Http404
 
-    if why_us.user != user or progress.user != user:
+    if not user.is_superuser and (why_us.user != user or progress.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -426,7 +427,6 @@ def interface_services(request):
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
-	     # should redirect to billing page 
         return redirect('admin_login')
 
     try:
@@ -435,7 +435,7 @@ def interface_services(request):
     except:
         raise Http404
 
-    if services.user != user or progress.user != user:
+    if not user.is_superuser and (services.user != user or progress.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -520,7 +520,7 @@ def interface_residential(request):
     except:
         raise Http404
 
-    if residential_service.user != user or progress.user != user or general_info.user != user:
+    if not user.is_superuser and (residential_service.user != user or progress.user != user or general_info.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -591,7 +591,7 @@ def interface_comercial(request):
     except:
         raise Http404
 
-    if comercial_service.user != user or progress.user != user or general_info.user != user:
+    if not user.is_superuser and (comercial_service.user != user or progress.user != user or general_info.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -663,7 +663,7 @@ def interface_other_services(request):
     except:
         raise Http404
 
-    if other_services.user != user or progress.user != user or general_info.user != user:
+    if not user.is_superuser and (other_services.user != user or progress.user != user or general_info.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -740,7 +740,6 @@ def interface_our_people(request):
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
-	     # should redirect to billing page 
         return redirect('admin_login')
 
     try:
@@ -749,7 +748,7 @@ def interface_our_people(request):
     except:
         raise Http404
 
-    if progress.user != user or progress.user != user:
+    if not user.is_superuser and (progress.user != user or progress.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
     
@@ -854,7 +853,6 @@ def interface_success_stories(request):
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
-	     # return redirect
         return redirect('admin_login')
 
     try:
@@ -863,7 +861,7 @@ def interface_success_stories(request):
     except:
         raise Http404
     
-    if success_stories.user != user or progress.user != user:
+    if not user.is_superuser and (success_stories.user != user or progress.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -908,7 +906,6 @@ def interface_seo_tools(request):
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
-	     # should redirect to billing page 
         return redirect('admin_login')
 
     try:
@@ -924,7 +921,7 @@ def interface_seo_tools(request):
     except:
         raise Http404
 
-    if services.user != user or progress.user != user:
+    if not user.is_superuser and (services.user != user or progress.user != user):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -993,7 +990,6 @@ def interface_add_portfolio(request):
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
-	     # should redirect to billing page 
         return redirect('admin_login')
 
     try:
@@ -1002,7 +998,7 @@ def interface_add_portfolio(request):
     except:
         raise Http404
 
-    if progress.user != user:
+    if not user.is_superuser and progress.user != user:
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -1073,6 +1069,10 @@ def interface_billing(request):
     stripe.api_key = SECRET_KEY
     customer = stripe.Customer.retrieve(billing.stripe_id)
 
+    if user.email != customer.email:
+        customer.email = user.email
+        customer.save()
+
     website_subscription = ""
     for subscription in customer.subscriptions.data:
         try:
@@ -1082,9 +1082,8 @@ def interface_billing(request):
             subscription.trial_end =  datetime.datetime.fromtimestamp(subscription.trial_end)
         except:
             pass
-    
+   
     website_active = True
-    print website_subscription.cancel_at_period_end
     if website_subscription == "" or website_subscription.status == 'canceled' or website_subscription.cancel_at_period_end:
         website_active = False
 
@@ -1103,7 +1102,8 @@ def interface_billing(request):
             if website_subscription == "":
                 if customer.default_card:
                     website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN_NO_TRIAL)
-
+                    user.is_active = True
+                    user.save()
                 else:
                     website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN)
                 billing.stripe_id_website_sub = website_subscription.id
@@ -1129,15 +1129,30 @@ def interface_billing(request):
                     [BIZWIGGLE_INFO['email'] ], fail_silently=True
                 )
 
-    if website_subscription.status == 'unpaid':
+        customer = stripe.Customer.retrieve(billing.stripe_id)
+
+        website_subscription = ""
+        for subscription in customer.subscriptions.data:
+            try:
+                if subscription.id == billing.stripe_id_website_sub:
+                    website_subscription = subscription
+                subscription.current_period_end = datetime.datetime.fromtimestamp(subscription.current_period_end) 
+                subscription.trial_end =  datetime.datetime.fromtimestamp(subscription.trial_end)
+            except:
+                pass
+
+        website_active = True
+        if website_subscription == "" or website_subscription.status == 'canceled' or website_subscription.cancel_at_period_end:
+            website_active = False
+        
+   
+    if website_subscription != "" and website_subscription.status == 'unpaid':
         print 'unpaid subscription'
       # message 
- 
+
+    card = '' 
     if customer.default_card:
         card = customer.cards.retrieve(customer.default_card) 
-
-    print customer.subscriptions.retrieve(billing.stripe_id_website_sub)
-
 
     context = { 
          'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
@@ -1161,7 +1176,6 @@ def interface_edit_portfolio(request):
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
-	     # should redirect to billing page 
         return redirect('admin_login')
 
     try:
@@ -1170,7 +1184,7 @@ def interface_edit_portfolio(request):
     except:
         raise Http404
 
-    if progress.user != user:
+    if not user.is_superuser and progress.user != user:
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
@@ -1207,7 +1221,6 @@ def interface_login(request):
                 login(request, user)
                 return redirect('admin_dashboard')
             else:
-                # redirect? to billing??????
                 error_message = "".join(["This account is currently inactive.",
                                          " Please call %s or email %s",
                                          " to reactivate this account."])
