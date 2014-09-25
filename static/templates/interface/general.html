@@ -36,7 +36,7 @@
          <fieldset>
          <legend>Contact Info</legend>
 			<div class="form-group">
-				<label class="col-md-2 control-label">Name</label>
+				<label class="col-md-2 control-label">Business Name</label>
 				<div class="col-md-9">
 					<input type="text" class="form-control" name="business_name" value="{{ general_info.business_name }}" />
 				</div>
@@ -219,4 +219,5 @@
 {% block extra_js %}
 <script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+<script src="/static/plugins/validator/page_validators/general_info.js"></script>
 {% endblock %}

@@ -44,7 +44,6 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField('staff status', default=False,
         help_text='Designates whether the user can log into this admin '
                     'site.')
-    has_recently_canceled = models.BooleanField(default=False)
     check_stripe_date = models.DateField('Next date to check if customer paid for website', auto_now=False, auto_now_add=True)
 
     date_joined = models.DateTimeField('date joined', default=timezone.now)

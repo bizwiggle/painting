@@ -9,7 +9,15 @@ ADD_PORTFOLIO_HELP_MESSAGE = 'This is the Add Portfolio Help Message'
 EDIT_PORTFOLIO_HELP_MESSAGE = 'This is the Edit Portfolio Help Message'
 OUR_PEOPLE_HELP_MESSAGE = 'This is the Our People Help Message'
 SEO_TOOLS_HELP_MESSAGE = 'This is the SEO Tools Help Message'
-BILLING_HELP_MESSAGE = 'This is billing help message'
+
+# BILLING
+CREDIT_CARD_UPDATED = 'Your credit card has been sucessfully updated.'
+CARD_RAN_NEXT_BILLING_CYCLE = 'Your credit card will run on our next billing cycle'
+ACCOUNT_NOW_ACTIVE = 'Your credit card has been successfully updated.  Your account is now active.'
+UNPAID_SUBSCRIPTION = 'Your credit card was declined during your last billing.  Please update your credit card information to ensure no disruption to your website'
+WEBSITE_CANCELED = 'Your website service is now turned off and your website will remain active until your next billing date.'
+WEBSITE_ACTIVATED = 'Your website is now active'
+
 
 PAGE_TITLE_TEMPLATE = "My Website Admin - $page_name"
 PAGE_UPDATED_TEMPLATE = "Your website has been successfully updated"
@@ -23,6 +31,6 @@ INACTIVE_ACCOUNT_MSG = "Your account is currently inactive.   Please re-activate
 
 SAVE_EXCEPTION = "A problem happened and it's not your fault!  A technical dificulty caused us to not be able to update your webpage.  Please try again or contact Bizwiggle for help."
 
-INCORRECT_USER_SITE_LOGIN = "Let's try logging into this site instead"
+INCORRECT_USER_SITE_LOGIN = "Incorrect Site Message"
 
 WRONG_SITE_MSG = "Wrong site message"

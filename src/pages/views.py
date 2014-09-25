@@ -17,6 +17,8 @@ def index(request):
         success_stories = Success_Stories.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
+    
+    check_user_status(general_info)
 
     context = {
         

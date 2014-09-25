@@ -12,7 +12,8 @@ BANNER_LINE_LENGTH = 40
 
 DAYS_BETWEEN_BILLING_CHECK = 7
 
-STATES = ( 
+STATES = (
+    ('  ', 'Select Your State'), 
     ('AL', 'Alabama'),
     ('AK', 'Alaska'),
     ('AZ', 'Arizona'),

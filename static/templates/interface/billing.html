@@ -51,8 +51,22 @@
       {% endif %}
 		{% if subscription.trial_end %}
 		<p class="help-block">Your Trial Period ends on {{ subscription.trial_end|date:"D, M d , Y" }} .</p>
-       {% endif %}
-       {% if not forloop.last %} <hr>{% else %} <br>{% endif %}
+      {% endif %}
+		{% if not forloop.last %} 
+			<hr>
+		{% else %}
+      	{% if forloop.counter > 1 %} 
+				<hr> 
+         	<p class="help-block">You have multiple billings on your account if you feel this is in error,  
+											 please email <a href="mailto:{{ BIZWIGGLE_EMAIL }}">{{ BIZWIGGLE_EMAIL }}</a>
+											 or call us at {{ BIZWIGGLE_PHONE }}.  We want to make sure you are correctly billed
+                                  and will make every effort to make sure we get it right.
+			{% endif %}
+      	<br>
+
+		{% endif %}
+
+
 	{% endfor %}
 	</ul>
    {% endif %}

@@ -34,10 +34,12 @@
 	<div id="panel-collapse-4" class="collapse in">
 		<div class="panel-body">
 		<label class="radio-inline">
-  			<input type="radio" name="has_comercial" value="on" {% if has_comercial_page %} checked {% endif %}> Turn Page On
+  			<input type="radio" name="has_comercial" value="on" {% if has_comercial_page %} checked {% endif %}> 
+             {% if has_comercial_page %} Page Is On {% else %} Turn Page On {% endif %}
 		</label>
 		<label class="radio-inline">
-  		<input type="radio" name="has_comercial" value="off" {% if not has_comercial_page %} checked {% endif %}> Turn Page Off
+  		<input type="radio" name="has_comercial" value="off" {% if not has_comercial_page %} checked {% endif %}> 
+      		{% if not has_comercial_page %} Page Is Off {% else %} Turn Page Off {% endif %}
 </label>
 
 		</div><!-- /.panel-body -->

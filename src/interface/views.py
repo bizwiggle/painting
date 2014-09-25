@@ -1059,6 +1059,7 @@ def interface_billing(request):
     try:
         progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
         billing = Billing.objects.get(user=user)
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
     except:
         raise Http404
 
@@ -1082,12 +1083,13 @@ def interface_billing(request):
             subscription.trial_end =  datetime.datetime.fromtimestamp(subscription.trial_end)
         except:
             pass
-   
+  
+    billing_updated = False 
     website_active = True
     if website_subscription == "" or website_subscription.status == 'canceled' or website_subscription.cancel_at_period_end:
         website_active = False
 
-    use_help_message = True 
+    use_help_message = False 
     if request.POST:
 
         if 'stripeToken' in request.POST:
@@ -1095,39 +1097,60 @@ def interface_billing(request):
             new_card = customer.cards.create(card=token)
             if customer.default_card:
                 customer.default_card = new_card
-                # message : Your card has been updated.
+                messages.success(request, CREDIT_CARD_UPDATED)
                 if website_subscription != "" and website_subscription.status == "past_due":
-                    print 'website past due' 
-                   # your card has been updated and your account will be charged during our next billing cycle
+                    messages.success(request, CARD_RAN_NEXT_BILLING_CYCLE)
+          
             if website_subscription == "":
                 if customer.default_card:
-                    website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN_NO_TRIAL)
-                    user.is_active = True
-                    user.save()
+                    try:
+                        website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN_NO_TRIAL) 
+                        billing.stripe_id_website_sub = website_subscription.id
+                        billing_updated = True
+                        messages.success(request, CREDIT_CARD_UPDATED)
+                    except stripe.error.CardError,e:
+                        body = e.json_body
+                        err = body['error']
+                        messages.warning(request, err['message'])
                 else:
-                    website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN)
-                billing.stripe_id_website_sub = website_subscription.id
-                # message your card has been updated and your subscription is now active
+                    try:
+                        website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN)
+                        billing.stripe_id_website_sub = website_subscription.id
+                        messages.success(request, ACCOUNT_NOW_ACTIVE)
+                    except stripe.error.CardError,e:
+                        body = e.json_body
+                        err = body['error']
+                        messages.warning(request, err['message'])
             customer.save()
             billing.save()
-            # message : Your card has been updated.
 
         if 'website_switch' in request.POST:
             if request.POST['website_switch'] == 'on' and not website_active:
                 if website_subscription != "":
                     customer.subscriptions.retrieve(billing.stripe_id_website_sub).delete()
-                website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN_NO_TRIAL)
-                billing.stripe_id_website_sub = website_subscription.id
-                billing.save()
-                customer.save()
+                try:
+                    website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN_NO_TRIAL)
+                    billing_updated = True
+                    billing.stripe_id_website_sub = website_subscription.id
+                    billing.save()
+                    customer.save()
+                    messages.success(request, WEBSITE_ACTIVATED)
+                except stripe.error.CardError,e:
+                    body = e.json_body
+                    err = body['error']
+                    messages.warning(request, err['message'])
+                
 
             if request.POST['website_switch'] == 'off' and website_active:
                 customer.subscriptions.retrieve(billing.stripe_id_website_sub).delete(at_period_end=True)
-                website_active = False 
+                billing.stripe_id_website_sub = ''
+                billing.save() 
+
                 EMAIL_BODY = ''.join([user.email, 'has shut off web service for ', settings.SITE_NAME])
                 send_mail('Important - Customer Shutoff Service', EMAIL_BODY, BIZWIGGLE_INFO['email'], 
                     [BIZWIGGLE_INFO['email'] ], fail_silently=True
                 )
+                messages.success(request, WEBSITE_CANCELED)
 
         customer = stripe.Customer.retrieve(billing.stripe_id)
 
@@ -1144,11 +1167,14 @@ def interface_billing(request):
         website_active = True
         if website_subscription == "" or website_subscription.status == 'canceled' or website_subscription.cancel_at_period_end:
             website_active = False
-        
-   
+
+    if website_subscription != "" and website_subscription.status != 'canceled':
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
+        general_info.is_website_active = True
+        general_info.save()  
+ 
     if website_subscription != "" and website_subscription.status == 'unpaid':
-        print 'unpaid subscription'
-      # message 
+        messages.warning(request, UNPAID_SUBSCRIPTION)
 
     card = '' 
     if customer.default_card:
@@ -1160,9 +1186,10 @@ def interface_billing(request):
          'PUB_KEY':PUB_KEY,
          'active_page':'admin_billing',
          'use_help_message':use_help_message,
-         'help_message':BILLING_HELP_MESSAGE,
          'has_card':customer['default_card'],
          'website_active':website_active,
+         'BIZWIGGLE_EMAIL':BIZWIGGLE_INFO['email'],
+         'BIZWIGGLE_PHONE':BIZWIGGLE_INFO['phone'],
          'customer':customer,
          'card':card,
          'progress':progress,
