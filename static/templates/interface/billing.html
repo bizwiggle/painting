@@ -37,46 +37,37 @@
 	<div id="panel-collapse-2" class="collapse in">
 		<div class="panel-body">
 
-<form action="" method="POST" id="payment-form">
+<form action="{% url 'admin_add_card' %}" method="POST" id="payment-form">
  {% csrf_token %}
   <div class="form-row">
 	<fieldset>
-	{% if has_card and customer.subscriptions.data %}
+
+	{% if website_subscription %}
    <legend>Next Billing Date</legend>
 	<ul class="list-group">
-	{% for subscription in customer.subscriptions.data %}
-		<li class="list_type_none">{{ subscription.plan.name }} - {{ subscription.current_period_end|date:"D, M d , Y" }}</li>
-		{% if subscription.cancel_at_period_end %}
-		<p class="help-block">Your subscrption is scheduled to cancel at the end of this billing period.</p>
-      {% endif %}
-		{% if subscription.trial_end %}
-		<p class="help-block">Your Trial Period ends on {{ subscription.trial_end|date:"D, M d , Y" }} .</p>
-      {% endif %}
-		{% if not forloop.last %} 
-			<hr>
-		{% else %}
-      	{% if forloop.counter > 1 %} 
-				<hr> 
-         	<p class="help-block">You have multiple billings on your account if you feel this is in error,  
-											 please email <a href="mailto:{{ BIZWIGGLE_EMAIL }}">{{ BIZWIGGLE_EMAIL }}</a>
-											 or call us at {{ BIZWIGGLE_PHONE }}.  We want to make sure you are correctly billed
-                                  and will make every effort to make sure we get it right.
-			{% endif %}
-      	<br>
-
-		{% endif %}
-
-
-	{% endfor %}
+		<li class="list_type_none">{{ website_subscription.plan.name }} - {{ current_period_end|date:"D, M d , Y" }}</li>
+			{% if website_subscription.cancel_at_period_end %}
+				<p class="help-block">Your subscrption is scheduled to cancel at the end of this billing period.</p>
+      	{% endif %}
+			{% if trial_end %}
+				<p class="help-block">Your Trial Period ends on {{ trial_end|date:"D, M d , Y" }} .</p>
+      	{% endif %}
+			<br>
 	</ul>
-   {% endif %}
-	{% if has_card %}
+   {% endif %} 
+	<!-- end display subscription info -->
+   
+
+	{% if card %}
    <legend>Current Payment Card</legend>
    <h4>{{ card.brand }}...{{ card.last4 }}</h4>
    <p>Expires at {{ card.exp_month }}/{{ card.exp_year }}</p>
 	<br>
-	{% endif %}
-	<legend>{% if has_card %}Change Payment Card{% else %}Add New Card{% endif %}</legend>
+	{% endif %} 
+	<!-- end current card infomation -->
+
+
+	<legend>{% if card %}Change Payment Card{% else %}Add New Card{% endif %}</legend>
     <label>
       <span>Card Number</span>
       <input type="text" size="20" data-stripe="number"/>
@@ -110,7 +101,7 @@
 </div>
 <!-- end Payment Info-->
 
-<form id="ServiceOptionsForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+<form id="ServiceOptionsForm" method="post" action="{% url 'admin_service_options' %}" class="form-horizontal">
 {% csrf_token %}
 
 <!-- Service Options -->
@@ -133,12 +124,12 @@
 		<div class="panel-body">
 			<legend>Website</legend>
 				<label class="radio-inline">
-         		<input type="radio" name="website_switch" value="on" {% if website_active %} checked {% endif %}> 
-                {% if website_active %} Website Is Turned On {% else %} Turn On Website {% endif %}
+         		<input type="radio" name="website_switch" value="on" {% if is_website_switched_on %} checked {% endif %}> 
+                {% if is_website_switched_on %} Website Is Turned On {% else %} Turn On Website {% endif %}
       		</label>
       		<label class="radio-inline">
-      			<input type="radio" name="website_switch" value="off" {% if not website_active %} checked {% endif %}> 
-                {% if not website_active %} Website Is Turned Off {% else %} Turn Website Off {% endif %}
+      			<input type="radio" name="website_switch" value="off" {% if not is_website_switched_on %} checked {% endif %}> 
+                {% if not is_website_switched_on %} Website Is Turned Off {% else %} Turn Website Off {% endif %}
 				</label>         
 		</div><!-- /.panel-body -->
 	</div><!-- /.collapse in -->

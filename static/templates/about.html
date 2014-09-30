@@ -44,6 +44,7 @@ $(window).load(function() {
 <div class="row">
 <div class="span4">
 
+{% if about.pic %}
 <div class="thumb2">
 	<div class="thumbnail clearfix">
 		<figure class="img-polaroid"><img src="{{ MEDIA_URL }}{{ about.pic }}" alt=""></figure>
@@ -52,6 +53,7 @@ $(window).load(function() {
 		</div>
 	</div>
 </div>
+{% endif %}
 
 </div>
 

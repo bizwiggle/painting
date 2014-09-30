@@ -242,7 +242,7 @@ class Services(models.Model):
                                               blank=True,
                           )
 
-    service_area_blurb = models.CharField('Service Area Blurb', max_length=64, blank=True)
+    service_area_blurb = models.CharField('Service Area Blurb', max_length=512, blank=True)
 
     service_list1 = models.CharField('Service List 1', max_length=64, blank=True)
     service_list1_link = models.CharField('Service List 1 Link', max_length=1, blank=True, choices=SERVICE_PAGE_CHOICES, default=NONE)

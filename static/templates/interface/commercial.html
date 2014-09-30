@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-<form id="CommercialServicesForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+<form id="CommercialForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
 {% csrf_token %}
 
 <!-- Other Services Options -->
@@ -153,7 +153,7 @@
             <label class="col-md-2 control-label">Picture</label>
             <div class="col-md-9">
                <p class="help-block">Default pic will be used if one is not uploaded</p>
-               <input type="file" name="pic1">
+               <input type="file" name="pic2">
                <p class="help-block">Recommended Size: 214 x 214 px</p>
             </div>
          </div>
@@ -235,4 +235,5 @@
 {% block extra_js %}
 <script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+<script src="/static/plugins/validator/page_validators/commercial.js"></script>
 {% endblock %}

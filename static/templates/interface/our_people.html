@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-<form id="OtherPeopleForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
+<form id="OurPeopleForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
 {% csrf_token %}
 
 <!-- Our People 1 -->
@@ -597,4 +597,5 @@
 {% block extra_js %}
 <script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+<script src="/static/plugins/validator/page_validators/our_people.js"></script>
 {% endblock %}

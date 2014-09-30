@@ -9,6 +9,10 @@ ADD_PORTFOLIO_HELP_MESSAGE = 'This is the Add Portfolio Help Message'
 EDIT_PORTFOLIO_HELP_MESSAGE = 'This is the Edit Portfolio Help Message'
 OUR_PEOPLE_HELP_MESSAGE = 'This is the Our People Help Message'
 SEO_TOOLS_HELP_MESSAGE = 'This is the SEO Tools Help Message'
+CHANGE_PASSWORD_HELP_MESSAGE = 'This is the change password Help Message'
+
+CHANGE_PASSWORD_SUCCESS = 'Your password has successfully been updated'
+CURRENT_PASSWORD_FAILED = 'Current password did not authenticate'
 
 # BILLING
 CREDIT_CARD_UPDATED = 'Your credit card has been sucessfully updated.'

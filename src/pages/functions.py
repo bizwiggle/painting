@@ -12,7 +12,6 @@ from interface.models import Billing
 
 def check_user_status(general_info):
     user = general_info.user
-
     if user.check_stripe_date < datetime.date.today():
         try: 
             billing = Billing.objects.get(user=user)
@@ -23,7 +22,7 @@ def check_user_status(general_info):
         try:
             customer = stripe.Customer.retrieve(billing.stripe_id)
             web_subscription = customer.subscriptions.retrieve(billing.stripe_id_website_sub)
-            
+             
             if web_subscription.status == 'canceled':
                 general_info.is_website_active = False
                 general_info.save()
@@ -36,7 +35,8 @@ def check_user_status(general_info):
             general_info.is_website_active = False
             general_info.save()
             send_canceled_email(user)
-    elif not general_info.is_website_active:
+   
+    if not general_info.is_website_active:
         raise Http404
    
 def send_canceled_email(user):

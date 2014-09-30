@@ -105,7 +105,7 @@ $(document).ready(function() {
                         extension: 'jpeg,png,jpg,gif',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 4096 * 1024,   // 4 MB
-                        message: 'A valid logo is less than 4 MB.  Allowed image types are jpeg, png and gif'
+                        message: 'Logo image must be less than 4 MB.  Allowed image types are jpeg, png and gif'
                     }	
 				}
 			},

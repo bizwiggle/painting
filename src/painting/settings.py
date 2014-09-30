@@ -13,8 +13,8 @@ from painting.email_settings import *
 SITE_NAME = 'painting.bizwiggle.com'
 SITE_ID = SITE_IDS[SITE_NAME]
 
-STRIPE_PLAN = 'web9999'
-STRIPE_PLAN_NO_TRIAL = 'web9999NT'
+STRIPE_PLAN = 'painting9999'
+TRIAL_LENGTH = 7
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os

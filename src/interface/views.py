@@ -17,10 +17,10 @@ from django.contrib import messages
 from django.contrib.sites.models import Site
 
 from painting.stripe_info import PUB_KEY, SECRET_KEY
+from painting.constants import STATES, BIZWIGGLE_INFO
 
 from auth.models import MyUser
 
-from painting.constants import STATES, BIZWIGGLE_INFO
 
 from pages.models import (Why_Us, Success_Stories, About, Services, Residential_Service,
     Comercial_Service, Other_Services, General_Info, Our_People, Index, Portfolio_Pic
@@ -28,6 +28,10 @@ from pages.models import (Why_Us, Success_Stories, About, Services, Residential_
 
 from interface.models import Progress, Billing
 from interface.user_messages import *
+from interface.billing_functions import (get_customer, update_stripe_email, get_current_subscription,
+    get_default_card, is_subscription_canceled, is_subscription_on, is_subscription_unpaid,
+    end_subscription_datetime, create_new_subscription, turn_off_subscription, 
+)
 
 @login_required
 def interface_dashboard(request):
@@ -1067,134 +1071,118 @@ def interface_billing(request):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
-    stripe.api_key = SECRET_KEY
-    customer = stripe.Customer.retrieve(billing.stripe_id)
-
-    if user.email != customer.email:
-        customer.email = user.email
-        customer.save()
-
-    website_subscription = ""
-    for subscription in customer.subscriptions.data:
-        try:
-            if subscription.id == billing.stripe_id_website_sub:
-                website_subscription = subscription
-            subscription.current_period_end = datetime.datetime.fromtimestamp(subscription.current_period_end) 
-            subscription.trial_end =  datetime.datetime.fromtimestamp(subscription.trial_end)
-        except:
-            pass
-  
-    billing_updated = False 
-    website_active = True
-    if website_subscription == "" or website_subscription.status == 'canceled' or website_subscription.cancel_at_period_end:
-        website_active = False
-
-    use_help_message = False 
-    if request.POST:
-
-        if 'stripeToken' in request.POST:
-            token = request.POST['stripeToken']
-            new_card = customer.cards.create(card=token)
-            if customer.default_card:
-                customer.default_card = new_card
-                messages.success(request, CREDIT_CARD_UPDATED)
-                if website_subscription != "" and website_subscription.status == "past_due":
-                    messages.success(request, CARD_RAN_NEXT_BILLING_CYCLE)
-          
-            if website_subscription == "":
-                if customer.default_card:
-                    try:
-                        website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN_NO_TRIAL) 
-                        billing.stripe_id_website_sub = website_subscription.id
-                        billing_updated = True
-                        messages.success(request, CREDIT_CARD_UPDATED)
-                    except stripe.error.CardError,e:
-                        body = e.json_body
-                        err = body['error']
-                        messages.warning(request, err['message'])
-                else:
-                    try:
-                        website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN)
-                        billing.stripe_id_website_sub = website_subscription.id
-                        messages.success(request, ACCOUNT_NOW_ACTIVE)
-                    except stripe.error.CardError,e:
-                        body = e.json_body
-                        err = body['error']
-                        messages.warning(request, err['message'])
-            customer.save()
-            billing.save()
-
-        if 'website_switch' in request.POST:
-            if request.POST['website_switch'] == 'on' and not website_active:
-                if website_subscription != "":
-                    customer.subscriptions.retrieve(billing.stripe_id_website_sub).delete()
-                try:
-                    website_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN_NO_TRIAL)
-                    billing_updated = True
-                    billing.stripe_id_website_sub = website_subscription.id
-                    billing.save()
-                    customer.save()
-                    messages.success(request, WEBSITE_ACTIVATED)
-                except stripe.error.CardError,e:
-                    body = e.json_body
-                    err = body['error']
-                    messages.warning(request, err['message'])
-                
-
-            if request.POST['website_switch'] == 'off' and website_active:
-                customer.subscriptions.retrieve(billing.stripe_id_website_sub).delete(at_period_end=True)
-                billing.stripe_id_website_sub = ''
-                billing.save() 
-
-                EMAIL_BODY = ''.join([user.email, 'has shut off web service for ', settings.SITE_NAME])
-                send_mail('Important - Customer Shutoff Service', EMAIL_BODY, BIZWIGGLE_INFO['email'], 
-                    [BIZWIGGLE_INFO['email'] ], fail_silently=True
-                )
-                messages.success(request, WEBSITE_CANCELED)
-
-        customer = stripe.Customer.retrieve(billing.stripe_id)
-
-        website_subscription = ""
-        for subscription in customer.subscriptions.data:
-            try:
-                if subscription.id == billing.stripe_id_website_sub:
-                    website_subscription = subscription
-                subscription.current_period_end = datetime.datetime.fromtimestamp(subscription.current_period_end) 
-                subscription.trial_end =  datetime.datetime.fromtimestamp(subscription.trial_end)
-            except:
-                pass
-
-        website_active = True
-        if website_subscription == "" or website_subscription.status == 'canceled' or website_subscription.cancel_at_period_end:
-            website_active = False
-
-    if website_subscription != "" and website_subscription.status != 'canceled':
+    customer = get_customer(billing.stripe_id)
+    update_stripe_email(user, customer)
+    
+    website_subscription = get_current_subscription(billing, customer) 
+ 
+    if not is_subscription_canceled(website_subscription):
         general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
         general_info.is_website_active = True
         general_info.save()  
  
-    if website_subscription != "" and website_subscription.status == 'unpaid':
+    if is_subscription_unpaid(website_subscription):
         messages.warning(request, UNPAID_SUBSCRIPTION)
-
-    card = '' 
-    if customer.default_card:
-        card = customer.cards.retrieve(customer.default_card) 
 
     context = { 
          'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
          'page_description':'Enter page descrption here',
          'PUB_KEY':PUB_KEY,
          'active_page':'admin_billing',
-         'use_help_message':use_help_message,
+         'use_help_message':False,
          'has_card':customer['default_card'],
-         'website_active':website_active,
+         'is_website_switched_on':is_subscription_on(website_subscription),
          'BIZWIGGLE_EMAIL':BIZWIGGLE_INFO['email'],
          'BIZWIGGLE_PHONE':BIZWIGGLE_INFO['phone'],
          'customer':customer,
-         'card':card,
+         'website_subscription': website_subscription,
+         'card':get_default_card(customer),
          'progress':progress,
-    }  
+    } 
+    if website_subscription != '':
+        context['current_period_end'] = end_subscription_datetime(website_subscription.current_period_end)
+        context['trial_end'] = end_subscription_datetime(website_subscription.trial_end)
     return render(request, 'interface/billing.html', context)
+
+@login_required
+def interface_add_credit_card(request):
+    user = request.user
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
+        billing = Billing.objects.get(user=user)
+    except:
+        raise Http404
+
+    if progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+ 
+    if 'stripeToken' in request.POST:
+        token = request.POST.get('stripeToken', '')   
+        customer = get_customer(billing.stripe_id)
+        try:
+            new_card = customer.cards.create(card=token)
+            if customer.default_card:
+                customer.default_card = new_card
+            customer.save()    
+        except stripe.error.CardError, e:
+            body = e.json_body
+            err = body['error']
+            messages.warning(request, err['message'])
+            return redirect('admin_billing')
+             
+
+        subscription_messages = {} 
+        if not get_current_subscription(billing, customer):
+            subscription_messages = create_new_subscription(billing, customer)
+            messages.success(request, CREDIT_CARD_UPDATED)
+
+        if subscription_messages.has_key('warning'):
+            subscription_messages.warning(request, subscription_messages['warning'])
+        if subscription_messages.has_key('success'):
+            messages.success(request, subscription_messages['success']) 
+
+    return redirect('admin_billing')
+
+@login_required
+def interface_process_service_options(request):
+    user = request.user
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+        billing = Billing.objects.get(user=user)
+    except:
+        raise Http404
+
+    if progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+ 
+    customer = get_customer(billing.stripe_id)
+    website_subscription = get_current_subscription(billing, customer)    
+    is_subscription_active = is_subscription_on(website_subscription)
+
+    if 'website_switch' in request.POST:
+        website_switch = request.POST.get('website_switch', '')
+        if website_switch == 'on' and not is_subscription_active:
+            subscription_messages = create_new_subscription(billing, customer, subscription=website_subscription)         
+ 
+            if subscription_messages.has_key('warning'):
+                subscription_messages.warning(request, subscription_messages['warning'])
+            if subscription_messages.has_key('success'):
+                messages.success(request, subscription_messages['success']) 
+
+ 
+        elif website_switch == 'off' and is_subscription_active:
+            turn_off_subscription(customer, billing)
+            messages.success(request, WEBSITE_CANCELED)
+            
+            EMAIL_BODY = ''.join([user.email, 'has shut off web service for ', settings.SITE_NAME])
+            send_mail('Important - Customer Shutoff Service', EMAIL_BODY, BIZWIGGLE_INFO['email'], 
+                    [BIZWIGGLE_INFO['email'] ], fail_silently=True
+            )
+
+    return redirect('admin_billing')
 
 @login_required
 def interface_edit_portfolio(request):
@@ -1236,6 +1224,54 @@ def interface_edit_portfolio(request):
          'progress':progress,
     }  
     return render(request, 'interface/edit_portfolio.html', context)
+
+@login_required
+def interface_change_password(request):
+    PAGE_NAME = "Change Password"
+
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+        return redirect('admin_login')
+
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    if not user.is_superuser and progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
+
+    use_help_message = True 
+    if request.POST:
+        try:
+            current_password = request.POST.get('current_password', '') 
+            check_user = authenticate(email=user.email, password=current_password) 
+            if check_user is not None:
+                new_password = request.POST.get('new_password', '')
+                user.set_password(new_password)
+                user.save()
+
+                messages.success(request, CHANGE_PASSWORD_SUCCESS)
+            else:
+                messages.warning(request, CURRENT_PASSWORD_FAILED)
+
+            use_help_message = False
+        except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_change_password',
+         'use_help_message':use_help_message,
+         'help_message':CHANGE_PASSWORD_HELP_MESSAGE,
+         'progress':progress,
+    }  
+    return render(request, 'interface/password.html', context)
+ 
  
 def interface_login(request):
     if request.POST:
@@ -1300,7 +1336,6 @@ def interface_forgot_password(request):
         'page_title':'My Website Reset Password',
         'page_description':'page description goes here',
     }
-
 
     return render(request, 'interface/login/forgot_password.html', context) 
 
