@@ -103,6 +103,22 @@
 	<div id="panel-collapse-3" class="collapse">
 		<div class="panel-body">
 			<fieldset>
+			<legend>Main Slider Pic</legend>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Slider Pic</label>
+				<div class="form-select col-md-5">
+					<select class="form-control" name="slider_pic">
+					{% for pic_choice in index.SLIDER_PIC_CHOICES %}
+               	<option value={{ pic_choice.0 }}{% if pic_choice.0 == index.slider_pic %} selected{% endif %}>
+							{{ pic_choice.1 }}
+						</option>
+					{% endfor %}
+					</select>
+				</div>
+			</div>
+         </fieldset>
+		
+			<fieldset>
 			<legend>Slide 1</legend>
 			<div class="form-group">
 				<label class="col-md-2 control-label">Top Headline</label>
@@ -118,7 +134,7 @@
 			</div>
 			<div class="form-group">
 				<label class="col-md-2 control-label">Slide Link</label>
-				<div class="col-md-5">
+				<div class="form-select col-md-5">
 					<select class="form-control" name="slider_link1">
 					{% for link_page in index.PAGES_CHOICES %}
                	<option value={{ link_page.0 }}{% if link_page.0 == index.slider_link1 %} selected{% endif %}>
@@ -146,7 +162,7 @@
 			</div>
 			<div class="form-group">
 				<label class="col-md-2 control-label">Slide Link</label>
-				<div class="col-md-5">
+				<div class="form-select col-md-5">
 					<select class="form-control" name="slider_link2">
 					{% for link_page in index.PAGES_CHOICES %}
                	<option value={{ link_page.0 }}{% if link_page.0 == index.slider_link2 %} selected{% endif %}>
@@ -174,7 +190,7 @@
 			</div>
 			<div class="form-group">
 				<label class="col-md-2 control-label">Slide Link</label>
-				<div class="col-md-5">
+				<div class="form-select col-md-5">
 					<select class="form-control" name="slider_link3">
 					{% for link_page in index.PAGES_CHOICES %}
                	<option value={{ link_page.0 }}{% if link_page.0 == index.slider_link3 %} selected{% endif %}>
@@ -202,7 +218,7 @@
 			</div>
 			<div class="form-group">
 				<label class="col-md-2 control-label">Slide Link</label>
-				<div class="col-md-5">
+				<div class="form-select col-md-5">
 					<select class="form-control" name="slider_link4">
 					{% for link_page in index.PAGES_CHOICES %}
                	<option value={{ link_page.0 }}{% if link_page.0 == index.slider_link4 %} selected{% endif %}>
@@ -230,7 +246,7 @@
 			</div>
 			<div class="form-group">
 				<label class="col-md-2 control-label">Slide Link</label>
-				<div class="col-md-5">
+				<div class="form-select col-md-5">
 					<select class="form-control" name="slider_link5">
 					{% for link_page in index.PAGES_CHOICES %}
                	<option value={{ link_page.0 }}{% if link_page.0 == index.slider_link5 %} selected{% endif %}>

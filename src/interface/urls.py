@@ -17,10 +17,17 @@ urlpatterns = patterns('',
     url(r'^our-people/$', views.interface_our_people, name='admin_our_people'),
     url(r'^social/$', views.interface_social, name='admin_social'),
     url(r'^testimonials/$', views.interface_success_stories, name='admin_success_stories'),
-    url(r'^seo_tools/$', views.interface_seo_tools, name='admin_seo_tools'),
+    url(r'^seo-tools/$', views.interface_seo_tools, name='admin_seo_tools'),
+
+    url(r'^contact/$', views.interface_contact, name='admin_contact'),
+    url(r'^faq/$', views.interface_faq, name='admin_faq'),
+   
+
     url(r'^billing/$', views.interface_billing, name='admin_billing'),
-    url(r'^add_credit_card/$', views.interface_add_credit_card, name='admin_add_card'),
-    url(r'^process_service_options/$', views.interface_process_service_options, name='admin_service_options'),
+    url(r'^add-credit-card/$', views.interface_add_credit_card, name='admin_add_card'),
+    url(r'^process-service-options/$', views.interface_process_service_options, name='admin_service_options'),
+
+    url(r'^change-password/$', views.interface_change_password, name='admin_change_password'),
     url(r'^login/$', views.interface_login, name='admin_login'),
     url(r'^change-password/$', views.interface_change_password, name='admin_change_password'),
     url(r'^forgot-password/$', views.interface_forgot_password, name='admin_forgot_password'),

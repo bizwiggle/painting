@@ -88,8 +88,16 @@ class Index(models.Model):
         (ABOUT,'About Us'),
         (CONTACT,'Contact'),
     )
+
     DEFAULT_SLIDER_TXT_TOP='Request a'
     DEFAULT_SLIDER_TXT_BOTTOM='Hassle Free Estimate'
+
+    NO_PIC = 'NP'
+    PAINTER_GIRL = 'PG'
+    SLIDER_PIC_CHOICES = (
+        (NO_PIC, 'No Slider Pic'),
+        (PAINTER_GIRL, 'Painter Girl'),
+    )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     site = models.ForeignKey(Site)
@@ -113,6 +121,8 @@ class Index(models.Model):
     slider_txt_top5 = models.CharField('Banner Text Top 5', max_length=32, blank=True,default=DEFAULT_SLIDER_TXT_TOP,)
     slider_txt_bottom5 = models.CharField('Slider Text Bottom 5', max_length=32, blank=True, default=DEFAULT_SLIDER_TXT_BOTTOM)
     slider_link5 = models.CharField('Slider Link 5', max_length=30, blank=True, choices=PAGES_CHOICES, default=CONTACT) 
+
+    slider_pic = models.CharField('Slider Pic', max_length=2, blank=True, choices=SLIDER_PIC_CHOICES, default=PAINTER_GIRL) 
 
     why_us_blurb = models.CharField('Why Us Home Blurb', max_length=160, blank=True)
     about_blurb = models.CharField('About Us Home Blurb', max_length=160, blank=True)
@@ -173,7 +183,7 @@ class Index(models.Model):
                                      blank=True,
                       )
     affilation6_URL = models.URLField('Affilation 6 URL', blank=True)
-
+    
     meta_description = models.CharField('Page Meta Descrption', max_length=160, blank=True)
     last_modified = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 

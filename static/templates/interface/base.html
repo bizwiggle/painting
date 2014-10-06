@@ -70,7 +70,6 @@
 								Hi, <strong>{{ progress.business_name }}</strong> <span class="toolbox"><i class="fa fa-gear"></i></span>
 							  </a>
 							  <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
-								<li><a href="#fakelink">Account setting</a></li>
 								<li><a href="{% url 'admin_billing' %}">Payment setting</a></li>
 								<li><a href="{% url 'admin_change_password' %}">Change password</a></li>
 								<li class="divider"></li>
@@ -84,57 +83,8 @@
 						<div class="collapse navbar-collapse" id="main-fixed-nav">
 							<!-- End nav search form -->
 							<ul class="nav navbar-nav navbar-left">
-								<!-- Begin nav notification -->
-								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-										<span class="badge badge-danger icon-count">7</span>
-										<i class="fa fa-bell"></i>
-									</a>
-									<ul class="dropdown-menu square with-triangle">
-										<li>
-											<div class="nav-dropdown-heading">
-											Notifications
-											</div><!-- /.nav-dropdown-heading -->
-											<div class="nav-dropdown-content scroll-nav-dropdown">
-												<ul>
-													<li class="unread"><a href="#fakelink">
-														<img src="assets/img/avatar/avatar.jpg" class="absolute-left-content img-circle" alt="Avatar">
-														<strong>Thomas White</strong> posted on your profile page
-														<span class="small-caps">17 seconds ago</span>
-													</a></li>
-												</ul>
-											</div><!-- /.nav-dropdown-content scroll-nav-dropdown -->
-											<button class="btn btn-primary btn-square btn-block">See all notifications</button>
-										</li>
-									</ul>
-								</li>
-								<!-- End nav notification -->
-								<!-- Begin nav task -->
-								<li class="dropdown">
-									<a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-										<span class="badge badge-warning icon-count">3</span>
-										<i class="fa fa-tasks"></i>
-									</a>
-									<ul class="dropdown-menu square margin-list-rounded with-triangle">
-										<li>
-											<div class="nav-dropdown-heading">
-											Tasks
-											</div><!-- /.nav-dropdown-heading -->
-											<div class="nav-dropdown-content scroll-nav-dropdown">
-												<ul>
-													<li class="unread"><a href="#fakelink">
-														<i class="fa fa-check-circle-o absolute-left-content icon-task completed"></i>
-														Creating documentation
-														<span class="small-caps">Completed : Yesterday</span>
-													</a></li>
-												</ul>
-											</div><!-- /.nav-dropdown-content scroll-nav-dropdown -->
-											<button class="btn btn-primary btn-square btn-block">See all notifications</button>
-										</li>
-									</ul>
-								</li>
 								<li>
-									<a href="" target="_blank">
+									<a href="{% url 'index' %}" title="View Your Webpage" target="_blank">
 										<i class="fa fa-desktop"></i>
 									</a>
 								</li>
@@ -148,17 +98,9 @@
 			</div><!-- /.top-navbar -->
 			<!-- END TOP NAV -->
 			
-			
-			
 			<!-- BEGIN SIDEBAR LEFT -->
 			<div class="sidebar-left sidebar-nicescroller">
 				<ul class="sidebar-menu">
-					<li>
-						<a href="{% url 'admin_dashboard' %}">
-							<i class="fa fa-dashboard icon-sidebar"></i>
-							Dashboard
-						</a>
-					</li>
 					<li {% if active_page == 'admin_general' %} class="active selected"{% endif %}>
 						<a href="{% url 'admin_general_info' %}">
 							<i class="fa fa-info icon-sidebar"></i>
@@ -308,9 +250,12 @@
 							Help
 						</a>
 						<ul class="submenu">
-							<li><a href="table-static.html">Static table</a></li>
-							<li><a href="table-color.html">Table color</a></li>
-							<li><a href="table-datatable.html">Jquery datatable</a></li>
+							<li {% if active_page == 'admin_faq' %} class="active selected"{% endif %}>
+								<a href="{% url 'admin_faq' %}">Frequently Asked Questions</a>
+							</li>
+							<li {% if active_page == 'admin_contact' %} class="active selected"{% endif %}>
+								<a href="{% url 'admin_contact' %}">Contact Bizwiggle</a>
+							</li>
 						</ul>
 					</li>
 				</ul>

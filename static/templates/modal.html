@@ -5,8 +5,8 @@
     <h3 id="myModalLabel">Hassle Free Estimate</h3>
   </div>
   <div class="modal-body">
-   <form id="modal-form" class="form-horizontal" action="">
-    
+   <form id="modal-form" class="form-horizontal" action="{% url 'email_handler' %}?next={{ active }}" method="post">
+      {% csrf_token %}    
       <div class="control-group">
           <label class="control-label" for="inputName">Name: </label>
           <div class="controls">    

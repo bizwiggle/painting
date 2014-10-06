@@ -42,7 +42,13 @@
 <div class="row">
 <div class="span12">
 <div class="top1 clearfix">
-<header><div class="logo_wrapper"><a href="{% url 'index' %}" class="logo"><img src="{{ MEDIA_URL }}{{ general_info.logo }}" alt="{{ general_info.business_name }} company logo"></a></div></header>	
+<header>
+{% if general_info.logo %}
+<div class="logo_wrapper">
+<a href="{% url 'index' %}" class="logo"><img src="{{ MEDIA_URL }}{{ general_info.logo }}" alt="{{ general_info.business_name }} company logo"></a>
+{% endif %}
+</div>
+</header>	
 <div class="phone1_wrapper">
 <div class="phone1">
 	<div class="txt1">Schedule an Estimate</div>
@@ -69,8 +75,8 @@
 		<div class="nav-collapse nav-collapse_ collapse">
 			<ul class="nav sf-menu clearfix">
            <li {% if active == 'index' %}class="active"{% endif %}><a href="{% url 'index'%} ">Home</a></li>
-           <li {% if active == 'why-us' %}class="active"{% endif %}><a href="{% url 'why-us' %}">Why Choose Us?</a></li>
-           <li class="sub-menu sub-menu-1 {% if active == 'services' %}active{% endif %}">
+           <li {% if active == 'why-us' %}class="active"{% endif %}><a href="{% url 'why-us' %}">Why Us?</a></li>
+           <li class="sub-menu sub-menu-1 {% if active == 'services' or active == 'residential' or active == 'comercial' or active == 'other' %}active{% endif %}">
            	 <a href="{% url 'services' %}">Services</a>
 				 {% if general_info.has_residential_page or general_info.has_comercial_page or general_info.has_other_services_page %}
 	          <ul>
@@ -94,7 +100,7 @@
 </div>
 
 <!-- Button to trigger modal -->
-<a href="#myModal" role="button" id="modal-btn" data-toggle="modal">Request Estimate</a>
+<a href="#myModal" role="button" id="modal-btn" data-toggle="modal">Click for Estimate</a>
 {% include 'modal.html' %}
 
 {% block content %} {% endblock %}
@@ -107,32 +113,36 @@
 <div class="row">
 <div class="span3">
 	
-<div class="logo2_wrapper"><a href="{% url 'index' %}" class="logo2"><img src="{{ MEDIA_URL }}{{ general_info.logo_small }}" alt="{{ general_info.business_name }} company logo - small"></a></div>
+<div class="logo2_wrapper">
+{% if general_info.logo_small %}
+<a href="{% url 'index' %}" class="logo2"><img src="{{ MEDIA_URL }}{{ general_info.logo_small }}" alt="{{ general_info.business_name }} company logo - small"></a>
+{% endif %}
+</div>
 
 <div class="social_wrapper">
 	<ul class="social clearfix">
 		{% if general_info.facebook_URL %}
-			<li><a href="{{ general_info.facebook_URL }}"><img src="/media/images/social_ic1.png"></a></li>
+			<li><a href="http://{{ general_info.facebook_URL }}"><img src="/media/images/social_ic1.png"></a></li>
 	   {% endif %}
       {% if general_info.linkedin_URL %}
-			 <li><a href="{{ general_info.linkedin_URL }}"><img src="/media/images/social_ic2.png"></a></li>
+			 <li><a href="http://{{ general_info.linkedin_URL }}"><img src="/media/images/social_ic2.png"></a></li>
 	   {% endif %}
       {% if general_info.google_plus_URL %}
-	    	<li><a href="{{ general_info.google_plus_URL }}"><img src="/media/images/social_ic3.png"></a></li>	    
+	    	<li><a href="http://{{ general_info.google_plus_URL }}"><img src="/media/images/social_ic3.png"></a></li>	    
 	   {% endif %}
       {% if general_info.twitter_URL %}
-	   	<li><a href="{{ general_info.twitter_URL }}"><img src="/media/images/social_ic4.png"></a></li>
+	   	<li><a href="http://{{ general_info.twitter_URL }}"><img src="/media/images/social_ic4.png"></a></li>
 	   {% endif %}
       {% if general_info.tumblr_URL %}
-	    	<li><a href="{{ general_info.tumblr_URL }}"><img src="/media/images/social_ic5.png"></a></li>
+	    	<li><a href="http://{{ general_info.tumblr_URL }}"><img src="/media/images/social_ic5.png"></a></li>
 	   {% endif %}
       {% if general_info.pintrest_URL %}
-	    	<li><a href="{{ general_info.pintrest_URL }}"><img src="/media/images/social_ic6.png"></a></li>
+	    	<li><a href="http://{{ general_info.pintrest_URL }}"><img src="/media/images/social_ic6.png"></a></li>
 		{% endif %}
 	</ul>
 </div>
 
-<footer><div class="copyright">Copyright © 2014. All rights reserved.<br><a href="http://www.bizwiggle.com">Website</a> by Bizwiggle&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;<a href="#">Site Map</a></div></footer>
+<footer><div class="copyright">Copyright © 2014. All rights reserved.<br><a href="http://www.bizwiggle.com">Painting Website</a> by Bizwiggle&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;<a href="#">Site Map</a></div></footer>
 
 
 

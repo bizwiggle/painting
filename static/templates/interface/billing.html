@@ -49,7 +49,7 @@
 			{% if website_subscription.cancel_at_period_end %}
 				<p class="help-block">Your subscrption is scheduled to cancel at the end of this billing period.</p>
       	{% endif %}
-			{% if trial_end %}
+			{% if display_trial and trial_end %}
 				<p class="help-block">Your Trial Period ends on {{ trial_end|date:"D, M d , Y" }} .</p>
       	{% endif %}
 			<br>

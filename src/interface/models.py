@@ -25,6 +25,8 @@ class Progress(models.Model):
 
     business_name = models.CharField('Business Name', max_length=64, default="Business Name Here", blank=True)
 
+    display_walkthrough = models.BooleanField('Display Walkthrough', default=True)
+
     def __unicode__(self):
         return ' - '.join([unicode(self.site), 'Progress'])
 
@@ -33,6 +35,8 @@ class Billing(models.Model):
 
     stripe_id = models.CharField('Stripe ID of a user', max_length=120, null=True, blank=True)
     stripe_id_website_sub = models.CharField('Stripe ID of website subscription', max_length=120, null=True, blank=True)
-
+   
+    display_trial_period = models.BooleanField('Display Trial Period', default=True)
+ 
     def __unicode__(self):
         return ' - '.join(['Billing', self.user.email, self.stripe_id])

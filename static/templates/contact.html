@@ -72,14 +72,15 @@ $(window).load(function() {
 </div>
 </div> 
 
+{% if general_info.city %}
 <figure class="google_map">
 <iframe
   frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBgIq9fGzbDd9X1R7TseTnu-f_-ICCLf-0&zoom=13&q=1616+W. 6th Street,Austin+TX">
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBgIq9fGzbDd9X1R7TseTnu-f_-ICCLf-0&zoom=13&q={{ general_info.street_address }}+{{ general_info.city }}+{{ general_info.state }}">
 </iframe>
 
 </figure>
-
+{%  endif %}
 </div>
 
 <div class="span6">
@@ -87,8 +88,8 @@ $(window).load(function() {
 
 <div id="note"></div>
 <div id="fields">
-	<form id="ajax-contact-form" class="form-horizontal" action="">
-		
+	<form id="ajax-contact-form" class="form-horizontal" action="{% url 'email_handler' %}?next={{ active }}" method="post">
+	   {% csrf_token %}	
 		<div class="control-group">
 		    <label class="control-label" for="inputName">Name:</label>
 		    <div class="controls">				      

@@ -3,14 +3,13 @@ import uuid
 import datetime
 from string import Template
 
-
 import stripe
 
 from django.conf import settings
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required 
 from django.contrib.sites.models import get_current_site
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -20,7 +19,6 @@ from painting.stripe_info import PUB_KEY, SECRET_KEY
 from painting.constants import STATES, BIZWIGGLE_INFO
 
 from auth.models import MyUser
-
 
 from pages.models import (Why_Us, Success_Stories, About, Services, Residential_Service,
     Comercial_Service, Other_Services, General_Info, Our_People, Index, Portfolio_Pic
@@ -59,16 +57,11 @@ def interface_dashboard(request):
         messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
         return redirect('admin_login')
 
-    context = { 
-        'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
-        'page_description':'Enter page descrption here',
-        'progress':progress,
-    }  
-    return render(request, 'interface/dashboard.html', context)
+    return redirect('admin_general_info') 
 
 @login_required
 def interface_general_info(request):
-    PAGE_NAME = "Business Info"
+    PAGE_NAME = "General Info"
     user = request.user
     if not user.is_active:
         messages.warning(request, INACTIVE_ACCOUNT_MSG) 
@@ -97,10 +90,10 @@ def interface_general_info(request):
             general_info.state = request.POST.get('state', '')
             general_info.zip_code = request.POST.get('zip_code', '')
            
-            if request.POST.get('logo'):
+            if request.POST.get('logo') or request.POST.get('delete_logo'):
                 general_info.logo.delete(save=False)
                 general_info.logo_small.delete(save=False)
-            if request.FILES.get('hello_pic'):
+            if request.FILES.get('logo'):
                 general_info.logo = request.FILES.get('logo')
                 general_info.logo_small = request.FILES.get('logo')
             
@@ -153,6 +146,8 @@ def interface_index(request):
     use_help_message = True 
     if request.POST:
         try:
+            index.slider_pic = request.POST.get('slider_pic', '')
+
             index.slider_txt_top1 = request.POST.get('slider_txt_top1', '')
             index.slider_txt_bottom1 = request.POST.get('slider_txt_bottom1', '')
             index.slider_link1 = request.POST.get('slider_link1', '')
@@ -1098,6 +1093,7 @@ def interface_billing(request):
          'website_subscription': website_subscription,
          'card':get_default_card(customer),
          'progress':progress,
+         'display_trial':billing.display_trial_period,
     } 
     if website_subscription != '':
         context['current_period_end'] = end_subscription_datetime(website_subscription.current_period_end)
@@ -1219,7 +1215,7 @@ def interface_edit_portfolio(request):
          'page_description':'Enter page descrption here',
          'active_page':'admin_edit_portfolio',
          'use_help_message':use_help_message,
-         'help_message':EDIT_PORTFOLIO_HELP_MESSAGE,
+         'help_message':EDIT_PORTFOLIO_HELP_MESSAGE if portfolio_pics.count() > 0 else NO_PORTFOLIO_PICS_HELP_MESSAGE,
          'portfolio_pics':portfolio_pics,
          'progress':progress,
     }  
@@ -1249,7 +1245,7 @@ def interface_change_password(request):
         try:
             current_password = request.POST.get('current_password', '') 
             check_user = authenticate(email=user.email, password=current_password) 
-            if check_user is not None:
+            if not check_user is None:
                 new_password = request.POST.get('new_password', '')
                 user.set_password(new_password)
                 user.save()
@@ -1271,8 +1267,7 @@ def interface_change_password(request):
          'progress':progress,
     }  
     return render(request, 'interface/password.html', context)
- 
- 
+
 def interface_login(request):
     if request.POST:
         username = request.POST.get('username', False)
@@ -1343,6 +1338,14 @@ def interface_forgot_password(request):
 def interface_logout(request):
     logout(request)
     return redirect('admin_login')
+
+@login_required
+def interface_contact(request):
+    return HttpResponse('Contact Bizwiggle')
+
+@login_required
+def interface_faq(request):
+    return HttpResponse('Frequently Asked Questions')
 
 def create_user_objects(request):
     user = request.user

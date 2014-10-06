@@ -6,7 +6,7 @@ from django.conf import settings
 
 from painting.stripe_info import SECRET_KEY
 from interface.models import Billing
-from interface.user_messages import ACCOUNT_NOW_ACTIVE, WEBSITE_ACTIVE 
+from interface.user_messages import ACCOUNT_NOW_ACTIVE, WEBSITE_ACTIVATED 
 
 def get_customer(stripe_id):
     stripe.api_key = SECRET_KEY
@@ -67,6 +67,7 @@ def create_new_subscription(billing, customer, **kwargs):
             end_subscription_timestamp = kwargs['subscription'].current_period_end
             customer.subscriptions.retrieve(billing.stripe_id_website_sub).delete()
             new_subscription = customer.subscriptions.create(plan=settings.STRIPE_PLAN, trial_end=end_subscription_timestamp)
+            billing.display_trial_period = False
             messages['success'] = WEBSITE_ACTIVATED
 
         # no current subscription

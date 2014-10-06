@@ -1,11 +1,12 @@
-#for testing only
-from django.http import HttpResponse, Http404
-
+from django.http import Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import get_current_site
+from django.core.mail import send_mail
 from django.contrib import messages
+
+from painting.constants import BIZWIGGLE_INFO
 
 from pages.models import *
 from pages.functions import check_user_status
@@ -66,7 +67,6 @@ def services(request):
         'active':'services',
         'general_info':general_info,
         'services':services,
-        'test':'Q'
     }
     return render(request, 'services.html', context)
 
@@ -85,7 +85,7 @@ def residential(request):
     context = {
         'page_title':'Painting Residential Painting Title',
         'page_description':residential_service.meta_description,
-        'active':'services',
+        'active':'residential',
         'general_info':general_info,
         'services':services,
         'residential_service':residential_service,
@@ -107,7 +107,7 @@ def comercial(request):
     context = {
         'page_title':'Painting Comercial Painting Title',
         'page_description':comercial_service.meta_description,
-        'active':'services',
+        'active':'comercial',
         'general_info':general_info,
         'services':services,
         'comercial_service':comercial_service,
@@ -129,7 +129,7 @@ def other(request):
     context = {
         'page_title':'Painting Other Services Title',
         'page_description':other_services.meta_description,
-        'active':'services',
+        'active':'other',
         'general_info':general_info,
         'services':services,
         'other_services':other_services,
@@ -145,11 +145,19 @@ def portfolio(request):
     
     check_user_status(general_info)
 
+    has_pic_dict = {}
+    for pic_choice in Portfolio_Pic.PIC_TYPE_CHOICES:
+        has_pic_dict[pic_choice[0]] = False
+
+    for pic in portfolio_pics:
+        has_pic_dict[pic.pic_type] = True
+
     context = {
         'page_title':'Painting Portfolio Title',
         'page_description':general_info.portfolio_meta_description,
         'active':'portfolio',
         'general_info':general_info,
+        'has_pic_dict':has_pic_dict,
         'portfolio_pics':portfolio_pics,
     }
     return render(request, 'portfolio.html', context)
@@ -192,3 +200,32 @@ def contact(request):
     }
     return render(request, 'contact.html', context)
 
+
+def email_handler(request):
+    try:
+        general_info = General_Info.objects.get(site__id__exact=get_current_site(request).id)
+        send_to_email = general_info.email if general_info.email else user.email
+    except:
+        send_to_email = BIZWIGGLE_INFO['email']
+    
+    if request.POST:
+         message = ''
+         if 'message' in request.POST:
+             message =  ''.join(['\nmessage:' , request.POST.get('message', '')])
+
+         EMAIL_BODY = ''.join([ 'Lead from website:\n', 
+                                '\nname : ', request.POST.get('name', ''),
+                                '\nemail: ', request.POST.get('email', ''),
+                                '\nphone: ', request.POST.get('phone', ''), 
+                                 message, '\n\n',
+                                'This message was sent from your Bizwiggle website',                                    
+         ])
+         EMAIL_SUBJECT = 'Important - Website Lead'   
+         from_email = BIZWIGGLE_INFO['email']
+         send_mail(EMAIL_SUBJECT, EMAIL_BODY, from_email, [ send_to_email ], fail_silently=True)
+
+   
+    if 'next' in request.GET:
+        return redirect(request.GET['next'])
+    else:
+        return redirect('index')

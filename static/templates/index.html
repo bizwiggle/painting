@@ -87,8 +87,8 @@ $(window).load(function() {
 
 <div id="note"></div>
 <div id="fields">
-   <form id="banner-form" class="form-horizontal" action="">
-    
+   <form id="banner-form" class="form-horizontal" action="{% url 'email_handler' %}?next={{ active }}" method="post">
+      {% csrf_token %} 
       <div class="control-group">
           <label class="control-label" for="inputName">Name: </label>
           <div class="controls">    
@@ -218,5 +218,12 @@ $(window).load(function() {
 {% endblock %}
 
 {% block bottom-script %}
- <script type="text/javascript" src="/static/js/camera.js"></script>  
+
+{% if index.slider_pic == index.PAINTER_GIRL %}
+<script type="text/javascript" src="/static/js/camera/camera_girl.js"></script>  
+{% endif %}
+{% if index.slider_pic == index.NO_PIC %}
+<script type="text/javascript" src="/static/js/camera/camera.js"></script>  
+{% endif %}
+
  {% endblock %}

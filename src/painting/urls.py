@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     url(r'^portfolio/$', views.portfolio, name='portfolio'),
     url(r'^about/$', views.about, name='about'),
     url(r'^contact/$', views.contact, name='contact'),
+    url(r'^email_handler/$', views.email_handler, name='email_handler'),
+
     url(r'^admin/', include('interface.urls')),
     url(r'^wiggle/', include(admin.site.urls)),
 )

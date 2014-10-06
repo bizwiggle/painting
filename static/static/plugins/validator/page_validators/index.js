@@ -27,6 +27,16 @@ $(document).ready(function() {
 					},
 				}
 			},
+			
+			slider_pic: {
+				validators: {
+					stringLength: {
+						min: 1,
+						max: 2,
+						message: 'Slider pic must be 2 characters or less'
+					},
+				}
+			},
 
 			slider_txt_top1: {
 				validators: {
