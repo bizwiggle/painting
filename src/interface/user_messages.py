@@ -9,6 +9,8 @@ ADD_PORTFOLIO_HELP_MESSAGE = 'This is the Add Portfolio Help Message'
 EDIT_PORTFOLIO_HELP_MESSAGE = 'This is the Edit Portfolio Help Message'
 NO_PORTFOLIO_PICS_HELP_MESSAGE = 'You currently do not have any portfolio pics, click add new image under portfolio on the left to add portfolio pics'
 
+MESSAGE_SENT_SUCCESS = 'Your message has been sent'
+
 OUR_PEOPLE_HELP_MESSAGE = 'This is the Our People Help Message'
 SEO_TOOLS_HELP_MESSAGE = 'This is the SEO Tools Help Message'
 CHANGE_PASSWORD_HELP_MESSAGE = 'This is the change password Help Message'

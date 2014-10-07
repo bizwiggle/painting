@@ -1341,11 +1341,74 @@ def interface_logout(request):
 
 @login_required
 def interface_contact(request):
-    return HttpResponse('Contact Bizwiggle')
+    PAGE_NAME = "Contact Bizwiggle"
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+        return redirect('admin_login')
+
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+    
+    if not user.is_superuser and progress.user != user:
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+
+    if request.POST:
+       try:
+            message = request.POST.get('message', '')
+            if message:
+                email_subject = "Important - help request from user"
+                email_message = "".join(['user:  ', user.email, '\n',
+                                         'phone: ', user.phone_number, '\n\n',
+                                          message
+                ])
+                send_mail(email_subject, email_message, BIZWIGGLE_INFO['email'],
+                          [ BIZWIGGLE_INFO['email'] ], fail_silently=False)          
+                messages.success(request, MESSAGE_SENT_SUCCESS)
+       except:
+            messages.warning(request, SAVE_EXCEPTION)
+   
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_contact',
+         'BIZWIGGLE_PHONE':BIZWIGGLE_INFO['phone'],
+         'use_help_message':False,
+         'progress':progress,
+    }   
+
+    return render(request, 'interface/contact.html', context)
 
 @login_required
 def interface_faq(request):
-    return HttpResponse('Frequently Asked Questions')
+    PAGE_NAME = "FAQ"
+
+    user = request.user
+    if not user.is_active:
+        messages.warning(request, INACTIVE_ACCOUNT_MSG) 
+        return redirect('admin_login')
+
+    try:
+        progress = Progress.objects.get(site__id__exact=get_current_site(request).id)
+    except:
+        raise Http404
+
+    if not user.is_superuser and progress.user != user: 
+        messages.warning(request, INCORRECT_USER_SITE_LOGIN) 
+        return redirect('admin_login')
+    
+    context = { 
+         'page_title': Template(PAGE_TITLE_TEMPLATE).substitute(page_name=PAGE_NAME),
+         'page_description':'Enter page descrption here',
+         'active_page':'admin_faq',
+         'use_help_message':False,
+         'progress':progress,
+    }
+
+    return render(request, 'interface/faq.html', context)
 
 def create_user_objects(request):
     user = request.user

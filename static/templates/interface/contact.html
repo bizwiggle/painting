@@ -1,0 +1,58 @@
+{% extends "interface/base.html" %}
+
+{% block header-breadcrumb %}
+<h1 class="page-heading">Add New Image</h1>
+                   
+<!-- Begin breadcrumb -->
+<ol class="breadcrumb default square rsaquo sm">
+	<li><a href="{% url 'admin_dashboard' %}"><i class="fa fa-home"></i></a></li>
+   <li class="active">Add New Image</li>
+</ol>
+<!-- End breadcrumb -->
+{% endblock %}
+
+{% block content %}
+
+<form id="ContactForm" method="post" action="" class="form-horizontal">
+{% csrf_token %}
+
+<!-- Add Portfolio Pic -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<br>
+			</h3>
+		</div>
+		<div class="panel-body">
+			<fieldset>
+			<legend>Contact Bizwiggle</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Message</label>
+            <div class="col-md-9">
+               <textarea class="form-control" rows="4" name="message"></textarea>
+               <p class="help-block">For any urgent issue please call us at {{ BIZWIGGLE_PHONE }}.</p>
+            </div>
+			</div>
+				<div class="form-group">
+					<div class="col-md-9 col-md-offset-2">
+						<button type="submit" class="btn btn-info btn-lg"><i class="fa fa-share"></i>Contact Bizwiggle</button>
+					</div>
+				</div>
+			</form>
+         </div>
+			</fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Add Portfolio-->
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<script src="/static/plugins/owl-carousel/owl.carousel.min.js"></script>
+<script src="/static/plugins/validator/page_validators/contact.js"></script>
+{% endblock %}

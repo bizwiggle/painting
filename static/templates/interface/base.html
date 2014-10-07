@@ -249,7 +249,7 @@
 							<i class="fa fa-angle-right chevron-icon-sidebar"></i>
 							Help
 						</a>
-						<ul class="submenu">
+						<ul class="submenu {% if active_page == 'admin_faq' or active_page == 'admin_contact' %} visible{% endif %}">
 							<li {% if active_page == 'admin_faq' %} class="active selected"{% endif %}>
 								<a href="{% url 'admin_faq' %}">Frequently Asked Questions</a>
 							</li>
