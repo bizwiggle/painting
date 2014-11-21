@@ -20,10 +20,10 @@ def index(request):
         raise Http404
     
     check_user_status(general_info)
+    page_title = (general_info.business_name + ' | Index') if (general_info.meta_title == '') else (general_info.meta_title + ' | Index')
 
     context = {
-        
-        'page_title':'Painting Index Title',
+        'page_title':page_title,
         'page_description':index.meta_description,
         'active':'index',
         'general_info':general_info,
@@ -41,9 +41,10 @@ def why_us(request):
         raise Http404
 
     check_user_status(general_info)
+    page_title = (general_info.business_name + ' | Why Us') if (general_info.meta_title == '') else (general_info.meta_title + ' | Why Us')
 
     context = {
-        'page_title':'Painting Our Process Title',
+        'page_title':page_title,
         'page_description':why_us.meta_description,
         'active':'why-us',
         'general_info':general_info,
@@ -60,9 +61,10 @@ def services(request):
         raise Http404
     
     check_user_status(general_info)
+    page_title = (general_info.business_name + ' | Services') if (general_info.meta_title == '') else (general_info.meta_title + ' | Services')
 
     context = {
-        'page_title':'Painting About Title',
+        'page_title':page_title,
         'page_description':services.meta_description,
         'active':'services',
         'general_info':general_info,
@@ -81,9 +83,10 @@ def residential(request):
         raise Http404
     
     check_user_status(general_info)
+    page_title = (general_info.business_name + ' | Residential') if (general_info.meta_title == '') else (general_info.meta_title + ' | Residential Services')
 
     context = {
-        'page_title':'Painting Residential Painting Title',
+        'page_title':page_title,
         'page_description':residential_service.meta_description,
         'active':'residential',
         'general_info':general_info,
@@ -103,9 +106,10 @@ def comercial(request):
         raise Http404
     
     check_user_status(general_info)
+    page_title = (general_info.business_name + ' | Comercial') if (general_info.meta_title == '') else (general_info.meta_title + ' | Comercial Services')
 
     context = {
-        'page_title':'Painting Comercial Painting Title',
+        'page_title':page_title,
         'page_description':comercial_service.meta_description,
         'active':'comercial',
         'general_info':general_info,
@@ -125,9 +129,10 @@ def other(request):
         raise Http404
     
     check_user_status(general_info)
+    page_title = (general_info.business_name + ' | Services') if (general_info.meta_title == '') else (general_info.meta_title + ' | Other Services')
 
     context = {
-        'page_title':'Painting Other Services Title',
+        'page_title':page_title,
         'page_description':other_services.meta_description,
         'active':'other',
         'general_info':general_info,
@@ -144,6 +149,7 @@ def portfolio(request):
         raise Http404
     
     check_user_status(general_info)
+    page_title = (general_info.business_name + ' | Portfolio') if (general_info.meta_title == '') else (general_info.meta_title + ' | Our Portfolio')
 
     has_pic_dict = {}
     for pic_choice in Portfolio_Pic.PIC_TYPE_CHOICES:
@@ -153,7 +159,7 @@ def portfolio(request):
         has_pic_dict[pic.pic_type] = True
 
     context = {
-        'page_title':'Painting Portfolio Title',
+        'page_title':page_title,
         'page_description':general_info.portfolio_meta_description,
         'active':'portfolio',
         'general_info':general_info,
@@ -172,9 +178,10 @@ def about(request):
         raise Http404
     
     check_user_status(general_info)
+    page_title = (general_info.business_name + ' | About Us') if (general_info.meta_title == '') else (general_info.meta_title + ' | About Us')
 
     context = {
-        'page_title':'Painting About Title',
+        'page_title':page_title,
         'page_description':about.meta_description,
         'active':'about',
         'general_info':general_info,
@@ -191,9 +198,10 @@ def contact(request):
         raise Http404
     
     check_user_status(general_info)
+    page_title = (general_info.business_name + ' | Contact') if (general_info.meta_title == '') else (general_info.meta_title + ' | Contact')
 
     context = {
-        'page_title':'Painting Contact Title',
+        'page_title':page_title,
         'page_description':general_info.contact_meta_description,
         'active':'contact',
         'general_info':general_info,

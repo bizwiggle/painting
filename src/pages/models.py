@@ -60,6 +60,9 @@ class General_Info(models.Model):
 
     contact_meta_description = models.CharField('Contact Meta Descrption', max_length=160, blank=True)
     portfolio_meta_description = models.CharField('Portfolio Meta Descrption', max_length=160, blank=True)
+    meta_title = models.CharField('Meta title tag line', max_length=48, blank=True) 
+
+
 
     is_website_active = models.BooleanField('Is Website Active?', default=True)
 

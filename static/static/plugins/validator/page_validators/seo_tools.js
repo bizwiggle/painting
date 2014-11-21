@@ -7,6 +7,15 @@ $(document).ready(function() {
 			validating: 'glyphicon glyphicon-refresh'
 		},
 		fields: {
+			meta_title: {
+				validators: {
+					stringLength: {
+						min: 1,
+						max: 48,
+						message: 'Title must be 48 characters or less'
+					},
+				}
+			},
 			
 			index_description: {
 				validators: {

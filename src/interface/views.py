@@ -930,6 +930,7 @@ def interface_seo_tools(request):
 
             general_info.portfolio_meta_description = request.POST.get('portfolio_description', '')            
             general_info.contact_meta_description = request.POST.get('contact_description', '')            
+            general_info.meta_title = request.POST.get('meta_title', '')
             general_info.save()
 
             index.meta_description = request.POST.get('index_description', '')            
@@ -967,6 +968,7 @@ def interface_seo_tools(request):
          'active_page':'admin_seo_tools',
          'use_help_message':use_help_message,
          'help_message':SEO_TOOLS_HELP_MESSAGE,
+         'meta_title':general_info.meta_title,
          'contact_description':general_info.contact_meta_description,
          'portfolio_description':general_info.portfolio_meta_description,
          'index_description':index.meta_description,

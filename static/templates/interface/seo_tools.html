@@ -15,10 +15,44 @@
 <form id="SEOToolsForm" method="post" action="" enctype="multipart/form-data" class="form-horizontal">
 {% csrf_token %}
 
-<!-- Meta Descriptions -->
+<!-- Meta Title -->
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
 	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
+					Title for Pages
+					<span class="right-content">
+						<span class="right-icon">
+							<i class="glyphicon glyphicon-minus icon-collapse"></i>
+						</span>
+					</span>
+				</a>
+			</h3>
+		</div>
+	<div id="panel-collapse-1" class="collapse in">
+		<div class="panel-body">
+			<fieldset>
+			<legend>Title</legend>
+         <div class="form-group">
+            <label class="col-md-2 control-label">Title</label>
+            <div class="col-md-9">
+		<input type="text" class="form-control" name="meta_title" value="{{ meta_title }}" />
+	    </div>
+         </div>
+         </fieldset> 
+		</div><!-- /.panel-body -->
+	</div><!-- /.collapse in -->
+	</div><!-- /.panel panel-primary -->
+</div><!-- /.col-sm-12 -->
+</div>
+<!-- end Meta Title-->
+
+<!-- Meta Descriptions -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-info">
 		<div class="panel-heading">
 			<h3 class="panel-title">
 				<a class="block-collapse" data-toggle="collapse" href="#panel-collapse-1">
@@ -104,6 +138,7 @@
 </div><!-- /.col-sm-12 -->
 </div>
 <!-- end Meta Descriptions-->
+
 
 
 <div class="form-group">

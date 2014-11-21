@@ -142,7 +142,7 @@
 	</ul>
 </div>
 
-<footer><div class="copyright">Copyright © 2014. All rights reserved.<br><a href="http://www.bizwiggle.com">Painting Website</a> by Bizwiggle&nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;<a href="#">Site Map</a></div></footer>
+<footer><div class="copyright">Copyright © 2014. All rights reserved.<br><a href="http://www.bizwiggle.com">Painting Website</a> by Bizwiggle&nbsp;&nbsp;&nbsp;<span></div></footer>
 
 
 
@@ -158,7 +158,7 @@ Telephone: {{ general_info.phone }}<br>
 {% if general_info.fax %}
 	Fax: {{ general_info.fax }}<br>
 {% endif %}
-E-mail: <a href="mailto:admin@bizwiggle.com">admin@bizwiggle.com</a>
+E-mail: <a href="{{ general_info.email }}">{{ general_info.email }}</a>
 
 
 </div>
@@ -171,14 +171,7 @@ E-mail: <a href="mailto:admin@bizwiggle.com">admin@bizwiggle.com</a>
 </div>
 <div class="span3 block3">
 	
-<div class="bot1_title">Website search</div>
-
-<div class="search-form-wrapper clearfix">
-<form id="search-form" action="search.php" method="GET" accept-charset="utf-8" class="navbar-form" >
-	<input type="text" name="s" value='Search' onBlur="if(this.value=='') this.value='Search'" onFocus="if(this.value =='Search' ) this.value=''">
-	<a href="#" onClick="document.getElementById('search-form').submit()"></a>
-</form>	
-</div>
+<div class="bot1_title"></div>
 
 
 </div>
