@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 from painting.constants import SITE_IDS
 from painting.email_settings import *
 
-SITE_NAME = 'test1.bizwiggle.com'
+SITE_NAME = 'test2.bizwiggle.com'
 SITE_ID = SITE_IDS[SITE_NAME]
 
 STRIPE_PLAN = 'painting9999'

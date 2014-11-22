@@ -1,5 +1,6 @@
 SITE_IDS = {
-    'painting.bizwiggle.com': 1,
+    'test1.bizwiggle.com': 1,
+    'test2.bizwiggle.com': 2,
 }
 
 BIZWIGGLE_INFO = {
