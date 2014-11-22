@@ -31,7 +31,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.bizwiggle.com']
 
 # Application definition
 
@@ -100,10 +100,14 @@ TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR), 'static', 'templates'),
 )
 
+MEDIA_URL = '/media/'
+
 if DEBUG:
-    MEDIA_URL = '/media/'
     STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static', 'static-only')  
-    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static', 'media') 
-    STATICFILES_DIRS = ( 
+else:
+    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static-only')  
+
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static', 'media') 
+STATICFILES_DIRS = ( 
         os.path.join(os.path.dirname(BASE_DIR), 'static', 'static'), 
     )   
