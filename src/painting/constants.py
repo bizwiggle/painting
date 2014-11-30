@@ -1,5 +1,5 @@
 SITE_IDS = {
-    'test1.bizwiggle.com': 1,
+    'prod1.bizwiggle.com': 1,
     'test2.bizwiggle.com': 2,
 }
 
