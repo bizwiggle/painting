@@ -18,8 +18,6 @@ DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['.bizwiggle.com']
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -65,7 +63,7 @@ else:
     DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'paintingDB',
+        'NAME': 'painting',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '127.0.0.1',
