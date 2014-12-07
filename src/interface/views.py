@@ -383,7 +383,7 @@ def interface_why_us(request):
             if request.POST.get('delete_reason3_pic'):
                 why_us.reason3_pic.delete(save=False)
             if request.FILES.get('reason3_pic'):
-                why_us.reason1_pic = request.FILES.get('reason3_pic')
+                why_us.reason3_pic = request.FILES.get('reason3_pic')
 
             why_us.reason4 = request.POST.get('reason4', '')
             why_us.reason4_blurb = request.POST.get('reason4_blurb', '')

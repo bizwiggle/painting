@@ -23,14 +23,14 @@ class General_Info(models.Model):
     has_other_services_page = models.BooleanField('Has Other Services Page', default=True)
 
     logo  = ProcessedImageField(upload_to=settings.SITE_NAME,
-                                processors=[ResizeToFit(400, 62)],
+                                processors=[ResizeToFit(400, 100)],
                                 options={'quality': 100},
 			                       null=True,
                                 blank=True,
             )
 
     logo_small  = ProcessedImageField(upload_to=settings.SITE_NAME,
-                                      processors=[ResizeToFit(200, 31)],
+                                      processors=[ResizeToFit(200, 50)],
                                       options={'quality': 100},
 			                             null=True,
                                       blank=True,

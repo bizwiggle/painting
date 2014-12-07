@@ -5,7 +5,7 @@ SITE_IDS = {
 }
 
 BIZWIGGLE_INFO = {
-    'phone':'(512)555-5555',
+    'phone':'(512)843-2631',
     'email':'admin@bizwiggle.com',
 }
 

@@ -29,7 +29,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'imagekit',
-    'south',
     'auth',
     'pages',
     'interface',
