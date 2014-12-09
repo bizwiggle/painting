@@ -221,7 +221,7 @@ $(document).ready(function() {
 			hello_pic: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'Hello pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -242,7 +242,7 @@ $(document).ready(function() {
 			affilation_pic1: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'Affilation pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -272,7 +272,7 @@ $(document).ready(function() {
 			affilation_pic2: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'Affilation pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -302,7 +302,7 @@ $(document).ready(function() {
 			affilation_pic3: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'Affilation pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -332,7 +332,7 @@ $(document).ready(function() {
 			affilation_pic3: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'Affilation pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -362,7 +362,7 @@ $(document).ready(function() {
 			affilation_pic4: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'Affilation pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -392,7 +392,7 @@ $(document).ready(function() {
 			affilation_pic5: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'Affilation pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -422,7 +422,7 @@ $(document).ready(function() {
 			affilation_pic6: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'Affilation pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'

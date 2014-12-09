@@ -241,7 +241,7 @@ $(document).ready(function() {
          residential_pic: {
             validators: {
                file: {
-						extension: 'jpeg,png,jpg,gif',
+						extension: 'jpeg,png,jpg,gif,JPG',
 						type: 'image/jpeg,image/png,image/gif',
 						maxSize: 2048 * 1024,   // 2 MB
 						message: 'Residential service pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -272,7 +272,7 @@ $(document).ready(function() {
          comercial_pic: {
             validators: {
                file: {
-						extension: 'jpeg,png,jpg,gif',
+						extension: 'jpeg,png,jpg,gif,JPG',
 						type: 'image/jpeg,image/png,image/gif',
 						maxSize: 2048 * 1024,   // 2 MB
 						message: 'Commercial service pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -303,7 +303,7 @@ $(document).ready(function() {
          other_services_pic: {
             validators: {
                file: {
-						extension: 'jpeg,png,jpg,gif',
+						extension: 'jpeg,png,jpg,gif,JPG',
 						type: 'image/jpeg,image/png,image/gif',
 						maxSize: 2048 * 1024,   // 2 MB
 						message: 'Other services pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'

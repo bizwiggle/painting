@@ -41,7 +41,7 @@ $(document).ready(function() {
 			reason1_pic: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'A valid why us pic is less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -82,7 +82,7 @@ $(document).ready(function() {
 			reason2_pic: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'A valid why us pic is less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -123,7 +123,7 @@ $(document).ready(function() {
 			reason3_pic: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'A valid why us pic is less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -164,7 +164,7 @@ $(document).ready(function() {
 			reason4_pic: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'A valid why us pic is less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -205,7 +205,7 @@ $(document).ready(function() {
 			reason5_pic: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: 'A valid why us pic is less than 2 MB.  Allowed image types are jpeg, png and gif'

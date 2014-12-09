@@ -41,7 +41,7 @@ $(document).ready(function() {
          pic1: {
             validators: {
                file: {
-						extension: 'jpeg,png,jpg,gif',
+						extension: 'jpeg,png,jpg,gif,JPG',
 						type: 'image/jpeg,image/png,image/gif',
 						maxSize: 2048 * 1024,   // 2 MB
 						message: 'Commerical service pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -82,7 +82,7 @@ $(document).ready(function() {
          pic2: {
             validators: {
                file: {
-						extension: 'jpeg,png,jpg,gif',
+						extension: 'jpeg,png,jpg,gif,JPG',
 						type: 'image/jpeg,image/png,image/gif',
 						maxSize: 2048 * 1024,   // 2 MB
 						message: 'Commerical service pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'
@@ -123,7 +123,7 @@ $(document).ready(function() {
          pic3: {
             validators: {
                file: {
-						extension: 'jpeg,png,jpg,gif',
+						extension: 'jpeg,png,jpg,gif,JPG',
 						type: 'image/jpeg,image/png,image/gif',
 						maxSize: 2048 * 1024,   // 2 MB
 						message: 'Commerical service pic must be less than 2 MB.  Allowed image types are jpeg, png and gif'

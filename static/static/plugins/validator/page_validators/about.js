@@ -41,7 +41,7 @@ $(document).ready(function() {
 			pic: {
  				validators: {
 					file: {
-                        extension: 'jpeg,png,jpg,gif',
+                        extension: 'jpeg,png,jpg,gif,JPG',
                         type: 'image/jpeg,image/png,image/gif',
                         maxSize: 4096 * 1024,   // 4 MB
                         message: 'About pic must be less than 4 MB.  Allowed image types are jpeg, png and gif'
