@@ -1,7 +1,7 @@
 SITE_IDS = {
     'test1.bizwiggle.com': 1,
     'test2.bizwiggle.com': 2,
-    'prod1.bizwiggle.com': 3,
+    'zachowellpainting.com':3,
 }
 
 BIZWIGGLE_INFO = {
