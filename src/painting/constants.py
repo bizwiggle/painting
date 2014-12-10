@@ -2,6 +2,11 @@ SITE_IDS = {
     'test1.bizwiggle.com': 1,
     'test2.bizwiggle.com': 2,
     'zachowellpainting.com':3,
+    'painting.bizwiggle.com':4,
+    'painting1.bizwiggle.com':5,
+    'painting2.bizwiggle.com':6,
+    'painting3.bizwiggle.com':7,
+    'painting4.bizwiggle.com':8,
 }
 
 BIZWIGGLE_INFO = {
