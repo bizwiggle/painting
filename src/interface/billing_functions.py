@@ -51,7 +51,6 @@ def create_new_subscription(billing, customer, **kwargs):
     MIN_IN_HOUR = 60
     SEC_IN_MIN = 60    
 
-
     messages = {}
     try:
         # first time adding payment - give trial
