@@ -20,6 +20,7 @@ SITE_IDS = {
     'painting15.bizwiggle.com':19,
     'colorcoat1.com':20,
     'cjspaint.com':21,
+    'loftonpainting.com':22,
 }
 
 BIZWIGGLE_INFO = {
