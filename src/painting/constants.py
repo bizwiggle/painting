@@ -21,7 +21,7 @@ SITE_IDS = {
     'colorcoat1.com':20,
     'cjspaint.com':21,
     'loftonpainting.com':22,
-    'olverhomeservices.com':23,
+    'olverahomeservices.com':23,
 }
 
 BIZWIGGLE_INFO = {
